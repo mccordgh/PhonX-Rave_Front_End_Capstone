@@ -1,6 +1,6 @@
 # PhaserJS Groups example
 
-Blogpost: http://www.codecaptain.io/
+Blogpost: https://www.codecaptain.io/blog/game-development/shooting-bullets-using-phaser-groups/518
 
 This demo shows how to work with groups in PhaserJS.
 
