@@ -12,20 +12,22 @@ var k_TouchDown = false;
 var l_TouchDown = false;
 var laserArray = [];
 var playerScore = 0;
+var game;
 
 // Create a Phaser game instance
-var game = new Phaser.Game(
-	GAME_WIDTH,
-	GAME_HEIGHT,
-	Phaser.AUTO,
-	'container',
-	{ preload: preload, create: create, update: update, init: init, render: render }
-);
+function createGame() {
+	game = new Phaser.Game(
+		GAME_WIDTH,
+		GAME_HEIGHT,
+		Phaser.AUTO,
+		'container',
+		{ preload: preload, create: create, update: update, init: init, render: render }
+	);
+}
 
 // Preload assets
 function preload() {
-	var dir = 'static/img/assets/';
-	// game.load.image('ship', dir + 'playerShip1_red.png');
+	var dir = 'app/img/assets/';
 	game.load.image('laser', dir + 'laserBlue02.png');
 }
 
@@ -41,7 +43,6 @@ function init() {
 
 // Assets are available in create
 function create() {
-
 	// Create the group using the group factory
 	lasersBlue = game.add.group();
 	lasersRed = game.add.group();
@@ -84,7 +85,7 @@ function create() {
 // Start Game
 function startGame () {
 	// Load audio
-	var audio = new Audio("static/Slime - Zionexx (PhonX Remix).mp3");
+	var audio = new Audio("app/Slime - Zionexx (PhonX Remix).mp3");
 	// Play audio
 	audio.oncanplaythrough = function(){
 		setTimeout(function() { audio.play(); }, 325);
@@ -118,35 +119,18 @@ function update() {
 		// Check all key presses
 		if (key.justDown) {
 			// Check the key that was pressed and the position of the note
+			// Calculate score with the current note
 			if (key.keyCode === 74) {
 				console.log("captured j");
-				for (var i = 0; i < lasersBlue.children.length; i++) {
-					if (lasersBlue.children[i].y > GAME_HEIGHT - 100 && lasersBlue.children[i].y < GAME_HEIGHT) {
-						console.log("lasersBlue", lasersBlue);
-						playerScore += 100;
-						console.log("playerScore", playerScore);
-					};
-				};
+				calScore(lasersBlue);
 			};
 			if (key.keyCode === 75) {
 				console.log("captured k");
-				for (var i = 0; i < lasersRed.children.length; i++) {
-					if (lasersRed.children[i].y > GAME_HEIGHT - 100 && lasersRed.children[i].y < GAME_HEIGHT) {
-						console.log("lasersRed", lasersRed);
-						playerScore += 100;
-						console.log("playerScore", playerScore);
-					};
-				};
+				calScore(lasersRed);
 			};
 			if (key.keyCode === 76) {
 				console.log("captured l");
-				for (var i = 0; i < lasersGreen.children.length; i++) {
-					if (lasersGreen.children[i].y > GAME_HEIGHT - 100 && lasersGreen.children[i].y < GAME_HEIGHT) {
-						console.log("lasersGreen", lasersGreen);
-						playerScore += 100;
-						console.log("playerScore", playerScore);
-					};
-				};
+				calScore(lasersGreen);
 			};
 		}
 	}
@@ -166,7 +150,18 @@ function update() {
 
 // Calculate Score
 function calScore(curNote) {
-	
+	for (var i = 0; i < curNote.children.length; i++) {
+		// Check the position of the note
+		if (curNote.children[i].y > GAME_HEIGHT - 75 && curNote.children[i].y < GAME_HEIGHT - 25) {
+			console.log("curNote", curNote);
+			playerScore += 50;
+			console.log("playerScore", playerScore);
+		} else if (curNote.children[i].y > GAME_HEIGHT - 100 && curNote.children[i].y < GAME_HEIGHT) {
+			console.log("curNote", curNote);
+			playerScore += 25;
+			console.log("playerScore", playerScore);
+		}
+	};
 }
 
 function touchDown() {

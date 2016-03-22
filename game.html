@@ -4,34 +4,57 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <title>PhonX</title>
+  <title>PhonX</title>
 
-    <link rel="stylesheet" href="static/css/reset.css"/>
-    <link rel="stylesheet" href="styles.css">
-    <script src="static/libs/phaser.js"></script>
+  <link rel="stylesheet" href="app/css/reset.css"/>
+  <link rel="stylesheet" href="styles.css">
+  <link type="text/css" rel="stylesheet" href="app/libs/bower_components/Materialize/dist/css/materialize.min.css"  media="screen,projection"/>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="app/libs/phaser.js"></script>
 
 </head>
 <body class="home">
 
-    <div>
-        <h3 id="playerScore"></h3>
+  <div>
+    <h3 id="playerScore"></h3>
+  </div>
+
+  <div id="trial"></div>
+
+  <!-- LOGIN -->
+  <div class="login">
+    <div class="row">
+      <div class="col m6 offset-m3 white">
+        <section>
+          <h1>PhonX Rave</h1>
+          <div>
+              Email: <input id="sign_up_name" type="text" autofocus="true">
+          </div>
+          <div>
+              Password: <input id="sign_up_password" type="password">
+          </div>
+          <button id="login_up_BTN" class="waves-effect waves-light btn">Login</button>
+          <button id="sign_up_BTN" class="waves-effect waves-light btn">Sign Up</button>
+        </section>
+      </div>
     </div>
+  </div>
 
-    <div id="trial"></div>
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
 
-    <!--[if lt IE 7]>
-        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+  <div id="container"></div>
 
-    <div id="container"></div>
-
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script src="static/js/main.js"></script>
-    <script src="static/js/song.js"></script>
+  <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+  <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="app/js/login.js"></script>
+  <script src="app/js/main.js"></script>
+  <script src="app/js/song.js"></script>
 
 </body>
 </html>

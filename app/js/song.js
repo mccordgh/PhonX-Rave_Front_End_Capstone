@@ -60,6 +60,72 @@ var fireSong = function() {
   setTimeout(function() { introAb(); }, 24000);
   setTimeout(function() { introAb(); }, 26000);
   setTimeout(function() { introAb(); }, 28000);
+
+
+  // Drop
+  var drop = function () {
+    setTimeout(function() { fireRedLaser(); }, 00);
+    setTimeout(function() { fireGreenLaser(); }, 00);
+
+    setTimeout(function() { fireRedLaser(); }, 500);
+    setTimeout(function() { fireBlueLaser(); }, 625);
+    setTimeout(function() { fireGreenLaser(); }, 750);
+    setTimeout(function() { fireBlueLaser(); }, 875);
+    setTimeout(function() { fireRedLaser(); }, 1000);
+    setTimeout(function() { fireBlueLaser(); }, 1625);
+    setTimeout(function() { fireGreenLaser(); }, 1625);
+
+    setTimeout(function() { fireRedLaser(); }, 2000);
+    setTimeout(function() { fireBlueLaser(); }, 2125);
+    setTimeout(function() { fireGreenLaser(); }, 2250);
+    setTimeout(function() { fireBlueLaser(); }, 2375);
+    setTimeout(function() { fireGreenLaser(); }, 2500);
+    setTimeout(function() { fireGreenLaser(); }, 2750);
+
+    setTimeout(function() { fireGreenLaser(); }, 3000);
+    setTimeout(function() { fireRedLaser(); }, 3000);
+
+    setTimeout(function() { fireGreenLaser(); }, 3250);
+    setTimeout(function() { fireBlueLaser(); }, 3250);
+
+    setTimeout(function() { fireGreenLaser(); }, 3500);
+    setTimeout(function() { fireRedLaser(); }, 3500);
+
+    setTimeout(function() { fireGreenLaser(); }, 3750);
+    setTimeout(function() { fireBlueLaser(); }, 3750);
+
+
+
+  }
+
+  setTimeout(function() { drop(); }, 31000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Fire function to add score to player
+  setTimeout(function() { postScore(playerScore); }, 40000);
+
 };
+
+
+
+
+
+
+
 
 
