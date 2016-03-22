@@ -63,5 +63,3 @@ var fireSong = function() {
 };
 
 
-setTimeout(function() { fireSong(); }, 2000);
-

@@ -75,13 +75,29 @@ function create() {
 	lasersBlue.setAll('checkWorldBounds', true);
 	lasersRed.setAll('checkWorldBounds', true);
 	lasersGreen.setAll('checkWorldBounds', true);
+
+	button = game.add.button(game.world.centerX - 95, 400, 'button', startGame, this, 2, 1, 0);
+
+}
+
+
+// Start Game
+function startGame () {
+	// Load audio
+	var audio = new Audio("static/Slime - Zionexx (PhonX Remix).mp3");
+	// Play audio
+	audio.oncanplaythrough = function(){
+		setTimeout(function() { audio.play(); }, 325);
+	}
+	// Launch Notes
+	fireSong()
 }
 
 function resetLaser(laser) {
 	laser.kill();
 }
 
-///////////////////////////////////////////////////////
+
 function init() {
 	// Listen to space & enter keys
 	var keys = [Phaser.KeyCode.J, Phaser.KeyCode.K, Phaser.KeyCode.L];
@@ -91,7 +107,6 @@ function init() {
 	game.input.keyboard.addKeyCapture(keys);
 }
 
-///////////////////////////////////////////////////////
 
 // Update
 function update() {
@@ -147,6 +162,11 @@ function update() {
 			touchUp();
 		}
 	}
+}
+
+// Calculate Score
+function calScore(curNote) {
+	
 }
 
 function touchDown() {
