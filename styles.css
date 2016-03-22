@@ -1,0 +1,16 @@
+body {
+  background-image: url("static/img/assets/Screen Shot 2016-03-21 at 2.46.41 PM");
+  background-repeat: no-repeat;
+  background-attachment: fixed; }
+
+#playerScore {
+  color: red;
+}
+
+#trial {
+  width: 1200px;
+  height: 2px;
+  position: fixed;
+  top: 600px;
+  background: red;
+}

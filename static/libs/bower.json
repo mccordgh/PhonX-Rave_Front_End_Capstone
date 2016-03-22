@@ -1,0 +1,21 @@
+{
+  "name": "libs",
+  "homepage": "https://github.com/CodeCaptainIO/Phaser-Groups",
+  "authors": [
+    "williamhickok11 <williamhickok11@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.2"
+  }
+}
