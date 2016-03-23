@@ -1,8 +1,8 @@
 var GAME_WIDTH = 450;
 var GAME_HEIGHT = 700;
 
-//Game Variables
-// var ship;
+// Game Variables
+var game;
 var lasersBlue;
 var lasersRed;
 var lasersGreen;
@@ -12,7 +12,8 @@ var k_TouchDown = false;
 var l_TouchDown = false;
 var laserArray = [];
 var playerScore = 0;
-var game;
+var audio_Bg;
+var audio_Melody;
 
 // Create a Phaser game instance
 function createGame() {
@@ -78,26 +79,45 @@ function create() {
 	lasersGreen.setAll('checkWorldBounds', true);
 
 	button = game.add.button(game.world.centerX - 95, 400, 'button', startGame, this, 2, 1, 0);
-
 }
 
+// Function to post score to Firebase
+function postScore(score) {
+    // If score is greater than the stored data, replace the high score
+    // if (score > OLD SCORE) {
+    // };
+  var userScoreRef = new Firebase('https://phonx-rave.firebaseio.com/Players/-KDUeakzE4pENQiLDsV6');
+  // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
+  userScoreRef.update({ highScore: score});
+}
 
 // Start Game
 function startGame () {
 	// Load audio
-	var audio = new Audio("app/Slime - Zionexx (PhonX Remix).mp3");
+	audio_Bg = new Audio("app/Zionexx_Guitar_Hero.wav");
+	audio_Melody = new Audio("app/Zionexx_Guitar_Hero_Melody.wav");
 	// Play audio
-	audio.oncanplaythrough = function(){
-		setTimeout(function() { audio.play(); }, 325);
+	audio_Melody.oncanplaythrough = function(){
+		setTimeout(function() {
+			audio_Bg.play();
+			audio_Melody.play();
+		}, 325);
 	}
 	// Launch Notes
-	fireSong()
+	fireSong();
+}
+
+// Mute audio on missed notes
+function mute_song(){
+	audio_Melody.muted = true;
+	console.log("go");
 }
 
 function resetLaser(laser) {
+	console.log("laser", laser);
 	laser.kill();
+	mute_song();
 }
-
 
 function init() {
 	// Listen to space & enter keys
@@ -107,7 +127,6 @@ function init() {
 	// Capture these keys to stop the browser from receiving this event
 	game.input.keyboard.addKeyCapture(keys);
 }
-
 
 // Update
 function update() {
@@ -153,14 +172,19 @@ function calScore(curNote) {
 	for (var i = 0; i < curNote.children.length; i++) {
 		// Check the position of the note
 		if (curNote.children[i].y > GAME_HEIGHT - 75 && curNote.children[i].y < GAME_HEIGHT - 25) {
-			console.log("curNote", curNote);
+			// Enable music for correct notes
+			audio_Melody.muted = false;
+			// Kill the note so it doesn't go out of bounds
+			curNote.children[i].kill();
 			playerScore += 50;
-			console.log("playerScore", playerScore);
 		} else if (curNote.children[i].y > GAME_HEIGHT - 100 && curNote.children[i].y < GAME_HEIGHT) {
-			console.log("curNote", curNote);
+			// Enable music for correct notes
+			audio_Melody.muted = false;
+			// Kill the note so it doesn't go out of bounds
+			curNote.children[i].kill();
 			playerScore += 25;
-			console.log("playerScore", playerScore);
 		}
+		console.log("playerScore", playerScore);
 	};
 }
 
@@ -211,20 +235,6 @@ function fireRedLaser() {
 		laser.body.velocity.y = 500;
 	}
 }
-
-
-// Song Notes //
-
-// setTimeout(function() { fireBlueLaser(); }, 500);
-// setTimeout(function() { fireRedLaser(); }, 1000);
-// setTimeout(function() { fireGreenLaser(); }, 3000);
-
-
-// function update() {
-//  // Check for the click to the falling item
-//  game.physics.arcade.collide(player, candyGroup, clickCandy, null, this);
-// }
-
 
 // Render some debug text on screen
 function render() {

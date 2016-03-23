@@ -16,6 +16,7 @@ $("#sign_up_BTN").click(()=>{
       console.log("Successfully created user account with uid:", userData.uid);
       $(".login").addClass("hidden");
       // On click, create the game
+      createPlayer();
       createGame();
     }
   });
@@ -46,31 +47,17 @@ $("#logout_up_BTN").click(()=>{
   ref.unauth();
 })
 
+function createPlayer(){
+  var authData = ref.getAuth()
+  var newPlayersRef = ref.child("Players");
 
+  var newPlayer = newPlayersRef.push();
+  newPlayer.set({
+    highScore: 0,
+    playerId: authData.uid
+  })
+};
 
-// Function to post score to Firebase
-function postScore(score) {
-    // If score is greater than the stored data, replace the high score
-
-// $("#postNewUser").click(function(e) {
-
-//   var UserScore = {
-//     "highScore": 0;
-//   }
-//   $.ajax({
-//     url: "https://phonx-rave.firebaseio.com/",
-//     method: "POST",
-//     data: JSON.stringify(NewUser)
-//   }).done(function(addUser) {
-//     console.log("NewUser", NewUser);
-//     $("#userSongName").val("");
-//     $("#userArtistName").val("");
-//     $("#userAlbumName").val("");
-//     $("#userGenreName").val("");
-//   });
-// });
-
-}
 
 
 

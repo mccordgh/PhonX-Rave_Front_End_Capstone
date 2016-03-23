@@ -64,16 +64,20 @@ var fireSong = function() {
 
   // Drop
   var drop = function () {
-    setTimeout(function() { fireRedLaser(); }, 00);
-    setTimeout(function() { fireGreenLaser(); }, 00);
+    // Drop.a
+    function drop_a_a() {
+      setTimeout(function() { fireRedLaser(); }, 00);
+      setTimeout(function() { fireGreenLaser(); }, 00);
 
-    setTimeout(function() { fireRedLaser(); }, 500);
-    setTimeout(function() { fireBlueLaser(); }, 625);
-    setTimeout(function() { fireGreenLaser(); }, 750);
-    setTimeout(function() { fireBlueLaser(); }, 875);
-    setTimeout(function() { fireRedLaser(); }, 1000);
-    setTimeout(function() { fireBlueLaser(); }, 1625);
-    setTimeout(function() { fireGreenLaser(); }, 1625);
+      setTimeout(function() { fireRedLaser(); }, 500);
+      setTimeout(function() { fireBlueLaser(); }, 625);
+      setTimeout(function() { fireGreenLaser(); }, 750);
+      setTimeout(function() { fireBlueLaser(); }, 875);
+      setTimeout(function() { fireRedLaser(); }, 1000);
+      setTimeout(function() { fireBlueLaser(); }, 1625);
+      setTimeout(function() { fireGreenLaser(); }, 1625);
+    }
+    drop_a_a();
 
     setTimeout(function() { fireRedLaser(); }, 2000);
     setTimeout(function() { fireBlueLaser(); }, 2125);
@@ -94,11 +98,21 @@ var fireSong = function() {
     setTimeout(function() { fireGreenLaser(); }, 3750);
     setTimeout(function() { fireBlueLaser(); }, 3750);
 
-
+    // Drop.b
+    setTimeout(function() { drop_a_a(); }, 4000);
+    // Continue Drop.b.b
+    setTimeout(function() { fireRedLaser(); }, 6000);
+    setTimeout(function() { fireGreenLaser(); }, 6500);
+    setTimeout(function() { fireGreenLaser(); }, 6750);
+    setTimeout(function() { fireBlueLaser(); }, 7000);
+    setTimeout(function() { fireBlueLaser(); }, 7167);
+    setTimeout(function() { fireBlueLaser(); }, 7333);
+    setTimeout(function() { fireGreenLaser(); }, 7500);
 
   }
 
   setTimeout(function() { drop(); }, 31000);
+  setTimeout(function() { drop(); }, 39000);
 
 
 
@@ -117,7 +131,7 @@ var fireSong = function() {
 
 
   // Fire function to add score to player
-  setTimeout(function() { postScore(playerScore); }, 40000);
+  setTimeout(function() { postScore(playerScore); }, 000);
 
 };
 
