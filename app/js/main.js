@@ -11,12 +11,16 @@ var l_TouchDown = false;
 var currentHighStreak = 0;
 var currentStreak = 0;
 var multiplier = 1;
-var applause = 0;
+var applauseId = 0;
+var applauseCounter = 0;
 var boo = 0;
 var multiplierFontSize = 35;
 var playerScore = 0;
 var audio_Bg;
 var audio_Melody;
+var audio_applause;
+var audio_boo;
+var fadeOutCheck = false;
 var button;
 
 // Create a Phaser game instance
@@ -53,9 +57,8 @@ function init() {
 
 // Assets are available in create
 function create() {
-	// Create the game score
+	// Create the game score and multiplier
 	scoreText = game.add.bitmapText(100, 50, 'desyrel','Phaser & Pixi \nrocking!', 44);
-	// Create the game score
 	multiplierText = game.add.bitmapText(100, 100, 'desyrel','Phaser & Pixi \nrocking!', multiplierFontSize);
 	// Create the group using the group factory
 	lasersBlue = game.add.group();
@@ -132,8 +135,11 @@ function postScore(score, streak) {
 function startGame () {
 	// Load audio
 	button.kill();
-	audio_Bg = new Audio("app/Zionexx_Guitar_Hero.wav");
-	audio_Melody = new Audio("app/Zionexx_Guitar_Hero_Melody.wav");
+	audio_Bg = new Audio("./app/audio/Zionexx_Guitar_Hero.wav");
+	audio_Melody = new Audio("./app/audio/Zionexx_Guitar_Hero_Melody.wav");
+	audio_applause = new Audio("./app/audio/applause.wav");
+	audio_applause.volume = 0.7;
+	audio_boo = new Audio("./app/audio/boo.wav");
 	// Play audio
 	audio_Melody.oncanplaythrough = function(){
 		setTimeout(function() {
@@ -176,8 +182,38 @@ function mute_song(){
 	audio_Melody.muted = true;
 }
 
-// Reset laser when the laser goes out of bounds
+// function to fade out audio
+function audioFadeOut(currSong) {
+	// check this statement so that this function will only fire once
+	if (fadeOutCheck === true) {
+		return;
+	};
+	fadeOutCheck = true;
+	var vol = .7;
+	var fadeout = setInterval(
+	  function() {
+      vol -= 0.025;
+	    if (vol > 0) {currSong.volume = vol;}
+	    else {
+	    	// rest the volume of the cheering for next streak
+	    	vol = .7;
+		    currSong.pause();
+		    currSong.currentTime = 0;
+		    currSong.volume = vol;
+		    console.log("go");
+		    clearInterval(fadeout);
+	    }
+	    fadeOutCheck = false;
+	  }, 200);
+}
+
+// Reset laser when the laser goes out of bounds (missed a note)
 function resetLaser(laser) {
+	// mute the applause
+	if (!audio_applause.paused) {
+		audioFadeOut(audio_applause);
+	};
+	// remove the note from the page
 	laser.kill();
 	mute_song();
 	// Save the highest streak for the current game
@@ -204,6 +240,9 @@ function dealWithCorrectNotes(thisNote) {
 function calmultiplyer() {
 	switch (true) {
 		case (currentStreak < 5):
+			// reset applauseId and counter
+			applauseCounter = 0;
+			applauseId = 0;
 			multiplier = 1;
 			break;
 		case (currentStreak >= 5 && currentStreak < 10):
@@ -217,10 +256,13 @@ function calmultiplyer() {
 			break;
 		case (currentStreak >= 20):
 			multiplier = 8;
-			applause++;
+			applauseCounter++;
 			// Check how well the player is doing and give them applause
-			if (applause > 10) {
+			if (applauseCounter > 22 && applauseId === 0) {
+				// add to applauseId so it doesn't play multiple times
+				applauseId++;
 				// play applause sound sample
+				audio_applause.play();
 			};
 			break;
 	}
@@ -234,10 +276,8 @@ function calScore(curNote) {
 		if (curNote.children[i].y > GAME_HEIGHT - 75 && curNote.children[i].y < GAME_HEIGHT - 25) {
 			playerScore += (50 * multiplier);
 			dealWithCorrectNotes(curNote.children[i]);
-			console.log("playerScore", playerScore);
 		} else if (curNote.children[i].y > GAME_HEIGHT - 100 && curNote.children[i].y < GAME_HEIGHT) {
-			playerScore += (25 * multiplier);
-			console.log("playerScore", playerScore);
+			playerScore += (25 * multiplier);console.log("playerScore", playerScore);
 			dealWithCorrectNotes(curNote.children[i]);
 		}
 	};
