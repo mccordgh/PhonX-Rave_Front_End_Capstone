@@ -13,7 +13,7 @@ var currentStreak = 0;
 var multiplier = 1;
 var applauseId = 0;
 var applauseCounter = 0;
-var boo = 0;
+var booCounter = 0;
 var multiplierFontSize = 35;
 var playerScore = 0;
 var audio_Bg;
@@ -209,6 +209,11 @@ function audioFadeOut(currSong) {
 
 // Reset laser when the laser goes out of bounds (missed a note)
 function resetLaser(laser) {
+	// check for the number of missed notes and fire boo audio
+	booCounter--;
+	if (booCounter === -10) {
+		audio_boo.play();
+	};
 	// mute the applause
 	if (!audio_applause.paused) {
 		audioFadeOut(audio_applause);
@@ -227,6 +232,7 @@ function resetLaser(laser) {
 
 
 function dealWithCorrectNotes(thisNote) {
+	booCounter = 0;
 	calmultiplyer();
 	// Add to currentStreak
 	currentStreak++
