@@ -14,3 +14,8 @@ body {
   top: 600px;
   background: red;
 }
+
+#game_container {
+  margin-left: 30%;
+  margin-top: 40px;
+}

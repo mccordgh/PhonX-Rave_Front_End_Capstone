@@ -1,19 +1,23 @@
 var GAME_WIDTH = 450;
 var GAME_HEIGHT = 700;
-
 // Game Variables
 var game;
 var lasersBlue;
 var lasersRed;
 var lasersGreen;
-var mouseTouchDown = false;
 var j_TouchDown = false;
 var k_TouchDown = false;
 var l_TouchDown = false;
-var laserArray = [];
+var currentHighStreak = 0;
+var currentStreak = 0;
+var multiplier = 1;
+var applause = 0;
+var boo = 0;
+var multiplierFontSize = 35;
 var playerScore = 0;
 var audio_Bg;
 var audio_Melody;
+var button;
 
 // Create a Phaser game instance
 function createGame() {
@@ -21,21 +25,26 @@ function createGame() {
 		GAME_WIDTH,
 		GAME_HEIGHT,
 		Phaser.AUTO,
-		'container',
+		'game_container',
 		{ preload: preload, create: create, update: update, init: init, render: render }
 	);
 }
 
 // Preload assets
 function preload() {
+	// Load text image
+	game.load.bitmapFont('desyrel', './app/img/assets/desyrel.png', './app/img/assets/desyrel.xml');
+	// Load note image
 	var dir = 'app/img/assets/';
 	game.load.image('laser', dir + 'laserBlue02.png');
+	game.load.image('button', './app/img/assets/start.png');
 }
+var scoreText;
+var multiplierText;
 
-// Init
 function init() {
-	// Listen to j key
-	var keys = [Phaser.KeyCode.SPACEBAR, Phaser.KeyCode.ENTER];
+	// Listen to space & enter keys
+	var keys = [Phaser.KeyCode.J, Phaser.KeyCode.K, Phaser.KeyCode.L];
 	// Create Phaser.Key objects for listening to the state
 	phaserKeys = game.input.keyboard.addKeys(keys);
 	// Capture these keys to stop the browser from receiving this event
@@ -44,6 +53,10 @@ function init() {
 
 // Assets are available in create
 function create() {
+	// Create the game score
+	scoreText = game.add.bitmapText(100, 50, 'desyrel','Phaser & Pixi \nrocking!', 44);
+	// Create the game score
+	multiplierText = game.add.bitmapText(100, 100, 'desyrel','Phaser & Pixi \nrocking!', multiplierFontSize);
 	// Create the group using the group factory
 	lasersBlue = game.add.group();
 	lasersRed = game.add.group();
@@ -78,22 +91,47 @@ function create() {
 	lasersRed.setAll('checkWorldBounds', true);
 	lasersGreen.setAll('checkWorldBounds', true);
 
-	button = game.add.button(game.world.centerX - 95, 400, 'button', startGame, this, 2, 1, 0);
+	button = game.add.button(game.world.centerX - 185, 40, 'button', startGame, this, 2, 1, 0);
 }
 
 // Function to post score to Firebase
-function postScore(score) {
-    // If score is greater than the stored data, replace the high score
-    // if (score > OLD SCORE) {
-    // };
-  var userScoreRef = new Firebase('https://phonx-rave.firebaseio.com/Players/-KDUeakzE4pENQiLDsV6');
-  // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
-  userScoreRef.update({ highScore: score});
+function postScore(score, streak) {
+	var streakToPost = streak;
+	if (currentStreak > currentHighStreak) {
+		streakToPost = currentStreak;
+	};
+	// Get access to current player info in firebase
+  $.ajax({
+    url: "https://phonx-rave.firebaseio.com/Players/.json",
+    method: "GET"
+  }).done(function(playerList) {
+  	// Get access to crrent player highScore
+  	console.log("currentPlayerUID", currentPlayerUID);
+  	// Loop through all players
+    for (variable in playerList) {
+    	// Check for current player
+    	if (playerList[variable].playerId === currentPlayerUID) {
+		    // If score is greater than the stored data, replace the high score
+		    if (score > playerList[variable].highScore) {
+				  var userScoreRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
+				  // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
+				  userScoreRef.update({ highScore: score});
+		    }
+		    // If longest streakToPost is greater than the stored data, replace the longest streak
+		    if (streakToPost > playerList[variable].longestStreak) {
+				  var userStreakRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
+				  // Modify the 'first' and 'last' children, but leave other data at userStreakRef unchanged
+				  userStreakRef.update({ longestStreak: streakToPost});
+		    }
+    	}
+		}
+  })
 }
 
 // Start Game
 function startGame () {
 	// Load audio
+	button.kill();
 	audio_Bg = new Audio("app/Zionexx_Guitar_Hero.wav");
 	audio_Melody = new Audio("app/Zionexx_Guitar_Hero_Melody.wav");
 	// Play audio
@@ -107,31 +145,12 @@ function startGame () {
 	fireSong();
 }
 
-// Mute audio on missed notes
-function mute_song(){
-	audio_Melody.muted = true;
-	console.log("go");
-}
-
-function resetLaser(laser) {
-	console.log("laser", laser);
-	laser.kill();
-	mute_song();
-}
-
-function init() {
-	// Listen to space & enter keys
-	var keys = [Phaser.KeyCode.J, Phaser.KeyCode.K, Phaser.KeyCode.L];
-	// Create Phaser.Key objects for listening to the state
-	phaserKeys = game.input.keyboard.addKeys(keys);
-	// Capture these keys to stop the browser from receiving this event
-	game.input.keyboard.addKeyCapture(keys);
-}
-
 // Update
 function update() {
-
-	// Loop over the keys
+	// Update the score based on the users points
+	scoreText.setText('Score:' + playerScore);
+	multiplierText.setText('Multiplier: X' + multiplier);
+	// Loop over the keys to detect if it has been clicked
 	for (var index in phaserKeys) {
 		// Save a reference to the current key
 		var key = phaserKeys[index];
@@ -140,31 +159,72 @@ function update() {
 			// Check the key that was pressed and the position of the note
 			// Calculate score with the current note
 			if (key.keyCode === 74) {
-				console.log("captured j");
 				calScore(lasersBlue);
 			};
 			if (key.keyCode === 75) {
-				console.log("captured k");
 				calScore(lasersRed);
 			};
 			if (key.keyCode === 76) {
-				console.log("captured l");
 				calScore(lasersGreen);
 			};
 		}
 	}
+}
 
-	// Game.input.activePointer is either the first finger touched, or the mouse
-	if (game.input.activePointer.isDown) {
-		// We'll manually keep track if the pointer wasn't already down
-		if (!mouseTouchDown) {
-			touchDown();
-		}
-	} else {
-		if (mouseTouchDown) {
-			touchUp();
-		}
+// Mute audio on missed notes
+function mute_song(){
+	audio_Melody.muted = true;
+}
+
+// Reset laser when the laser goes out of bounds
+function resetLaser(laser) {
+	laser.kill();
+	mute_song();
+	// Save the highest streak for the current game
+	if (currentStreak > currentHighStreak) {
+		currentHighStreak = currentStreak;
+		console.log("currentHighStreak", currentHighStreak);
+	};
+	// Reset currentStreak
+	currentStreak = 0;
+}
+
+
+function dealWithCorrectNotes(thisNote) {
+	calmultiplyer();
+	// Add to currentStreak
+	currentStreak++
+	// Enable music for correct notes
+	audio_Melody.muted = false;
+	// Kill the note so it doesn't go out of bounds
+	thisNote.kill();
+}
+
+// Calculate Multiplier
+function calmultiplyer() {
+	switch (true) {
+		case (currentStreak < 5):
+			multiplier = 1;
+			break;
+		case (currentStreak >= 5 && currentStreak < 10):
+			multiplier = 2;
+			break;
+		case (currentStreak >= 10 && currentStreak < 15):
+			multiplier = 4;
+			break;
+		case (currentStreak >= 15 && currentStreak < 20):
+			multiplier = 6;
+			break;
+		case (currentStreak >= 20):
+			multiplier = 8;
+			applause++;
+			// Check how well the player is doing and give them applause
+			if (applause > 10) {
+				// play applause sound sample
+			};
+			break;
 	}
+	// if (currentStreak >= 5 && currentStreak < 10) {};
 }
 
 // Calculate Score
@@ -172,37 +232,15 @@ function calScore(curNote) {
 	for (var i = 0; i < curNote.children.length; i++) {
 		// Check the position of the note
 		if (curNote.children[i].y > GAME_HEIGHT - 75 && curNote.children[i].y < GAME_HEIGHT - 25) {
-			// Enable music for correct notes
-			audio_Melody.muted = false;
-			// Kill the note so it doesn't go out of bounds
-			curNote.children[i].kill();
-			playerScore += 50;
+			playerScore += (50 * multiplier);
+			dealWithCorrectNotes(curNote.children[i]);
+			console.log("playerScore", playerScore);
 		} else if (curNote.children[i].y > GAME_HEIGHT - 100 && curNote.children[i].y < GAME_HEIGHT) {
-			// Enable music for correct notes
-			audio_Melody.muted = false;
-			// Kill the note so it doesn't go out of bounds
-			curNote.children[i].kill();
-			playerScore += 25;
+			playerScore += (25 * multiplier);
+			console.log("playerScore", playerScore);
+			dealWithCorrectNotes(curNote.children[i]);
 		}
-		console.log("playerScore", playerScore);
 	};
-}
-
-function touchDown() {
-	// Set touchDown to true, so we only trigger this once
-	mouseTouchDown = true;
-	console.log("lasersBlue.children", lasersBlue.children);
-	for (var i = 0; i < lasersBlue.children.length; i++) {
-		if (lasersBlue.children[i].y > GAME_HEIGHT - 50 && lasersBlue.children[i].y < GAME_HEIGHT) {
-			console.log("fuck ya");
-		};
-	};
-}
-
-function touchUp() {
-	// Set touchDown to false, so we can trigger touchDown on the next click
-
-	mouseTouchDown = false;
 }
 
 function fireBlueLaser() {
@@ -237,7 +275,10 @@ function fireRedLaser() {
 }
 
 // Render some debug text on screen
-function render() {
-  // game.debug.text('CodeCaptain Shooting Demo', 10, 30);
-  // game.debug.text('Click or press space / enter to shoot', 10, 55);
-}
+function render() {}
+
+
+
+
+
+

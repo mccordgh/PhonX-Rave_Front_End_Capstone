@@ -1,5 +1,6 @@
 "use strict";
 
+var currentPlayerUID;
 var ref = new Firebase("https://phonx-rave.firebaseio.com/");
 $("#sign_up_BTN").click(()=>{
   //Define user name and psWord
@@ -16,12 +17,12 @@ $("#sign_up_BTN").click(()=>{
       console.log("Successfully created user account with uid:", userData.uid);
       $(".login").addClass("hidden");
       // On click, create the game
-      createPlayer();
+      console.log("ref.getAuth", userData.uid);
+      createPlayer(userData.uid);
       createGame();
     }
   });
 })
-
 
 $("#login_up_BTN").click(()=>{
   let userName = $("#sign_up_name").val();
@@ -36,6 +37,9 @@ $("#login_up_BTN").click(()=>{
     } else {
       // Write code to allow user to access the website
       console.log("Authenticated successfully with payload:", authData);
+      // Assign the correct currentPlayerUID
+      currentPlayerUID = authData.uid
+      // Hide the login screen
       $(".login").addClass("hidden");
       // On click, create the game
       createGame();
@@ -47,14 +51,18 @@ $("#logout_up_BTN").click(()=>{
   ref.unauth();
 })
 
-function createPlayer(){
-  var authData = ref.getAuth()
-  var newPlayersRef = ref.child("Players");
+// function addNameId()
 
+function createPlayer(uid){
+  currentPlayerUID = uid;
+  // var authData = ref.getAuth()
+  console.log("uid", uid);
+  var newPlayersRef = ref.child("Players");
   var newPlayer = newPlayersRef.push();
   newPlayer.set({
+    longestStreak: 0,
     highScore: 0,
-    playerId: authData.uid
+    playerId: uid
   })
 };
 
