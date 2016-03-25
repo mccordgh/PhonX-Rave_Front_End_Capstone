@@ -138,7 +138,7 @@ function startGame () {
 	audio_Bg = new Audio("./app/audio/Zionexx_Guitar_Hero.wav");
 	audio_Melody = new Audio("./app/audio/Zionexx_Guitar_Hero_Melody.wav");
 	audio_applause = new Audio("./app/audio/applause.wav");
-	audio_applause.volume = 0.7;
+	audio_applause.volume = 0.6;
 	audio_boo = new Audio("./app/audio/boo.wav");
 	// Play audio
 	audio_Melody.oncanplaythrough = function(){
@@ -189,26 +189,27 @@ function audioFadeOut(currSong) {
 		return;
 	};
 	fadeOutCheck = true;
-	var vol = .7;
+	var vol = .6;
 	var fadeout = setInterval(
 	  function() {
       vol -= 0.025;
 	    if (vol > 0) {currSong.volume = vol;}
 	    else {
 	    	// rest the volume of the cheering for next streak
-	    	vol = .7;
+	    	vol = .6;
 		    currSong.pause();
 		    currSong.currentTime = 0;
 		    currSong.volume = vol;
 		    console.log("go");
 		    clearInterval(fadeout);
+		    fadeOutCheck = false;
 	    }
-	    fadeOutCheck = false;
 	  }, 200);
 }
 
 // Reset laser when the laser goes out of bounds (missed a note)
 function resetLaser(laser) {
+	multiplier = 1;
 	// check for the number of missed notes and fire boo audio
 	booCounter--;
 	if (booCounter === -10) {
@@ -245,26 +246,26 @@ function dealWithCorrectNotes(thisNote) {
 // Calculate Multiplier
 function calmultiplyer() {
 	switch (true) {
-		case (currentStreak < 5):
+		case (currentStreak < 10):
 			// reset applauseId and counter
 			applauseCounter = 0;
 			applauseId = 0;
 			multiplier = 1;
 			break;
-		case (currentStreak >= 5 && currentStreak < 10):
+		case (currentStreak >= 10 && currentStreak < 20):
 			multiplier = 2;
 			break;
-		case (currentStreak >= 10 && currentStreak < 15):
+		case (currentStreak >= 20 && currentStreak < 30):
 			multiplier = 4;
 			break;
-		case (currentStreak >= 15 && currentStreak < 20):
+		case (currentStreak >= 30 && currentStreak < 40):
 			multiplier = 6;
 			break;
-		case (currentStreak >= 20):
+		case (currentStreak >= 40):
 			multiplier = 8;
 			applauseCounter++;
 			// Check how well the player is doing and give them applause
-			if (applauseCounter > 22 && applauseId === 0) {
+			if (applauseCounter > 40 && applauseId === 0) {
 				// add to applauseId so it doesn't play multiple times
 				applauseId++;
 				// play applause sound sample
@@ -272,7 +273,6 @@ function calmultiplyer() {
 			};
 			break;
 	}
-	// if (currentStreak >= 5 && currentStreak < 10) {};
 }
 
 // Calculate Score

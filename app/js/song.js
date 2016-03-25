@@ -201,7 +201,8 @@ var fireSong = function() {
 
   // Fire function to add score to player
   setTimeout(function() { postScore(playerScore, currentHighStreak); }, 81000);
-
+  // display leaderboard with ajax request
+  setTimeout(function() { getPlayers(playerScore, currentHighStreak); }, 11005);
 };
 
 
