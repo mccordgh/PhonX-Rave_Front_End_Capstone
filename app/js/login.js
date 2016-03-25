@@ -4,11 +4,12 @@ var currentPlayerUID;
 var ref = new Firebase("https://phonx-rave.firebaseio.com/");
 $("#sign_up_BTN").click(()=>{
   //Define user name and psWord
-  let userName = $("#sign_up_name").val();
+  let userName = $("#sign_up_userName").val();
+  let userEmail = $("#sign_up_email").val();
   let userPassword = $("#sign_up_password").val();
 
   ref.createUser({
-    email    : userName,
+    email    : userEmail,
     password : userPassword
   }, function(error, userData) {
     if (error) {
@@ -18,18 +19,18 @@ $("#sign_up_BTN").click(()=>{
       $(".login").addClass("hidden");
       // On click, create the game
       console.log("ref.getAuth", userData.uid);
-      createPlayer(userData.uid);
+      createPlayer(userData.uid, userName);
       createGame();
     }
   });
 })
 
 $("#login_up_BTN").click(()=>{
-  let userName = $("#sign_up_name").val();
+  let userEmail = $("#sign_up_email").val();
   let userPassword = $("#sign_up_password").val();
 
   ref.authWithPassword({
-    email    : userName,
+    email    : userEmail,
     password : userPassword
   }, function(error, authData) {
     if (error) {
@@ -53,13 +54,14 @@ $("#logout_up_BTN").click(()=>{
 
 // function addNameId()
 
-function createPlayer(uid){
+function createPlayer(uid, name){
   currentPlayerUID = uid;
   // var authData = ref.getAuth()
   console.log("uid", uid);
   var newPlayersRef = ref.child("Players");
   var newPlayer = newPlayersRef.push();
   newPlayer.set({
+    userName: name,
     longestStreak: 0,
     highScore: 0,
     playerId: uid

@@ -97,40 +97,6 @@ function create() {
 	button = game.add.button(game.world.centerX - 185, 40, 'button', startGame, this, 2, 1, 0);
 }
 
-// Function to post score to Firebase
-function postScore(score, streak) {
-	var streakToPost = streak;
-	if (currentStreak > currentHighStreak) {
-		streakToPost = currentStreak;
-	};
-	// Get access to current player info in firebase
-  $.ajax({
-    url: "https://phonx-rave.firebaseio.com/Players/.json",
-    method: "GET"
-  }).done(function(playerList) {
-  	// Get access to crrent player highScore
-  	console.log("currentPlayerUID", currentPlayerUID);
-  	// Loop through all players
-    for (variable in playerList) {
-    	// Check for current player
-    	if (playerList[variable].playerId === currentPlayerUID) {
-		    // If score is greater than the stored data, replace the high score
-		    if (score > playerList[variable].highScore) {
-				  var userScoreRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
-				  // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
-				  userScoreRef.update({ highScore: score});
-		    }
-		    // If longest streakToPost is greater than the stored data, replace the longest streak
-		    if (streakToPost > playerList[variable].longestStreak) {
-				  var userStreakRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
-				  // Modify the 'first' and 'last' children, but leave other data at userStreakRef unchanged
-				  userStreakRef.update({ longestStreak: streakToPost});
-		    }
-    	}
-		}
-  })
-}
-
 // Start Game
 function startGame () {
 	// Load audio
@@ -282,9 +248,11 @@ function calScore(curNote) {
 		if (curNote.children[i].y > GAME_HEIGHT - 75 && curNote.children[i].y < GAME_HEIGHT - 25) {
 			playerScore += (50 * multiplier);
 			dealWithCorrectNotes(curNote.children[i]);
+			console.log("what is happening");
 		} else if (curNote.children[i].y > GAME_HEIGHT - 100 && curNote.children[i].y < GAME_HEIGHT) {
-			playerScore += (25 * multiplier);console.log("playerScore", playerScore);
+			playerScore += (25 * multiplier);
 			dealWithCorrectNotes(curNote.children[i]);
+			console.log("what is happening");
 		}
 	};
 }

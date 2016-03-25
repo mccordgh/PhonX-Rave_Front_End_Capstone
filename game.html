@@ -18,9 +18,10 @@
 </head>
 <body class="home">
 
-  <audio id="applause">
-    <source src="./app/audio/applause.wav" type="audio/wav">
-  </audio>
+
+  <!-- LEADER BOARD MODAL -->
+  <div id='mask' class='close_modal'></div>
+  <div id='leader_board' class='modal_window'>This is the first modal window</div>
 
   <div id="game_container"></div>
   <div>
@@ -37,7 +38,10 @@
         <section>
           <h1>PhonX Rave</h1>
           <div>
-              Email: <input id="sign_up_name" type="text" autofocus="true">
+              User Name: <input id="sign_up_userName" type="text" autofocus="true">
+          </div>
+          <div>
+              Email: <input id="sign_up_email" type="text">
           </div>
           <div>
               Password: <input id="sign_up_password" type="password">
@@ -59,6 +63,7 @@
   <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <script src="app/js/login.js"></script>
+  <script src="app/js/modal.js"></script>
   <script src="app/js/main.js"></script>
   <script src="app/js/song.js"></script>
 

@@ -40,6 +40,40 @@ function show_modal(htmlString){
   $('#leader_board').html(htmlString);
 }
 
+// Function to post score to Firebase
+function postScore(score, streak) {
+  var streakToPost = streak;
+  if (currentStreak > currentHighStreak) {
+    streakToPost = currentStreak;
+  };
+  // Get access to current player info in firebase
+  $.ajax({
+    url: "https://phonx-rave.firebaseio.com/Players/.json",
+    method: "GET"
+  }).done(function(playerList) {
+    // Get access to current player highScore
+    console.log("currentPlayerUID", currentPlayerUID);
+    // Loop through all players
+    for (variable in playerList) {
+      // Check for current player
+      if (playerList[variable].playerId === currentPlayerUID) {
+        // If score is greater than the stored data, replace the high score
+        if (score > playerList[variable].highScore) {
+          var userScoreRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
+          // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
+          userScoreRef.update({ highScore: score});
+        }
+        // If longest streakToPost is greater than the stored data, replace the longest streak
+        if (streakToPost > playerList[variable].longestStreak) {
+          var userStreakRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
+          // Modify the 'first' and 'last' children, but leave other data at userStreakRef unchanged
+          userStreakRef.update({ longestStreak: streakToPost});
+        }
+      }
+    }
+  })
+}
+
 // AJAX request to get leader board
 function getPlayers (score, streak) {
   $.ajax({
@@ -47,37 +81,27 @@ function getPlayers (score, streak) {
     method: "GET"
   }).done(function(playerList) {
     console.log("playerList", playerList);
-    var playerContentArray = [];
-    var contentString = `<h1>Your Score:</h1><h3>${score}</h3>`;
-    // loop through and find the highest score
+    var playerScoreArray = [];
+    var playerNameArray = [];
+    var contentString = `<h1>Your Score:</h1><h2>${score}</h2>`;
+    // Loop through, find the highest score, create a new array
     for (let player in playerList) {
-      console.log("player", playerList[player].highScore);
-    //   console.log("player in list:", player);
-    //   playerContentArray.push(playerList[player]);
-    //   console.log("playerContentArray", playerContentArray);
+      playerScoreArray.push(playerList[player].highScore);
     }
-
-
-
-
-    // for (let player in playerList) {
-    //   // playerList[player].Objid = player;
-    //   var currentPlayer = playerList[player];
-    //   contentString += "<div class='row musicRow' id='" + player + "'>";
-    //     contentString += "<div class='col-md-12 column'>";
-    //       contentString += "<h3>" + currentPlayer.title + "</h3>";
-    //     contentString += "</div>";
-    //     contentString += "<div class='col-md-12 column'>";
-    //       contentString += "<h4>" + currentPlayer.artist + " | " + currentPlayer.album + " | " + currentPlayer.genre + "</h4>";
-    //     contentString += "</div>";
-    //     contentString += "<div class='col-md-12'>";
-    //       contentString += '<button type="button" class="btn btn-link deleteBtn">Delete</button>';
-    //     contentString += "</div>";
-    //   contentString += "</div>";
-    // }
-    // playerEl.append(contentString);
-    // console.log("playerContentArray", playerContentArray);
-
+    // Sort the array by score from highest to lowest
+    playerScoreArray.sort(function(a,b){return b - a})
+    // Loop through the array and add to the string in the correct order
+    for (var i = 1; i < playerScoreArray.length+1; i++) {
+      // Loop through and sort the data by the score property, create a name array to correspond with the score array
+      for (let player in playerList) {
+        if (playerList[player].highScore === playerScoreArray[i -1]) {
+          playerNameArray.push(playerList[player].userName);
+        };
+      }
+      // Add to the DOM in the correct order now that both arrays are in order
+      contentString += `<h4>${i} ${playerNameArray[i-1]} : ${playerScoreArray[i-1]}</h4>`
+    };
+    // Post the leader_board
     show_modal(contentString);
   })
 }
