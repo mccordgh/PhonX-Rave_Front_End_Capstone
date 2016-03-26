@@ -1,7 +1,9 @@
 body {
   background-image: url("static/img/assets/Screen Shot 2016-03-21 at 2.46.41 PM");
   background-repeat: no-repeat;
-  background-attachment: fixed; }
+  background-attachment: fixed;
+  background: black;
+}
 
 #playerScore {
   color: red;
@@ -13,11 +15,6 @@ body {
   position: fixed;
   top: 600px;
   background: red;
-}
-
-#game_container {
-  margin-left: 30%;
-  margin-top: 40px;
 }
 
 #mask{
@@ -47,3 +44,23 @@ body {
     background: #246493;
     color:black;
 }
+
+#game_container {
+  margin-top: 40px;
+  margin: 20px 30%;
+  width: 450px;
+  padding: 0;
+  color: darkgrey;
+}
+
+.missedNoteBoarder {
+  box-shadow: 0 0 80px red;
+}
+
+
+
+
+
+
+
+

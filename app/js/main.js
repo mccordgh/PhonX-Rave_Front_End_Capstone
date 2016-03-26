@@ -22,6 +22,7 @@ var audio_applause;
 var audio_boo;
 var fadeOutCheck = false;
 var button;
+var resetLaserObject;
 
 // Create a Phaser game instance
 function createGame() {
@@ -58,8 +59,8 @@ function init() {
 // Assets are available in create
 function create() {
 	// Create the game score and multiplier
-	scoreText = game.add.bitmapText(100, 50, 'desyrel','Phaser & Pixi \nrocking!', 44);
-	multiplierText = game.add.bitmapText(100, 100, 'desyrel','Phaser & Pixi \nrocking!', multiplierFontSize);
+	scoreText = game.add.bitmapText(120, 60, 'desyrel','Phaser & Pixi \nrocking!', 44);
+	multiplierText = game.add.bitmapText(120, 110, 'desyrel','Phaser & Pixi \nrocking!', multiplierFontSize);
 	// Create the group using the group factory
 	lasersBlue = game.add.group();
 	lasersRed = game.add.group();
@@ -68,7 +69,7 @@ function create() {
 	lasersBlue.enableBody = true;
 	lasersRed.enableBody = true;
 	lasersGreen.enableBody = true;
-	// We're going to set the body type to the ARCADE physics, since we don't need any advanced physics
+	// Set the body type to the ARCADE physics, since we don't need any advanced physics
 	lasersBlue.physicsBodyType = Phaser.Physics.ARCADE;
 	lasersRed.physicsBodyType = Phaser.Physics.ARCADE;
 	lasersGreen.physicsBodyType = Phaser.Physics.ARCADE;
@@ -94,11 +95,12 @@ function create() {
 	lasersRed.setAll('checkWorldBounds', true);
 	lasersGreen.setAll('checkWorldBounds', true);
 
-	button = game.add.button(game.world.centerX - 185, 40, 'button', startGame, this, 2, 1, 0);
+	button = game.add.button(game.world.centerX - 185, 10, 'button', startGame, this, 2, 1, 0);
 }
 
 // Start Game
 function startGame () {
+	fireBlueLaser();
 	// Load audio
 	button.kill();
 	audio_Bg = new Audio("./app/audio/Zionexx_Guitar_Hero.wav");
@@ -175,18 +177,19 @@ function audioFadeOut(currSong) {
 
 // Reset laser when the laser goes out of bounds (missed a note)
 function resetLaser(laser) {
+	// console.log("laser", laser);
 	multiplier = 1;
 	// check for the number of missed notes and fire boo audio
 	booCounter--;
 	if (booCounter === -10) {
+		// visual effects for missed notes
+		$("#game_container").addClass("missedNoteBoarder");
 		audio_boo.play();
 	};
 	// mute the applause
 	if (!audio_applause.paused) {
 		audioFadeOut(audio_applause);
 	};
-	// remove the note from the page
-	laser.kill();
 	mute_song();
 	// Save the highest streak for the current game
 	if (currentStreak > currentHighStreak) {
@@ -195,6 +198,8 @@ function resetLaser(laser) {
 	};
 	// Reset currentStreak
 	currentStreak = 0;
+	// remove the note from the page
+	laser.kill();
 }
 
 
@@ -207,6 +212,8 @@ function dealWithCorrectNotes(thisNote) {
 	audio_Melody.muted = false;
 	// Kill the note so it doesn't go out of bounds
 	thisNote.kill();
+	// remove missed not visual
+	$("#game_container").removeClass("missedNoteBoarder");
 }
 
 // Calculate Multiplier
@@ -243,13 +250,16 @@ function calmultiplyer() {
 
 // Calculate Score
 function calScore(curNote) {
+	// console.log("curNote", curNote);
 	for (var i = 0; i < curNote.children.length; i++) {
 		// Check the position of the note
 		if (curNote.children[i].y > GAME_HEIGHT - 75 && curNote.children[i].y < GAME_HEIGHT - 25) {
+			console.log("curNote.children[i].y",curNote.children[i].y);
 			playerScore += (50 * multiplier);
 			dealWithCorrectNotes(curNote.children[i]);
 			console.log("what is happening");
 		} else if (curNote.children[i].y > GAME_HEIGHT - 100 && curNote.children[i].y < GAME_HEIGHT) {
+			console.log("curNote.children[i].y",curNote.children[i].y);
 			playerScore += (25 * multiplier);
 			dealWithCorrectNotes(curNote.children[i]);
 			console.log("what is happening");
@@ -263,30 +273,25 @@ function fireBlueLaser() {
 	if (laser) {
 		// If we have a laser, set it to the starting position
 		laser.reset(200, 0);
-		// Give it a velocity of -500 so it starts shooting
+		// Give it a velocity of 500 so it starts moving
 		laser.body.velocity.y = 500;
 	}
 }
 function fireGreenLaser() {
-	// Get the first laser that's inactive, by passing 'false' as a parameter
 	var laser = lasersBlue.getFirstExists(false);
 	if (laser) {
-		// If we have a laser, set it to the starting position
 		laser.reset(50, 0);
-		// Give it a velocity of -500 so it starts shooting
 		laser.body.velocity.y = 500;
 	}
 }
 function fireRedLaser() {
-	// Get the first laser that's inactive, by passing 'false' as a parameter
 	var laser = lasersGreen.getFirstExists(false);
 	if (laser) {
-		// If we have a laser, set it to the starting position
 		laser.reset(400, 0);
-		// Give it a velocity of -500 so it starts shooting
 		laser.body.velocity.y = 500;
 	}
 }
+
 
 // Render some debug text on screen
 function render() {}
