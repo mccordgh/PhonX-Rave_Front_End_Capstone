@@ -2,18 +2,22 @@ body {
   background-image: url("static/img/assets/Screen Shot 2016-03-21 at 2.46.41 PM");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background: black;
-}
-
-#playerScore {
-  color: red;
+  background: darkblue;
 }
 
 #trial {
   width: 1200px;
   height: 2px;
   position: fixed;
-  top: 600px;
+  top: 588px;
+  background: red;
+}
+
+#trial2 {
+  width: 1200px;
+  height: 2px;
+  position: fixed;
+  top: 680px;
   background: red;
 }
 
