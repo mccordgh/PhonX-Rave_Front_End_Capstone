@@ -46,7 +46,11 @@ function preload() {
 	game.load.image('laser1', dir + 'J_image.png');
 	game.load.image('laser2', dir + 'K_image.png');
 	game.load.image('laser3', dir + 'L_image.png');
+	game.load.image('successNoteJ', dir + 'fireball.png');
+	game.load.image('successNoteK', dir + 'iceball.png');
+	game.load.image('successNoteL', dir + 'iceball.png');
 	game.load.image('button', './app/img/assets/start.png');
+	game.load.image('ScoreBG', './app/img/assets/ScoreBG.png');
 }
 var scoreText;
 var multiplierText;
@@ -64,9 +68,12 @@ function init() {
 function create() {
 
 	game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
+	// Image for the score to sit on top of
+	var ScoreBG = game.add.image(-110, -5, 'ScoreBG');
+	ScoreBG.scale.setTo(1.3,1.3);
 	// Create the game score and multiplier
-	scoreText = game.add.bitmapText(120, 60, 'desyrel','Phaser & Pixi \nrocking!', 44);
-	multiplierText = game.add.bitmapText(120, 110, 'desyrel','Phaser & Pixi \nrocking!', multiplierFontSize);
+	scoreText = game.add.bitmapText(112, 25, 'desyrel','Phaser & Pixi \nrocking!', 44);
+	multiplierText = game.add.bitmapText(112, 75, 'desyrel','Phaser & Pixi \nrocking!', multiplierFontSize);
 	// Create the group using the group factory
 	lasersBlue = game.add.group();
 	lasersRed = game.add.group();
@@ -101,7 +108,7 @@ function create() {
 	lasersRed.setAll('checkWorldBounds', true);
 	lasersGreen.setAll('checkWorldBounds', true);
 
-	button = game.add.button(game.world.centerX - 185, 10, 'button', startGame, this, 2, 1, 0);
+	button = game.add.button(game.world.centerX - 190, 240, 'button', startGame, this, 2, 1, 0);
 }
 
 // Start Game
@@ -225,7 +232,7 @@ function resetLaser(laser, wrongNoteCheck) {
 		// Mute song as if you weren't playing
 		mute_song();
 		// remove the note from the page
-		laser.kill();
+		laser.destroy();
 	};
 }
 
@@ -274,6 +281,37 @@ function calmultiplyer() {
 	}
 }
 
+function addFadetoNote(currFadingNote) {
+	currFadingNote.scale.setTo(0.15, 0.15);
+	currFadingNote.alpha = 0;
+	game.add.tween(currFadingNote).to( { alpha: 1 }, 200, Phaser.Easing.Linear.None, true, 0, 100, true);
+	setTimeout(function() { currFadingNote.kill(); }, 200);
+}
+function addCorrectNoteAnimation(curNote) {
+	if (curNote === lasersBlue) {
+		var correctNote1 = game.add.image(60, 615, 'successNoteJ');
+		addFadetoNote(correctNote1);
+		// correctNote1.scale.setTo(0.15, 0.15);
+		// correctNote1.alpha = 0;
+		// game.add.tween(correctNote1).to( { alpha: 1 }, 200, Phaser.Easing.Linear.None, true, 0, 100, true);
+		// setTimeout(function() { correctNote1.kill(); }, 200);
+	} else if (curNote === lasersGreen) {
+		var correctNote2 = game.add.image(340, 615, 'successNoteL');
+		addFadetoNote(correctNote2);
+		// correctNote2.scale.setTo(0.15, 0.15);
+		// correctNote2.alpha = 0;
+		// game.add.tween(correctNote2).to( { alpha: 1 }, 200, Phaser.Easing.Linear.None, true, 0, 100, true);
+		// setTimeout(function() { correctNote1.kill(); }, 200);
+	} else if (curNote === lasersRed) {
+		var correctNote3 = game.add.image(225, 615, 'successNoteK');
+		addFadetoNote(correctNote3);
+		// correctNote3.scale.setTo(0.15, 0.15);
+		// correctNote3.alpha = 0;
+		// game.add.tween(correctNote3).to( { alpha: 1 }, 200, Phaser.Easing.Linear.None, true, 0, 100, true);
+		// setTimeout(function() { correctNote1.kill(); }, 200);
+	}
+}
+
 // Calculate Score
 function calScore(curNote) {
 	var didHit = false;
@@ -285,11 +323,13 @@ function calScore(curNote) {
 			playerScore += (50 * multiplier);
 			didHit = true;
 			dealWithCorrectNotes(curNote.children[i]);
+			addCorrectNoteAnimation(curNote);
 		} else if (curNote.children[i].y > GAME_HEIGHT - 100 && curNote.children[i].y < GAME_HEIGHT) {
 			console.log("curNote.children[i].y",curNote.children[i].y);
 			playerScore += (25 * multiplier);
 			didHit = true;
 			dealWithCorrectNotes(curNote.children[i]);
+			addCorrectNoteAnimation(curNote);
 		};
 	};
 	// Deal with playing the wrong note
@@ -315,29 +355,54 @@ function calScore(curNote) {
 	};
 }
 
+// function to scale the note as it moves down the page
+function scaleNote(curNote) {
+var trialNum = 0;
+	// console.log("curNote", curNote.y); (it is 761)
+	var scale = 0.05;
+	var scaleUp = setInterval(
+	  function() {
+	  	trialNum++;
+	  	if (trialNum > 1000) {
+	  		clearInterval(scaleUp);
+	  	};
+      scale += 0.002;
+	    curNote.scale.setTo(scale, scale);
+	  }, 20);
+};
+
 function fireBlueLaser() {
 	// Get the first laser that's inactive, by passing 'false' as a parameter
 	var laser = lasersRed.getFirstExists(false);
+	// scale note as it goes down the page
+	laser.scale.setTo(0.05, 0.05);
+	scaleNote(laser);
 	if (laser) {
 		// If we have a laser, set it to the starting position
-		laser.reset(225, 220);
+		laser.reset(225, 230);
 		// Give it a velocity of 500 so it starts moving
-		laser.body.velocity.y = 280;
+		laser.body.velocity.y = 300;
 	}
 }
 function fireGreenLaser() {
 	var laser = lasersBlue.getFirstExists(false);
+	laser.scale.setTo(0.05, 0.05);
+	laser.angle = 3;
+	scaleNote(laser);
 	if (laser) {
-		laser.reset(205, 220);
-		laser.body.velocity.y = 280;
+		laser.reset(205, 230);
+		laser.body.velocity.y = 300;
 		laser.body.velocity.x = -85;
 	}
 }
 function fireRedLaser() {
 	var laser = lasersGreen.getFirstExists(false);
+	laser.scale.setTo(0.05, 0.05);
+	laser.angle = -3;
+	scaleNote(laser);
 	if (laser) {
-		laser.reset(250, 220);
-		laser.body.velocity.y = 280;
+		laser.reset(250, 230);
+		laser.body.velocity.y = 300;
 		laser.body.velocity.x = 85;
 	}
 }
