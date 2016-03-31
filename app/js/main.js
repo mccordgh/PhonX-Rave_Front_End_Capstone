@@ -2,9 +2,10 @@ var GAME_WIDTH = 450;
 var GAME_HEIGHT = 700;
 // Game Variables
 var game;
-var lasersBlue;
-var lasersRed;
-var lasersGreen;
+var lasers_K_;
+var lasers_L_;
+var lasers_J_;
+var X_cord;
 var j_TouchDown = false;
 var k_TouchDown = false;
 var l_TouchDown = false;
@@ -46,9 +47,9 @@ function preload() {
 	game.load.image('laser1', dir + 'J_image.png');
 	game.load.image('laser2', dir + 'K_image.png');
 	game.load.image('laser3', dir + 'L_image.png');
-	game.load.image('successNoteJ', dir + 'fireball.png');
-	game.load.image('successNoteK', dir + 'iceball.png');
-	game.load.image('successNoteL', dir + 'iceball.png');
+	game.load.image('successNote', dir + 'fireball2.png');
+	game.load.image('successNoteK', dir + 'fireball2.png');
+	game.load.image('successNoteL', dir + 'fireball2.png');
 	game.load.image('button', './app/img/assets/start.png');
 	game.load.image('ScoreBG', './app/img/assets/ScoreBG.png');
 }
@@ -75,17 +76,17 @@ function create() {
 	scoreText = game.add.bitmapText(112, 25, 'desyrel','Phaser & Pixi \nrocking!', 44);
 	multiplierText = game.add.bitmapText(112, 75, 'desyrel','Phaser & Pixi \nrocking!', multiplierFontSize);
 	// Create the group using the group factory
-	lasersBlue = game.add.group();
-	lasersRed = game.add.group();
-	lasersGreen = game.add.group();
+	lasers_K_ = game.add.group();
+	lasers_L_ = game.add.group();
+	lasers_J_ = game.add.group();
 	// To move the sprites later on, we have to enable the body
-	lasersBlue.enableBody = true;
-	lasersRed.enableBody = true;
-	lasersGreen.enableBody = true;
+	lasers_K_.enableBody = true;
+	lasers_L_.enableBody = true;
+	lasers_J_.enableBody = true;
 	// Set the body type to the ARCADE physics, since we don't need any advanced physics
-	lasersBlue.physicsBodyType = Phaser.Physics.ARCADE;
-	lasersRed.physicsBodyType = Phaser.Physics.ARCADE;
-	lasersGreen.physicsBodyType = Phaser.Physics.ARCADE;
+	lasers_K_.physicsBodyType = Phaser.Physics.ARCADE;
+	lasers_L_.physicsBodyType = Phaser.Physics.ARCADE;
+	lasers_J_.physicsBodyType = Phaser.Physics.ARCADE;
 
 	/*
 		This will create 20 sprites and add it to the stage. They're inactive and invisible, but they're there for later use.
@@ -93,34 +94,39 @@ function create() {
 		This way we save on precious resources by not constantly adding & removing new sprites to the stage
 	*/
 
-	lasersBlue.createMultiple(90, 'laser1');
-	lasersRed.createMultiple(90, 'laser2');
-	lasersGreen.createMultiple(90, 'laser3');
-	lasersBlue.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
-	lasersRed.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
-	lasersGreen.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
+	lasers_K_.createMultiple(90, 'laser1');
+	lasers_L_.createMultiple(90, 'laser2');
+	lasers_J_.createMultiple(90, 'laser3');
+	lasers_K_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
+	lasers_L_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
+	lasers_J_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
 	// Same as above, set the anchor of every sprite to 0.5, 1.0
-	lasersBlue.callAll('anchor.setTo', 'anchor', 0.5, 1.0);
-	lasersRed.callAll('anchor.setTo', 'anchor', 0.5, 1.0);
-	lasersGreen.callAll('anchor.setTo', 'anchor', 0.5, 1.0);
+	lasers_K_.callAll('anchor.setTo', 'anchor', 0.5, 1.0);
+	lasers_L_.callAll('anchor.setTo', 'anchor', 0.5, 1.0);
+	lasers_J_.callAll('anchor.setTo', 'anchor', 0.5, 1.0);
 	// This will set 'checkWorldBounds' to true on all sprites in the group
-	lasersBlue.setAll('checkWorldBounds', true);
-	lasersRed.setAll('checkWorldBounds', true);
-	lasersGreen.setAll('checkWorldBounds', true);
+	lasers_K_.setAll('checkWorldBounds', true);
+	lasers_L_.setAll('checkWorldBounds', true);
+	lasers_J_.setAll('checkWorldBounds', true);
 
 	button = game.add.button(game.world.centerX - 190, 240, 'button', startGame, this, 2, 1, 0);
 }
 
 // Start Game
 function startGame () {
-				// 	// TEST LASERS
-				// fireBlueLaser();
-				// setTimeout(function() { fireBlueLaser(); }, 1000);
-				// setTimeout(function() { fireBlueLaser(); }, 2000);
-				// setTimeout(function() { fireBlueLaser(); }, 3000);
-				// setTimeout(function() { fireBlueLaser(); }, 4000);
-				// setTimeout(function() { fireBlueLaser(); }, 5000);
+				// TEST LASERS
+				fire_K_Laser();
+				setTimeout(function() { fire_K_Laser(); }, 1000);
+				setTimeout(function() { fire_L_Laser(); }, 2000);
+				setTimeout(function() { fire_L_Laser(); }, 3000);
+				setTimeout(function() { fire_J_Laser(); }, 4000);
+				setTimeout(function() { fire_J_Laser(); }, 5000);
+	// Remove the start button
 	button.kill();
+	// button.alpha = 1;
+	// game.add.tween(button).to( { alpha: 1 }, 400, Phaser.Easing.Linear.None, true, 0, 200, true);
+	// setTimeout(function() { button.kill(); }, 800);
+
 	// Load audio
 	audio_Bg = new Audio("./app/audio/Zionexx_Guitar_Hero.wav");
 	audio_Melody = new Audio("./app/audio/Zionexx_Guitar_Hero_Melody.wav");
@@ -160,16 +166,16 @@ function update() {
 			// Check the key that was pressed and the position of the note
 			// Calculate score with the current note
 			if (key.keyCode === 74) {
-				calScore(lasersBlue);
-				// checkWrongNote(lasersBlue);
+				calScore(lasers_K_);
+				// checkWrongNote(lasers_K_);
 			};
 			if (key.keyCode === 75) {
-				calScore(lasersRed);
-				// checkWrongNote(lasersRed);
+				calScore(lasers_L_);
+				// checkWrongNote(lasers_L_);
 			};
 			if (key.keyCode === 76) {
-				calScore(lasersGreen);
-				// checkWrongNote(lasersGreen);
+				calScore(lasers_J_);
+				// checkWrongNote(lasers_J_);
 			};
 		}
 	}
@@ -213,7 +219,7 @@ function resetLaser(laser, wrongNoteCheck) {
 	booCounter--;
 	if (booCounter === -10) {
 		// visual effects for missed notes
-		$("#game_container").addClass("missedNoteBoarder");
+		$("#game_container").addClass("MULTImissedNoteBoarder");
 		audio_boo.play();
 	};
 	// mute the applause
@@ -227,7 +233,11 @@ function resetLaser(laser, wrongNoteCheck) {
 	};
 	// Reset currentStreak
 	currentStreak = 0;
+	// Animate the page on missed and wrong notes
+	$("#game_container").addClass("missedNoteBoarder");
+	setTimeout(function() { $("#game_container").removeClass("missedNoteBoarder"); }, 50);
 
+	// Check for wrong note and not just missing a note
 	if (wrongNoteCheck !== false) {
 		// Mute song as if you weren't playing
 		mute_song();
@@ -246,7 +256,7 @@ function dealWithCorrectNotes(thisNote) {
 	// Kill the note so it doesn't go out of bounds
 	thisNote.destroy();
 	// remove missed not visual
-	$("#game_container").removeClass("missedNoteBoarder");
+	$("#game_container").removeClass("MULTImissedNoteBoarder");
 }
 
 // Calculate Multiplier
@@ -281,55 +291,46 @@ function calmultiplyer() {
 	}
 }
 
-function addFadetoNote(currFadingNote) {
-	currFadingNote.scale.setTo(0.15, 0.15);
-	currFadingNote.alpha = 0;
-	game.add.tween(currFadingNote).to( { alpha: 1 }, 200, Phaser.Easing.Linear.None, true, 0, 100, true);
-	setTimeout(function() { currFadingNote.kill(); }, 200);
-}
-function addCorrectNoteAnimation(curNote) {
-	if (curNote === lasersBlue) {
-		var correctNote1 = game.add.image(60, 615, 'successNoteJ');
-		addFadetoNote(correctNote1);
-		// correctNote1.scale.setTo(0.15, 0.15);
-		// correctNote1.alpha = 0;
-		// game.add.tween(correctNote1).to( { alpha: 1 }, 200, Phaser.Easing.Linear.None, true, 0, 100, true);
-		// setTimeout(function() { correctNote1.kill(); }, 200);
-	} else if (curNote === lasersGreen) {
-		var correctNote2 = game.add.image(340, 615, 'successNoteL');
-		addFadetoNote(correctNote2);
-		// correctNote2.scale.setTo(0.15, 0.15);
-		// correctNote2.alpha = 0;
-		// game.add.tween(correctNote2).to( { alpha: 1 }, 200, Phaser.Easing.Linear.None, true, 0, 100, true);
-		// setTimeout(function() { correctNote1.kill(); }, 200);
-	} else if (curNote === lasersRed) {
-		var correctNote3 = game.add.image(225, 615, 'successNoteK');
-		addFadetoNote(correctNote3);
-		// correctNote3.scale.setTo(0.15, 0.15);
-		// correctNote3.alpha = 0;
-		// game.add.tween(correctNote3).to( { alpha: 1 }, 200, Phaser.Easing.Linear.None, true, 0, 100, true);
-		// setTimeout(function() { correctNote1.kill(); }, 200);
-	}
+function addCorrectNoteAnimation(curNote, Xcor) {
+	// Create fireball image
+	var correctNoteFireIMG = game.add.image(X_cord, 565, 'successNote');
+	correctNoteFireIMG.scale.setTo(0.15, 0.15);
+	correctNoteFireIMG.alpha = 0;
+	game.add.tween(correctNoteFireIMG).to( { alpha: 1 }, 150, Phaser.Easing.Linear.None, true, 0, 75, true);
+	setTimeout(function() { correctNoteFireIMG.kill(); }, 300);
+	var exitNum = 0;
+	var scale = 0.15;
+	var scaleUp = setInterval(
+	  function() {
+	  	exitNum++;
+	  	if (exitNum > 1000) {
+	  		clearInterval(scaleUp);
+	  	};
+      scale += 0.005;
+	    correctNoteFireIMG.scale.setTo(scale, scale);
+	  }, 20);
 }
 
 // Calculate Score
 function calScore(curNote) {
 	var didHit = false;
-	// console.log("curNote", curNote);
 	for (var i = 0; i < curNote.children.length; i++) {
 		// Check the position of the note
 		if (curNote.children[i].y > GAME_HEIGHT - 75 && curNote.children[i].y < GAME_HEIGHT - 25) {
-			console.log("curNote.children[i].y",curNote.children[i].y);
+			// Define X_cord for the use of placing the fireball correctly
+			X_cord = curNote.children[i].x - 45;
+			// Add to score
 			playerScore += (50 * multiplier);
 			didHit = true;
+			// Fire the function to add points and add animations
 			dealWithCorrectNotes(curNote.children[i]);
-			addCorrectNoteAnimation(curNote);
+			addCorrectNoteAnimation(curNote, curNote.children[i]);
 		} else if (curNote.children[i].y > GAME_HEIGHT - 100 && curNote.children[i].y < GAME_HEIGHT) {
-			console.log("curNote.children[i].y",curNote.children[i].y);
+			X_cord = curNote.children[i].x - 45;
 			playerScore += (25 * multiplier);
 			didHit = true;
 			dealWithCorrectNotes(curNote.children[i]);
-			addCorrectNoteAnimation(curNote);
+			addCorrectNoteAnimation(curNote, X_cord);
 		};
 	};
 	// Deal with playing the wrong note
@@ -357,13 +358,12 @@ function calScore(curNote) {
 
 // function to scale the note as it moves down the page
 function scaleNote(curNote) {
-var trialNum = 0;
-	// console.log("curNote", curNote.y); (it is 761)
+	var exitNum = 0;
 	var scale = 0.05;
 	var scaleUp = setInterval(
 	  function() {
-	  	trialNum++;
-	  	if (trialNum > 1000) {
+	  	exitNum++;
+	  	if (exitNum > 1000) {
 	  		clearInterval(scaleUp);
 	  	};
       scale += 0.002;
@@ -371,21 +371,21 @@ var trialNum = 0;
 	  }, 20);
 };
 
-function fireBlueLaser() {
+function fire_K_Laser() {
 	// Get the first laser that's inactive, by passing 'false' as a parameter
-	var laser = lasersRed.getFirstExists(false);
+	var laser = lasers_L_.getFirstExists(false);
 	// scale note as it goes down the page
 	laser.scale.setTo(0.05, 0.05);
 	scaleNote(laser);
 	if (laser) {
 		// If we have a laser, set it to the starting position
-		laser.reset(225, 230);
+		laser.reset(228, 230);
 		// Give it a velocity of 500 so it starts moving
 		laser.body.velocity.y = 300;
 	}
 }
-function fireGreenLaser() {
-	var laser = lasersBlue.getFirstExists(false);
+function fire_J_Laser() {
+	var laser = lasers_K_.getFirstExists(false);
 	laser.scale.setTo(0.05, 0.05);
 	laser.angle = 3;
 	scaleNote(laser);
@@ -395,8 +395,8 @@ function fireGreenLaser() {
 		laser.body.velocity.x = -85;
 	}
 }
-function fireRedLaser() {
-	var laser = lasersGreen.getFirstExists(false);
+function fire_L_Laser() {
+	var laser = lasers_J_.getFirstExists(false);
 	laser.scale.setTo(0.05, 0.05);
 	laser.angle = -3;
 	scaleNote(laser);

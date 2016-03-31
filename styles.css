@@ -5,7 +5,7 @@ body {
   background: darkblue;
 }
 
-#trial {
+/*#trial {
   width: 1200px;
   height: 2px;
   position: fixed;
@@ -19,7 +19,7 @@ body {
   position: fixed;
   top: 680px;
   background: red;
-}
+}*/
 
 #mask{
     position:absolute; /* important */
@@ -59,6 +59,10 @@ body {
 
 .missedNoteBoarder {
   box-shadow: 0 0 80px red;
+}
+
+.MULTImissedNoteBoarder {
+  box-shadow: 0 0 180px red;
 }
 
 
