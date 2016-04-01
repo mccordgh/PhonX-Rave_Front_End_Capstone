@@ -17,6 +17,10 @@ var applauseCounter = 0;
 var booCounter = 0;
 var multiplierFontSize = 35;
 var playerScore = 0;
+var starPower = 0;
+var updated_starPowerY = 0;
+var StarBar_height;
+var isStarPowerActive = false;
 var audio_Bg;
 var audio_Melody;
 var audio_applause;
@@ -24,6 +28,8 @@ var audio_boo;
 var fadeOutCheck = false;
 var button;
 var resetLaserObject;
+var starPowerBarIMG;
+var cropDimensions;
 
 // Create a Phaser game instance
 function createGame() {
@@ -42,14 +48,14 @@ function preload() {
 	game.load.image('background', './app/img/assets/Background.png');
 	// Load text image
 	game.load.bitmapFont('desyrel', './app/img/assets/desyrel.png', './app/img/assets/desyrel.xml');
-	// Load note image
+	// Load other image
 	var dir = 'app/img/assets/';
+	game.load.image('starPowerBarIMG', './app/img/assets/star_power.png');
 	game.load.image('laser1', dir + 'J_image.png');
 	game.load.image('laser2', dir + 'K_image.png');
 	game.load.image('laser3', dir + 'L_image.png');
+	game.load.image('StarPowerLightning', './app/img/lightning4.png');
 	game.load.image('successNote', dir + 'fireball2.png');
-	game.load.image('successNoteK', dir + 'fireball2.png');
-	game.load.image('successNoteL', dir + 'fireball2.png');
 	game.load.image('button', './app/img/assets/start.png');
 	game.load.image('ScoreBG', './app/img/assets/ScoreBG.png');
 }
@@ -58,7 +64,7 @@ var multiplierText;
 
 function init() {
 	// Listen to space & enter keys
-	var keys = [Phaser.KeyCode.J, Phaser.KeyCode.K, Phaser.KeyCode.L];
+	var keys = [Phaser.KeyCode.J, Phaser.KeyCode.K, Phaser.KeyCode.L, Phaser.KeyCode.SPACEBAR];
 	// Create Phaser.Key objects for listening to the state
 	phaserKeys = game.input.keyboard.addKeys(keys);
 	// Capture these keys to stop the browser from receiving this event
@@ -68,7 +74,13 @@ function init() {
 // Assets are available in create
 function create() {
 
+	// Create the variable for the height of the image
+	StarBar_height = game.cache.getImage("starPowerBarIMG").height;
+	// Create the background
 	game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
+	// Add the star power bar
+	starPowerBarIMG = this.game.add.sprite(50,380,'starPowerBarIMG');
+	starPowerBarIMG.cropEnabled = true;
 	// Image for the score to sit on top of
 	var ScoreBG = game.add.image(-110, -5, 'ScoreBG');
 	ScoreBG.scale.setTo(1.3,1.3);
@@ -112,6 +124,8 @@ function create() {
 	button = game.add.button(game.world.centerX - 190, 240, 'button', startGame, this, 2, 1, 0);
 }
 
+
+
 // Start Game
 function startGame () {
 				// TEST LASERS
@@ -123,9 +137,21 @@ function startGame () {
 				setTimeout(function() { fire_J_Laser(); }, 5000);
 	// Remove the start button
 	button.kill();
-	// button.alpha = 1;
-	// game.add.tween(button).to( { alpha: 1 }, 400, Phaser.Easing.Linear.None, true, 0, 200, true);
-	// setTimeout(function() { button.kill(); }, 800);
+
+	// correctNoteFireIMG.alpha = 0;
+	// game.add.tween(correctNoteFireIMG).to( { alpha: 1 }, 150, Phaser.Easing.Linear.None, true, 0, 75, true);
+	// setTimeout(function() { button.kill(); }, 300);
+	// var exitNum = 0;
+	// var scale = 0.15;
+	// var scaleUp = setInterval(
+	//   function() {
+	//   	exitNum++;
+	//   	if (exitNum > 1000) {
+	//   		clearInterval(scaleUp);
+	//   	};
+ //      scale += 0.005;
+	//     correctNoteFireIMG.scale.setTo(scale, scale);
+	//   }, 20);
 
 	// Load audio
 	audio_Bg = new Audio("./app/audio/Zionexx_Guitar_Hero.wav");
@@ -154,6 +180,8 @@ function startGame () {
 
 // Update
 function update() {
+
+	cropDimensions = new Phaser.Rectangle(0, 0, 200, starPower);
 	// Update the score based on the users points
 	scoreText.setText('Score:' + playerScore);
 	multiplierText.setText('Multiplier: X' + multiplier);
@@ -165,20 +193,26 @@ function update() {
 		if (key.justDown) {
 			// Check the key that was pressed and the position of the note
 			// Calculate score with the current note
+			if (key.keyCode === 32) {
+				// Star Power activator
+				activateStarPower();
+			};
 			if (key.keyCode === 74) {
+				console.log("k");
 				calScore(lasers_K_);
-				// checkWrongNote(lasers_K_);
 			};
 			if (key.keyCode === 75) {
+				console.log("l");
 				calScore(lasers_L_);
-				// checkWrongNote(lasers_L_);
 			};
 			if (key.keyCode === 76) {
+				console.log("j");
 				calScore(lasers_J_);
-				// checkWrongNote(lasers_J_);
 			};
 		}
 	}
+	// Update the Star Power Background
+	starPowerBarIMG.crop(cropDimensions);
 }
 
 // Mute audio on missed notes
@@ -246,7 +280,32 @@ function resetLaser(laser, wrongNoteCheck) {
 	};
 }
 
+function activateStarPower() {
+	if (starPower === 300) {
+		// Add border visual
+		$("#game_container").addClass("star_power");
+		// Disable Star Power after 10 seconds
+		setTimeout(function() {
+			isStarPowerActive = false;
+			$("#game_container").removeClass("star_power");
+		}, 10000);
+		isStarPowerActive = true;
+		// Diminish star power over time
+		var diminishStarpower = setInterval(
+  	// lower the star power until it reaches 0, then clear the interval
+	  function() {
+	    if (starPower > 0) {
+	    	starPower -= 1;
+	    	console.log("starPower", starPower);
+	    } else {
+		    clearInterval(diminishStarpower);
+	    }
+	  }, 34);
+	};
+}
+
 function dealWithCorrectNotes(thisNote) {
+	// Correct notes don't deserve boo's
 	booCounter = 0;
 	calmultiplyer();
 	// Add to currentStreak
@@ -259,7 +318,7 @@ function dealWithCorrectNotes(thisNote) {
 	$("#game_container").removeClass("MULTImissedNoteBoarder");
 }
 
-// Calculate Multiplier
+// Calculate Multiplier and check Star Power
 function calmultiplyer() {
 	switch (true) {
 		case (currentStreak < 10):
@@ -288,6 +347,37 @@ function calmultiplyer() {
 				audio_applause.play();
 			};
 			break;
+	}
+	// console.log("starPowerBarIMG.height-starPower", starPowerBarIMG.height-starPower);
+	// Check for starPower
+	if (isStarPowerActive === false) {
+		// Add to starPower, don't allow it to go over 100.
+		starPower += multiplier;
+		if (starPower > 300) {
+			starPower = 300;
+		}
+	} else {
+		// The player is utilizing StarPower, add the multiplier
+		multiplier = multiplier * 2;
+		// Reset the Star Power counter
+		// starPower = 0;
+		// Add the lightning image and add animation
+		var lightningIMG = game.add.image(X_cord-80, 470, 'StarPowerLightning');
+		lightningIMG.scale.setTo(0.6, 0.6);
+		lightningIMG.alpha = 0;
+		game.add.tween(lightningIMG).to( { alpha: 1 }, 150, Phaser.Easing.Linear.None, true, 0, 75, true);
+		setTimeout(function() { lightningIMG.kill(); }, 300);
+		var exitNum = 0;
+		var scale = 0.6;
+		var scaleUp = setInterval(
+		  function() {
+		  	exitNum++;
+		  	if (exitNum > 1000) {
+		  		clearInterval(scaleUp);
+		  	};
+	      scale += 0.005;
+		    lightningIMG.scale.setTo(scale, scale);
+		  }, 20);
 	}
 }
 
@@ -352,7 +442,6 @@ function calScore(curNote) {
 				break;
 		};
 		resetLaser(curNote, false);
-		console.log("you played the wrong note");
 	};
 }
 
