@@ -21,6 +21,7 @@ var starPower = 0;
 var updated_starPowerY = 0;
 var StarBar_height;
 var isStarPowerActive = false;
+var starBarFull = false;
 var audio_Bg;
 var audio_Melody;
 var audio_applause;
@@ -29,6 +30,7 @@ var fadeOutCheck = false;
 var button;
 var resetLaserObject;
 var starPowerBarIMG;
+var starPowerBarMeterIMG;
 var cropDimensions;
 
 // Create a Phaser game instance
@@ -51,6 +53,7 @@ function preload() {
 	// Load other image
 	var dir = 'app/img/assets/';
 	game.load.image('starPowerBarIMG', './app/img/assets/star_power.png');
+	game.load.image('starPowerBarMeterIMG', './app/img/assets/StarBarMeter.png');
 	game.load.image('laser1', dir + 'J_image.png');
 	game.load.image('laser2', dir + 'K_image.png');
 	game.load.image('laser3', dir + 'L_image.png');
@@ -79,7 +82,8 @@ function create() {
 	// Create the background
 	game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
 	// Add the star power bar
-	starPowerBarIMG = this.game.add.sprite(50,380,'starPowerBarIMG');
+	starPowerBarMeterIMG = this.game.add.sprite(43,264,'starPowerBarMeterIMG');
+	starPowerBarIMG = this.game.add.sprite(50,280,'starPowerBarIMG');
 	starPowerBarIMG.cropEnabled = true;
 	// Image for the score to sit on top of
 	var ScoreBG = game.add.image(-110, -5, 'ScoreBG');
@@ -128,30 +132,34 @@ function create() {
 
 // Start Game
 function startGame () {
-				// TEST LASERS
-				fire_K_Laser();
-				setTimeout(function() { fire_K_Laser(); }, 1000);
-				setTimeout(function() { fire_L_Laser(); }, 2000);
-				setTimeout(function() { fire_L_Laser(); }, 3000);
-				setTimeout(function() { fire_J_Laser(); }, 4000);
-				setTimeout(function() { fire_J_Laser(); }, 5000);
+				// // TEST LASERS
+				// fire_K_Laser();
+				// setTimeout(function() { fire_K_Laser(); }, 1000);
+				// setTimeout(function() { fire_L_Laser(); }, 2000);
+				// setTimeout(function() { fire_L_Laser(); }, 3000);
+				// setTimeout(function() { fire_J_Laser(); }, 4000);
+				// setTimeout(function() { fire_J_Laser(); }, 5000);
 	// Remove the start button
 	button.kill();
-
-	// correctNoteFireIMG.alpha = 0;
-	// game.add.tween(correctNoteFireIMG).to( { alpha: 1 }, 150, Phaser.Easing.Linear.None, true, 0, 75, true);
-	// setTimeout(function() { button.kill(); }, 300);
-	// var exitNum = 0;
-	// var scale = 0.15;
-	// var scaleUp = setInterval(
-	//   function() {
-	//   	exitNum++;
-	//   	if (exitNum > 1000) {
-	//   		clearInterval(scaleUp);
-	//   	};
- //      scale += 0.005;
-	//     correctNoteFireIMG.scale.setTo(scale, scale);
-	//   }, 20);
+	// Animate a new image of the star button
+	var StartFadeOutIMG = game.add.image(50, 240, 'button');
+	StartFadeOutIMG.scale.setTo(1, 1);
+	StartFadeOutIMG.alpha = 0;
+	game.add.tween(StartFadeOutIMG).to( { alpha: 1 }, 150, Phaser.Easing.Linear.None, true, 0, 75, true);
+	setTimeout(function() { StartFadeOutIMG.kill(); }, 300);
+	var exitNum = 0;
+	var scale = 1;
+	var scaleUp = setInterval(
+	  function() {
+	  	exitNum++;
+	  	if (exitNum > 1000) {
+	  		clearInterval(scaleUp);
+	  	};
+      scale += 0.05;
+	    StartFadeOutIMG.scale.setTo(scale, scale);
+	    StartFadeOutIMG.x -= 10;
+	    StartFadeOutIMG.y -= 5;
+	  }, 20);
 
 	// Load audio
 	audio_Bg = new Audio("./app/audio/Zionexx_Guitar_Hero.wav");
@@ -178,10 +186,9 @@ function startGame () {
 	fireSong();
 }
 
-// Update
+// Update run multiple times a second
 function update() {
 
-	cropDimensions = new Phaser.Rectangle(0, 0, 200, starPower);
 	// Update the score based on the users points
 	scoreText.setText('Score:' + playerScore);
 	multiplierText.setText('Multiplier: X' + multiplier);
@@ -198,20 +205,34 @@ function update() {
 				activateStarPower();
 			};
 			if (key.keyCode === 74) {
-				console.log("k");
 				calScore(lasers_K_);
 			};
 			if (key.keyCode === 75) {
-				console.log("l");
 				calScore(lasers_L_);
 			};
 			if (key.keyCode === 76) {
-				console.log("j");
 				calScore(lasers_J_);
 			};
 		}
 	}
-	// Update the Star Power Background
+	// Create a random number to utilize for shake animation
+	var shakeNum = Math.floor(Math.random() * (4 - 0 + 1)) + 0;
+	// Check to see if star power is full
+	if (starPower === 300) {
+		// animate the star bar by randomizing the x and y coordinates
+		starPowerBarIMG.x = 48 + shakeNum;
+		starPowerBarIMG.y = 280 + shakeNum;
+		starPowerBarMeterIMG.x = 43 + shakeNum;
+		starPowerBarMeterIMG.y = 264 + shakeNum;
+	} else {
+		// Keep the image in the correct place if the bar isn't full
+		starPowerBarIMG.x = 50;
+		starPowerBarIMG.y = 280;
+		starPowerBarMeterIMG.x = 43;
+		starPowerBarMeterIMG.y = 264;
+	}
+	// Update the Star Power Background with the updated crop amount
+	cropDimensions = new Phaser.Rectangle(0, 0, 200, starPower);
 	starPowerBarIMG.crop(cropDimensions);
 }
 
@@ -238,7 +259,6 @@ function audioFadeOut(currSong) {
 		    currSong.pause();
 		    currSong.currentTime = 0;
 		    currSong.volume = vol;
-		    console.log("go");
 		    clearInterval(fadeout);
 		    fadeOutCheck = false;
 	    }
@@ -284,10 +304,16 @@ function activateStarPower() {
 	if (starPower === 300) {
 		// Add border visual
 		$("#game_container").addClass("star_power");
+		// Add applause if it isn't already going
+		if (audio_applause.paused) {
+			audio_applause.play();
+		};
 		// Disable Star Power after 10 seconds
 		setTimeout(function() {
 			isStarPowerActive = false;
 			$("#game_container").removeClass("star_power");
+			// Ensure that starPower is reset
+			starPower = 0 ;
 		}, 10000);
 		isStarPowerActive = true;
 		// Diminish star power over time
@@ -296,7 +322,6 @@ function activateStarPower() {
 	  function() {
 	    if (starPower > 0) {
 	    	starPower -= 1;
-	    	console.log("starPower", starPower);
 	    } else {
 		    clearInterval(diminishStarpower);
 	    }
@@ -348,19 +373,18 @@ function calmultiplyer() {
 			};
 			break;
 	}
-	// console.log("starPowerBarIMG.height-starPower", starPowerBarIMG.height-starPower);
 	// Check for starPower
 	if (isStarPowerActive === false) {
 		// Add to starPower, don't allow it to go over 100.
 		starPower += multiplier;
 		if (starPower > 300) {
 			starPower = 300;
+			// Animation to indicate that StarPower is available
+			starBarFull = true;
 		}
 	} else {
 		// The player is utilizing StarPower, add the multiplier
 		multiplier = multiplier * 2;
-		// Reset the Star Power counter
-		// starPower = 0;
 		// Add the lightning image and add animation
 		var lightningIMG = game.add.image(X_cord-80, 470, 'StarPowerLightning');
 		lightningIMG.scale.setTo(0.6, 0.6);
@@ -470,7 +494,7 @@ function fire_K_Laser() {
 		// If we have a laser, set it to the starting position
 		laser.reset(228, 230);
 		// Give it a velocity of 500 so it starts moving
-		laser.body.velocity.y = 300;
+		laser.body.velocity.y = 280;
 	}
 }
 function fire_J_Laser() {
@@ -480,8 +504,8 @@ function fire_J_Laser() {
 	scaleNote(laser);
 	if (laser) {
 		laser.reset(205, 230);
-		laser.body.velocity.y = 300;
-		laser.body.velocity.x = -85;
+		laser.body.velocity.y = 280;
+		laser.body.velocity.x = -75;
 	}
 }
 function fire_L_Laser() {
@@ -491,8 +515,8 @@ function fire_L_Laser() {
 	scaleNote(laser);
 	if (laser) {
 		laser.reset(250, 230);
-		laser.body.velocity.y = 300;
-		laser.body.velocity.x = 85;
+		laser.body.velocity.y = 280;
+		laser.body.velocity.x = 75;
 	}
 }
 
