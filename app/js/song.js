@@ -181,11 +181,11 @@ var fireSong = function() {
     setTimeout(function() { fire_dblbeats(dblbeat_3, 1); }, 4000);
 
     // Continue to the second phrase
-    setTimeout(function() { fire_K_Laser(); }, 5000);
-    setTimeout(function() { fire_J_Laser(); }, 5250);
-    setTimeout(function() { fire_L_Laser(); }, 5500);
-    setTimeout(function() { fire_K_Laser(); }, 5750);
-    setTimeout(function() { fire_L_Laser(); }, 6000);
+    setTimeout(function() { fire_K_Laser(); }, 6000);
+    setTimeout(function() { fire_J_Laser(); }, 6250);
+    setTimeout(function() { fire_L_Laser(); }, 6500);
+    setTimeout(function() { fire_K_Laser(); }, 6750);
+    setTimeout(function() { fire_L_Laser(); }, 7000);
 
     if (lastPhrase === 1) {
       setTimeout(function() { fire_K_Laser(); }, 6000);
@@ -193,6 +193,9 @@ var fireSong = function() {
       setTimeout(function() { fire_L_Laser(); }, 6500);
       setTimeout(function() { fire_K_Laser(); }, 6750);
       setTimeout(function() { fire_L_Laser(); }, 7000);
+      setTimeout(function() { fire_J_Laser(); }, 6250);
+      setTimeout(function() { fire_L_Laser(); }, 6500);
+      setTimeout(function() { fire_K_Laser(); }, 6750);
     };
     lastPhrase++;
   }

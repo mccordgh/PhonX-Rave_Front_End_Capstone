@@ -5,6 +5,10 @@ body {
   background-width: 40px;
 }
 
+.newBackDrop {
+  background-image: url("./app/img/assets/PhonX Collage.png");
+}
+
 .col {
   /*background-image: url("./app/img/assets/PhonX Collage.png");*/
   border-radius: 30px;
@@ -75,6 +79,21 @@ body {
 
 .star_power {
   box-shadow: 0 0 180px gold;
+}
+.star_power1 {
+  box-shadow: 0 0 180px pink;
+}
+.star_power2 {
+  box-shadow: 0 0 180px orange;
+}
+.star_power3 {
+  box-shadow: 0 0 180px purple;
+}
+.star_power4 {
+  box-shadow: 0 0 180px limegreen;
+}
+.star_power5 {
+  box-shadow: 0 0 180px lightblue;
 }
 
 
