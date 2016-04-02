@@ -120,9 +120,11 @@ var fireSong = function() {
 
 ////////////////////////////////////////////////////////////////////////
     setTimeout(function() { fire_J_Laser(); }, 8000);
-    setTimeout(function() { fire_J_Laser(); }, 8500);
+    setTimeout(function() { fire_K_Laser(); }, 8500);
+    setTimeout(function() { fire_L_Laser(); }, 8500);
     setTimeout(function() { fire_J_Laser(); }, 9000);
-    setTimeout(function() { fire_J_Laser(); }, 9500);
+    setTimeout(function() { fire_K_Laser(); }, 9500);
+    setTimeout(function() { fire_L_Laser(); }, 9500);
 ////////////////////////////////////////////////////////////////////////
 
     setTimeout(function() { fire_J_Laser(); }, 10000);
@@ -139,6 +141,16 @@ var fireSong = function() {
 
 
     // Drop.c
+    function drop_c() {
+      setTimeout(function() { fire_L_Laser(); }, 000);
+      setTimeout(function() { fire_J_Laser(); }, 500);
+      setTimeout(function() { fire_J_Laser(); }, 750);
+      setTimeout(function() { fire_K_Laser(); }, 1000);
+      setTimeout(function() { fire_K_Laser(); }, 1167);
+      setTimeout(function() { fire_K_Laser(); }, 1333);
+      setTimeout(function() { fire_J_Laser(); }, 1500);
+    };
+    setTimeout(function() {  drop_c(); }, 12000);
 
   }
 
@@ -148,7 +160,6 @@ var fireSong = function() {
 
   // OUTRO
   function outro() {
-    var lastPhrase;
     function dblbeat_1() {
       setTimeout(function() { fire_J_Laser(); }, 00);
       setTimeout(function() { fire_K_Laser(); }, 125);
@@ -187,17 +198,6 @@ var fireSong = function() {
     setTimeout(function() { fire_K_Laser(); }, 6750);
     setTimeout(function() { fire_L_Laser(); }, 7000);
 
-    if (lastPhrase === 1) {
-      setTimeout(function() { fire_K_Laser(); }, 6000);
-      setTimeout(function() { fire_J_Laser(); }, 6250);
-      setTimeout(function() { fire_L_Laser(); }, 6500);
-      setTimeout(function() { fire_K_Laser(); }, 6750);
-      setTimeout(function() { fire_L_Laser(); }, 7000);
-      setTimeout(function() { fire_J_Laser(); }, 6250);
-      setTimeout(function() { fire_L_Laser(); }, 6500);
-      setTimeout(function() { fire_K_Laser(); }, 6750);
-    };
-    lastPhrase++;
   }
   setTimeout(function() { outro(); }, 63000);
   setTimeout(function() { outro(); }, 71000);

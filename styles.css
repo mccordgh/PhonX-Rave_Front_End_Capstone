@@ -1,12 +1,12 @@
 body {
-  background-image: url("./app/img/assets/PhonX.jpg");
+  background-image: url("./app/img/assets/PhonX Collage.png");
   /*background-repeat: no-repeat;*/
   /*background-attachment: fixed;*/
   background-width: 40px;
 }
 
 .newBackDrop {
-  background-image: url("./app/img/assets/PhonX Collage.png");
+  background-image: url("./app/img/assets/PhonX.jpg");
 }
 
 .col {

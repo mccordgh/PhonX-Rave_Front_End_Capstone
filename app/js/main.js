@@ -1,3 +1,43 @@
+var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+var gainNode = audioContext.createGain();
+
+// 1) Setup your audio context (once) and extend with Reverb.js.
+reverbjs.extend(audioContext);
+
+// 2) Load the impulse response; upon load, connect it to the audio output.
+var reverbUrl = "http://reverbjs.org/Library/ArbroathAbbeySacristy.m4a";
+// var myAudio = $('audio');
+var reverbNode = audioContext.createReverbFromUrl(reverbUrl, function() {
+  reverbNode.connect(audioContext.destination);
+});
+
+// 3) Load a test sound; upon load, connect it to the reverb node.
+var sourceUrl = "./app/audio/Zionexx_Guitar_Hero.wav";
+var sourceNode_Reverb = audioContext.createSourceFromUrl(sourceUrl, function() {
+  
+});
+
+setTimeout(function() { sourceNode_Reverb.connect(reverbNode) }, 3000);
+reverbNode.connect(gainNode);
+
+gainNode.connect(audioContext.destination);
+
+console.log("gainNode", gainNode);
+
+sourceNode_Reverb.start()
+gainNode.gain.value = 0;
+
+gainNode.disconnect(audioContext.destination);
+
+
+setTimeout(function() { console.log("sourceNode_Reverb", sourceNode_Reverb); }, 3000);
+
+
+
+
+
+
+
 var GAME_WIDTH = 450;
 var GAME_HEIGHT = 700;
 // Game Variables
@@ -18,7 +58,6 @@ var booCounter = 0;
 var multiplierFontSize = 35;
 var playerScore = 0;
 var starPower = 0;
-var updated_starPowerY = 0;
 var StarBar_height;
 var isStarPowerActive = false;
 var starBarFull = false;
@@ -113,11 +152,11 @@ function create() {
 	lasers_L_.physicsBodyType = Phaser.Physics.ARCADE;
 	lasers_J_.physicsBodyType = Phaser.Physics.ARCADE;
 
-	// This will create 90 sprites and add it to the stage. They're inactive and invisible, but they're there for later use.
-	// We only have 90 lasers available, and will 'clean' and reset they're off the screen.
-	lasers_K_.createMultiple(90, 'laser1');
-	lasers_L_.createMultiple(90, 'laser2');
-	lasers_J_.createMultiple(90, 'laser3');
+	// This will create 100 sprites and add it to the stage. They're inactive and invisible, but they're there for later use.
+	// We only have 100 lasers available, and will 'clean' and reset they're off the screen.
+	lasers_K_.createMultiple(100, 'laser1');
+	lasers_L_.createMultiple(100, 'laser2');
+	lasers_J_.createMultiple(100, 'laser3');
 	lasers_K_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
 	lasers_L_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
 	lasers_J_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
@@ -317,43 +356,6 @@ function resetLaser(laser, wrongNoteCheck) {
 }
 
 function activateStarPowerBorder() {
-	var audioCtx = new AudioContext();
-	var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	var counter = 0;
 	var changeBoarder = setInterval(
 	  function() {
@@ -371,7 +373,7 @@ function activateStarPowerBorder() {
 				setTimeout(function() { $("#game_container").addClass("star_power4"); }, 400);
 				setTimeout(function() { $("#game_container").removeClass("star_power4"); }, 500);
 				setTimeout(function() { $("#game_container").addClass("star_power5"); }, 500);
-				setTimeout(function() { $("#game_container").removeClass("star_power5"); }, 550);
+				setTimeout(function() { $("#game_container").removeClass("star_power5"); }, 600);
 	    } else {
 		    clearInterval(changeBoarder);
 	    }
@@ -582,7 +584,7 @@ function fire_J_Laser() {
 	if (laser) {
 		laser.reset(205, 230);
 		laser.body.velocity.y = 290;
-		laser.body.velocity.x = -75;
+		laser.body.velocity.x = -80;
 	}
 }
 function fire_L_Laser() {
@@ -593,7 +595,7 @@ function fire_L_Laser() {
 	if (laser) {
 		laser.reset(250, 230);
 		laser.body.velocity.y = 290;
-		laser.body.velocity.x = 75;
+		laser.body.velocity.x = 80;
 	}
 }
 
