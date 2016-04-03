@@ -30,8 +30,8 @@ function startGame () {
 	  }, 20);
 
 	// Load audio
-	audio_Bg = new Audio("./app/audio/Zionexx_Guitar_Hero.wav");
-	audio_Melody = new Audio("./app/audio/Zionexx_Guitar_Hero_Melody.wav");
+	// audio_Bg = new Audio("./app/audio/Zionexx_Guitar_Hero.wav");
+	// audio_Melody = new Audio("./app/audio/Zionexx_Guitar_Hero_Melody.wav");
 	audio_Wrong_Note1 = new Audio("./app/audio/missedNotes/Missed_Note1.wav");
 	audio_Wrong_Note2 = new Audio("./app/audio/missedNotes/Missed_Note2.wav");
 	audio_Wrong_Note3 = new Audio("./app/audio/missedNotes/Missed_Note3.wav");
@@ -44,18 +44,18 @@ function startGame () {
 	audio_Wrong_Note4.volume = 0.25;
 	audio_applause.volume = 0.6;
 	// Play audio
-	audio_Melody.oncanplaythrough = function(){
-		setTimeout(function() {
-			// Play main audio
-			audio_Bg.play();
-			audio_Melody.play();
-			// Play currently muted reverb track
-			gainNode1.gain.value = 0;
-			gainNode2.gain.value = 0;
-			reverb_audio_Melody.play();
-  		reverb_audio_BG.play();
-		}, 325);
-	}
+
+	setTimeout(function() {
+		// Play main audio
+		audio_Bg.play();
+		audio_Melody.play();
+		// Play currently muted reverb track
+		gainNode1.gain.value = 1;
+		gainNode2.gain.value = 1;
+		// reverb_audio_Melody.play();
+		// reverb_audio_BG.play();
+	}, 425);
+
 	// Launch Notes
 	fireSong();
 }
@@ -190,42 +190,78 @@ function activateStarPowerBorder() {
 	var counter = 0;
 	var changeBoarder = setInterval(
 	  function() {
-	    if (counter < 17) {
+	    if (counter < 20) {
 	    	counter += 1;
 	    	// Add and rotate borders here
 				$("#game_container").addClass("star_power");
 				setTimeout(function() { $("#game_container").removeClass("star_power"); }, 100);
 				setTimeout(function() { $("#game_container").addClass("star_power1"); }, 100);
 				setTimeout(function() { $("#game_container").removeClass("star_power1"); }, 200);
-				setTimeout(function() { $("#game_container").addClass("star_power2"); }, 200);
-				setTimeout(function() { $("#game_container").removeClass("star_power2"); }, 300);
-				setTimeout(function() { $("#game_container").addClass("star_power3"); }, 300);
-				setTimeout(function() { $("#game_container").removeClass("star_power3"); }, 400);
-				setTimeout(function() { $("#game_container").addClass("star_power4"); }, 400);
-				setTimeout(function() { $("#game_container").removeClass("star_power4"); }, 500);
-				setTimeout(function() { $("#game_container").addClass("star_power5"); }, 500);
-				setTimeout(function() { $("#game_container").removeClass("star_power5"); }, 600);
+				// setTimeout(function() { $("#game_container").addClass("star_power2"); }, 200);
+				// setTimeout(function() { $("#game_container").removeClass("star_power2"); }, 300);
+				setTimeout(function() { $("#game_container").addClass("star_power3"); }, 200);
+				setTimeout(function() { $("#game_container").removeClass("star_power3"); }, 300);
+				setTimeout(function() { $("#game_container").addClass("star_power4"); }, 300);
+				setTimeout(function() { $("#game_container").removeClass("star_power4"); }, 400);
+				setTimeout(function() { $("#game_container").addClass("star_power5"); }, 400);
+				setTimeout(function() { $("#game_container").removeClass("star_power5"); }, 500);
 	    } else {
 		    clearInterval(changeBoarder);
 	    }
-	  }, 600);
+	  }, 500);
 }
-function starPowerReverb() {
-	// Bring up the volume of the reverbed file
-	var gain = 0;
-	var fadeIN = setInterval(
+
+
+
+
+function starPowerLowPassFilter() {
+	// Set values to use for the q value and frequency cutoff
+	var Q_value = 0;
+	var frequency = 20000;
+	var newDivider = 10000;
+	// function to lower the frequency cutoff
+	var lowPass_Down = setInterval(
 	  function() {
-      gain += 0.01;
-	    if (gain < .27) {
-				gainNode1.gain.value = gain;
-				gainNode2.gain.value = gain;
+	  	Q_value += 0.4;
+      frequency = newDivider;
+	  	newDivider /= 1.1;
+	    if (frequency > 500) {
+	    	filter.Q.value = Q_value;
+	    	filter.frequency.value = frequency;
+	    	// console.log("frequency", frequency);
+	    	// console.log("Q_value", Q_value);
 	    } else {
-	    	clearInterval(fadeIN);
-	    	gainNode1.gain.value = 0;
-				gainNode2.gain.value = 0;
+	    	Q_value = 0;
+	    	clearInterval(lowPass_Down);
+	    	// setTimeout(function() { filter.frequency.value = 20000; }, 1500);
 	    }
-	  }, 200);
+	  }, 10);
+
+	function lowPass_Up_Call () {
+		console.log("gogogogo");
+		// function to raise the frequency cutoff
+		var lowPass_Up = setInterval(
+		  function() {
+		  	Q_value += 0.4;
+	      frequency = newDivider;
+		  	newDivider *= 1.1;
+		    if (frequency < 10000) {
+		    	filter.Q.value = Q_value;
+		    	filter.frequency.value = frequency;
+		    	console.log("frequency", frequency);
+		    	console.log("Q_value", Q_value);
+		    } else {
+		    	Q_value = 0;
+		    	clearInterval(lowPass_Up);
+		    }
+		  }, 10);
+	}
+	setTimeout(function() { lowPass_Up_Call(); }, 1000);
 }
+
+
+
+
 // Functions to animate the lightning strikes
 function lightning_Stutter(currentLightningIMG, x, y) {
   var StarPowerBorderLightning = this.game.add.sprite(x,y,currentLightningIMG);
@@ -257,8 +293,9 @@ function activateStarPower() {
 		activateStarPowerBorder();
 		// Add lightning effects
 		activateStarPowerLightning();
-		// Add reverb
-		setTimeout(function() { starPowerReverb(); }, 4000);
+		setTimeout(function() { activateStarPowerLightning(); }, 5000);
+		// Add Low Pass Filter
+		setTimeout(function() { starPowerLowPassFilter(); }, 9100);
 		// Add applause if it isn't already going
 		if (audio_applause.paused) {
 			audio_applause.play();
