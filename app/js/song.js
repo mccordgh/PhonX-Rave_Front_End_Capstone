@@ -199,6 +199,13 @@ var fireSong = function() {
     setTimeout(function() { fire_L_Laser(); }, 7000);
 
   }
+  // Final 2 beats of the song
+  setTimeout(function() { fire_J_Laser(); }, 78250);
+  setTimeout(function() { fire_K_Laser(); }, 78500);
+  setTimeout(function() { fire_J_Laser(); }, 78750);
+  setTimeout(function() { fire_L_Laser(); }, 79000);
+
+  // Fire the outro twice
   setTimeout(function() { outro(); }, 63000);
   setTimeout(function() { outro(); }, 71000);
 

@@ -1,37 +1,29 @@
-var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-var gainNode = audioContext.createGain();
-
-// 1) Setup your audio context (once) and extend with Reverb.js.
-reverbjs.extend(audioContext);
-
-// 2) Load the impulse response; upon load, connect it to the audio output.
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+var myAudio = document.querySelector('audio');
+// Create a MediaElementAudioSourceNode
+// Feed the HTMLMediaElement into it
+var source = audioCtx.createMediaElementSource(myAudio);
+// Create a gain node
+var gainNode = audioCtx.createGain();
+gainNode.gain.value = 1;
+// Connect the AudioBufferSourceNode to the gainNode and the gainNode to the destination, so we can play the music and adjust the volume using the mouse cursor
+source.connect(gainNode);
+// I think this is accessing the library of reverb ??????????????????????
+reverbjs.extend(audioCtx);
+// Load the impulse response; upon load, connect it to the audio output.
 var reverbUrl = "http://reverbjs.org/Library/ArbroathAbbeySacristy.m4a";
-// var myAudio = $('audio');
-var reverbNode = audioContext.createReverbFromUrl(reverbUrl, function() {
-  reverbNode.connect(audioContext.destination);
+var reverbNode = audioCtx.createReverbFromUrl(reverbUrl, function() {
+  reverbNode.connect(audioCtx.destination);
 });
 
-// 3) Load a test sound; upon load, connect it to the reverb node.
-var sourceUrl = "./app/audio/Zionexx_Guitar_Hero.wav";
-var sourceNode_Reverb = audioContext.createSourceFromUrl(sourceUrl, function() {
-  
-});
 
-setTimeout(function() { sourceNode_Reverb.connect(reverbNode) }, 3000);
-reverbNode.connect(gainNode);
 
-gainNode.connect(audioContext.destination);
+gainNode.connect(reverbNode)
 
-console.log("gainNode", gainNode);
-
-sourceNode_Reverb.start()
+$("#fuckya").click(function(){
 gainNode.gain.value = 0;
-
-gainNode.disconnect(audioContext.destination);
-
-
-setTimeout(function() { console.log("sourceNode_Reverb", sourceNode_Reverb); }, 3000);
-
+})
+// reverbNode.connect(audioCtx.destination);
 
 
 
@@ -57,10 +49,6 @@ var applauseCounter = 0;
 var booCounter = 0;
 var multiplierFontSize = 35;
 var playerScore = 0;
-var starPower = 0;
-var StarBar_height;
-var isStarPowerActive = false;
-var starBarFull = false;
 var audio_Bg;
 var audio_Melody;
 var audio_applause;
@@ -69,6 +57,10 @@ var fadeOutCheck = false;
 var button;
 var resetLaserObject;
 var cropDimensions;
+var starPower = 0;
+var StarBar_height;
+var isStarPowerActive = false;
+var starBarFull = false;
 var starPowerCroppedY;
 var starPowerBarIMG;
 var starPowerBarMeterIMG;
@@ -93,8 +85,8 @@ function preload() {
 	game.load.bitmapFont('desyrel', './app/img/assets/desyrel.png', './app/img/assets/desyrel.xml');
 	// Load other image
 	var dir = 'app/img/assets/';
-	game.load.image('starPowerBarIMG', dir + 'star_power.png');
-	game.load.image('starPowerBarMeterIMG', dir + 'StarBarMeter2.png');
+	game.load.image('starPowerBarIMG', dir + 'StarBarMeter2_crop.png');
+	game.load.image('starPowerBarMeterIMG', dir + 'NewStarBar.png');
 	game.load.image('laser1', dir + 'J_image.png');
 	game.load.image('laser2', dir + 'K_image.png');
 	game.load.image('laser3', dir + 'L_image.png');
@@ -124,6 +116,7 @@ function create() {
 	$('body').addClass('newBackDrop')
 	// Create the variable for the height of the image
 	StarBar_height = game.cache.getImage("starPowerBarIMG").height;
+	cropDimensions = new Phaser.Rectangle(0, 0, 160, 160); //(starPower/2)
 	// Create the background
 	game.add.image(game.world.centerX, game.world.centerY, 'background').anchor.set(0.5);
 	// Add the star power bar
@@ -272,7 +265,7 @@ function update() {
 	if (starPower === 300) {
 		// animate the star bar by randomizing the x and y coordinates
 		starPowerBarIMG.x = 48 + shakeNum;
-		starPowerBarIMG.y = 280 + shakeNum;
+		starPowerBarIMG.y = 278 + shakeNum;
 		starPowerBarMeterIMG.x = -37 + shakeNum;
 		starPowerBarMeterIMG.y = 252 + shakeNum;
 		PFMimg.x = 18 + shakeNum;
@@ -280,14 +273,14 @@ function update() {
 	} else {
 		// Keep the image in the correct place if the bar isn't full
 		starPowerBarIMG.x = 50;
-		starPowerBarIMG.y = 282;
+		starPowerBarIMG.y = 280;
 		starPowerBarMeterIMG.x = -35;
 		starPowerBarMeterIMG.y = 254;
 		PFMimg.x = 20;
 		PFMimg.y = 200;
 	}
 	// Update the Star Power Background with the updated crop amount
-	cropDimensions = new Phaser.Rectangle(0, 0, 200, (starPower/2));
+	cropDimensions.height = 160 - (starPower/2 + 12);
 	starPowerBarIMG.crop(cropDimensions);
 }
 
@@ -455,7 +448,7 @@ function calmultiplyer() {
 	// Check for starPower
 	if (isStarPowerActive === false) {
 		// Add to starPower, don't allow it to go over 100.
-		starPower += multiplier;
+		starPower += Math.floor(multiplier/2) + 2;
 		if (starPower > 300) {
 			starPower = 300;
 			// Animation to indicate that StarPower is available
