@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -28,13 +24,6 @@
   <div id="trial"></div>
   <div id="trial2"></div>
 
-
-  <!-- Sign up or login -->
-  <!-- <div class="start_up">
-    <button id="loginChoice" class="waves-effect waves-light btn">Login</button>
-    <button id="signupChoice" class="waves-effect waves-light btn">Sign Up</button>
-  </div> -->
-
   <!-- LOGIN -->
   <div class="login">
     <div class="row">
@@ -58,8 +47,8 @@
   </div>
 
   <div id="song">
-    <audio src="./app/audio/Zionexx_Guitar_Hero.wav" autoplay></audio>
     <audio src="./app/audio/Zionexx_Guitar_Hero_Melody.wav"></audio>
+    <audio src="./app/audio/Zionexx_Guitar_Hero.wav"></audio>
   </div>
 
   <div id="container"></div>
@@ -67,13 +56,15 @@
   <button id="fuckya">FUCK YA!!!!</button>
 
 
-
+  <script src='webaudiox.js'></script>
   <script src="http://reverbjs.org/reverb.js"></script>
   <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
   <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
   <script src="app/js/login.js"></script>
   <script src="app/js/modal.js"></script>
+  <script src="app/js/audioFX.js"></script>
+  <script src="app/js/preload.js"></script>
   <script src="app/js/main.js"></script>
   <script src="app/js/song.js"></script>
 
