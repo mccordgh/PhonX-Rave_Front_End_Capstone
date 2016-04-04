@@ -32,16 +32,18 @@ function startGame () {
 	// Load audio
 	// audio_Bg = new Audio("./app/audio/Zionexx_Guitar_Hero.wav");
 	// audio_Melody = new Audio("./app/audio/Zionexx_Guitar_Hero_Melody.wav");
-	audio_Wrong_Note1 = new Audio("./app/audio/missedNotes/Missed_Note1.wav");
-	audio_Wrong_Note2 = new Audio("./app/audio/missedNotes/Missed_Note2.wav");
-	audio_Wrong_Note3 = new Audio("./app/audio/missedNotes/Missed_Note3.wav");
-	audio_Wrong_Note4 = new Audio("./app/audio/missedNotes/Missed_Note4.wav");
+	audio_Wrong_Note1 = new Audio("./app/audio/missedNotes/Missed_Note11.wav");
+	audio_Wrong_Note2 = new Audio("./app/audio/missedNotes/Missed_Note22.wav");
+	audio_Wrong_Note3 = new Audio("./app/audio/missedNotes/Missed_Note33.wav");
+	audio_Wrong_Note4 = new Audio("./app/audio/missedNotes/Missed_Note44.wav");
+	spExplosion = new Audio("./app/audio/explosion2.wav");
+	spExplosion.volume = 0.6;
 	audio_boo = new Audio("./app/audio/boo.wav");
 	audio_applause = new Audio("./app/audio/applause.wav");
-	audio_Wrong_Note1.volume = 0.25;
-	audio_Wrong_Note2.volume = 0.25;
-	audio_Wrong_Note3.volume = 0.25;
-	audio_Wrong_Note4.volume = 0.25;
+	audio_Wrong_Note1.volume = 0.5;
+	audio_Wrong_Note2.volume = 0.5;
+	audio_Wrong_Note3.volume = 0.5;
+	audio_Wrong_Note4.volume = 0.5;
 	audio_applause.volume = 0.6;
 	// Play audio
 
@@ -303,6 +305,8 @@ function starPowerPing_Pong_Delay() {
 // Activate star power when player presses space bar
 function activateStarPower() {
 	if (starPower === 300) {
+		// Play Explosion to get this party started!
+		spExplosion.play();
 		// Add border visual
 		activateStarPowerBorder();
 		// Add lightning effects

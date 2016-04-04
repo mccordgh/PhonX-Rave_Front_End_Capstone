@@ -19,6 +19,7 @@ var multiplierFontSize = 35;
 var playerScore = 0;
 var audio_applause;
 var audio_boo;
+var spExplosion;
 var fadeOutCheck = false;
 var button;
 var resetLaserObject;

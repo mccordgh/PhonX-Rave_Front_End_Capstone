@@ -20,7 +20,10 @@ $("#sign_up_BTN").click(()=>{
       // On click, create the game
       console.log("ref.getAuth", userData.uid);
       createPlayer(userData.uid, userName);
-      createGame();
+      // Hide the login screen
+      $(".login").addClass("hidden");
+      // On click, go to the difficulty screen
+      $(".difficulty").removeClass("hidden");
     }
   });
 })
@@ -42,8 +45,9 @@ $("#login_up_BTN").click(()=>{
       currentPlayerUID = authData.uid
       // Hide the login screen
       $(".login").addClass("hidden");
-      // On click, create the game
-      createGame();
+      // On click, go to the difficulty screen
+      $(".difficulty").removeClass("hidden");
+
     }
   });
 });
@@ -68,7 +72,19 @@ function createPlayer(uid, name){
   })
 };
 
-
-
-
+var difficulty;
+$("#medium").click(()=>{
+  // Set difficulty
+  difficulty = "medium";
+  // On click, create the game and change the screen
+  $(".difficulty").addClass("hidden");
+  createGame();
+});
+$("#expert").click(()=>{
+  // Set difficulty
+  difficulty = "expert";
+  // On click, create the game and change the screen
+  $(".difficulty").addClass("hidden");
+  createGame();
+});
 

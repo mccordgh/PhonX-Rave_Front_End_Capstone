@@ -1,7 +1,3 @@
-// setTimeout(function() { fire_L_Laser(); }, 2500);
-// setTimeout(function() { fire_K_Laser(); }, 7000);
-// setTimeout(function() { fire_J_Laser(); }, 3000);
-
 // INTRO //
 // A.a //
 
@@ -16,14 +12,18 @@ var fireSong = function() {
     setTimeout(function() { fire_J_Laser(); }, 1750);
     setTimeout(function() { fire_K_Laser(); }, 2000);
 
-    setTimeout(function() { fire_K_Laser(); }, 3500);
-    setTimeout(function() { fire_J_Laser(); }, 3750);
+    if (difficulty === "expert") {
+      setTimeout(function() { fire_K_Laser(); }, 3500);
+      setTimeout(function() { fire_J_Laser(); }, 3750);
+    }
     setTimeout(function() { fire_L_Laser(); }, 4000);
     setTimeout(function() { fire_K_Laser(); }, 4250);
     setTimeout(function() { fire_J_Laser(); }, 4500);
 
-    setTimeout(function() { fire_K_Laser(); }, 5500);
-    setTimeout(function() { fire_J_Laser(); }, 5750);
+    if (difficulty === "expert") {
+      setTimeout(function() { fire_K_Laser(); }, 5500);
+      setTimeout(function() { fire_J_Laser(); }, 5750);
+    }
     setTimeout(function() { fire_L_Laser(); }, 6000);
     setTimeout(function() { fire_K_Laser(); }, 6250);
     setTimeout(function() { fire_J_Laser(); }, 6500);
@@ -31,12 +31,13 @@ var fireSong = function() {
     if (sectionA === 1) {
       return;
     };
-
     setTimeout(function() { fire_K_Laser(); }, 6750);
     setTimeout(function() { fire_J_Laser(); }, 7000);
     setTimeout(function() { fire_K_Laser(); }, 7250);
-    setTimeout(function() { fire_L_Laser(); }, 7500);
-    setTimeout(function() { fire_K_Laser(); }, 7750);
+    if (difficulty === "expert") {
+      setTimeout(function() { fire_L_Laser(); }, 7500);
+      setTimeout(function() { fire_K_Laser(); }, 7750);
+    }
     sectionA++;
   };
 
@@ -52,8 +53,10 @@ var fireSong = function() {
     setTimeout(function() { fire_K_Laser(); }, 1250);
     setTimeout(function() { fire_J_Laser(); }, 1500);
     setTimeout(function() { fire_L_Laser(); }, 1750);
-    setTimeout(function() { fire_K_Laser(); }, 2000);
-    setTimeout(function() { fire_J_Laser(); }, 2250);
+    if (difficulty === "expert") {
+      setTimeout(function() { fire_K_Laser(); }, 2000);
+      setTimeout(function() { fire_J_Laser(); }, 2250);
+    }
   }
   // FIRE Section A.b //
   setTimeout(function() { introAb(); }, 22000);
@@ -68,13 +71,19 @@ var fireSong = function() {
     // Drop.a
     function drop_a_a() {
       setTimeout(function() { fire_L_Laser(); }, 00);
-      setTimeout(function() { fire_J_Laser(); }, 00);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_J_Laser(); }, 00);
+      }
 
       setTimeout(function() { fire_L_Laser(); }, 500);
-      setTimeout(function() { fire_K_Laser(); }, 625);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_K_Laser(); }, 625);
+      }
       setTimeout(function() { fire_J_Laser(); }, 750);
-      setTimeout(function() { fire_K_Laser(); }, 875);
-      setTimeout(function() { fire_L_Laser(); }, 1000);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_K_Laser(); }, 875);
+        setTimeout(function() { fire_L_Laser(); }, 1000);
+      }
       setTimeout(function() { fire_K_Laser(); }, 1625);
       setTimeout(function() { fire_J_Laser(); }, 1625);
     }
@@ -82,8 +91,10 @@ var fireSong = function() {
 
     function drop_a_b() {
       setTimeout(function() { fire_L_Laser(); }, 2000);
-      setTimeout(function() { fire_K_Laser(); }, 2125);
-      setTimeout(function() { fire_J_Laser(); }, 2250);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_K_Laser(); }, 2125);
+        setTimeout(function() { fire_J_Laser(); }, 2250);
+      }
       setTimeout(function() { fire_K_Laser(); }, 2375);
       setTimeout(function() { fire_J_Laser(); }, 2500);
       setTimeout(function() { fire_J_Laser(); }, 2750);
@@ -92,17 +103,27 @@ var fireSong = function() {
         return;
       };
       setTimeout(function() { fire_J_Laser(); }, 3000);
-      setTimeout(function() { fire_L_Laser(); }, 3000);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_L_Laser(); }, 3000);
+      }
 
-      setTimeout(function() { fire_J_Laser(); }, 3250);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_J_Laser(); }, 3250);
+      }
       setTimeout(function() { fire_K_Laser(); }, 3250);
 
       setTimeout(function() { fire_J_Laser(); }, 3500);
-      setTimeout(function() { fire_L_Laser(); }, 3500);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_L_Laser(); }, 3500);
+      }
 
-      setTimeout(function() { fire_J_Laser(); }, 3750);
-      setTimeout(function() { fire_K_Laser(); }, 3750);
-
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_J_Laser(); }, 3750);
+        setTimeout(function() { fire_K_Laser(); }, 3750);
+      }
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_L_Laser(); }, 3750);
+      }
       // Drop.b
       setTimeout(function() { drop_a_a(); }, 4000);
       // Continue Drop.b.b
@@ -131,9 +152,13 @@ var fireSong = function() {
     setTimeout(function() { fire_K_Laser(); }, 10000);
 
     setTimeout(function() { fire_L_Laser(); }, 10500);
-    setTimeout(function() { fire_K_Laser(); }, 10625);
+    if (difficulty === "expert") {
+      setTimeout(function() { fire_K_Laser(); }, 10625);
+    }
     setTimeout(function() { fire_J_Laser(); }, 10750);
-    setTimeout(function() { fire_K_Laser(); }, 10875);
+    if (difficulty === "expert") {
+      setTimeout(function() { fire_K_Laser(); }, 10875);
+    }
     setTimeout(function() { fire_L_Laser(); }, 11000);
     setTimeout(function() { fire_K_Laser(); }, 11167);
     setTimeout(function() { fire_K_Laser(); }, 11333);
@@ -143,8 +168,10 @@ var fireSong = function() {
     // Drop.c
     function drop_c() {
       setTimeout(function() { fire_L_Laser(); }, 000);
-      setTimeout(function() { fire_J_Laser(); }, 500);
-      setTimeout(function() { fire_J_Laser(); }, 750);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_J_Laser(); }, 500);
+        setTimeout(function() { fire_J_Laser(); }, 750);
+      }
       setTimeout(function() { fire_K_Laser(); }, 1000);
       setTimeout(function() { fire_K_Laser(); }, 1167);
       setTimeout(function() { fire_K_Laser(); }, 1333);
@@ -161,17 +188,23 @@ var fireSong = function() {
   // OUTRO
   function outro() {
     function dblbeat_1() {
-      setTimeout(function() { fire_J_Laser(); }, 00);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_J_Laser(); }, 00);
+      }
       setTimeout(function() { fire_K_Laser(); }, 125);
     }
 
     function dblbeat_2() {
-      setTimeout(function() { fire_K_Laser(); }, 00);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_K_Laser(); }, 00);
+      }
       setTimeout(function() { fire_L_Laser(); }, 125);
     }
 
     function dblbeat_3() {
-      setTimeout(function() { fire_L_Laser(); }, 00);
+      if (difficulty === "expert") {
+        setTimeout(function() { fire_L_Laser(); }, 00);
+      }
       setTimeout(function() { fire_J_Laser(); }, 125);
     }
 
