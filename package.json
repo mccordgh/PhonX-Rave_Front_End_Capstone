@@ -1,0 +1,19 @@
+{
+  "name": "phonx_rave",
+  "version": "1.0.0",
+  "description": "Blogpost: https://www.codecaptain.io/blog/game-development/shooting-bullets-using-phaser-groups/518",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodeCaptainIO/Phaser-Groups.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CodeCaptainIO/Phaser-Groups/issues"
+  },
+  "homepage": "https://github.com/CodeCaptainIO/Phaser-Groups#readme"
+}

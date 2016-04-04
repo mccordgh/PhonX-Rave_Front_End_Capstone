@@ -49,11 +49,6 @@ function startGame () {
 		// Play main audio
 		audio_Bg.play();
 		audio_Melody.play();
-		// Play currently muted reverb track
-		gainNode1.gain.value = 1;
-		gainNode2.gain.value = 1;
-		// reverb_audio_Melody.play();
-		// reverb_audio_BG.play();
 	}, 425);
 
 	// Launch Notes
@@ -214,50 +209,6 @@ function activateStarPowerBorder() {
 
 
 
-function starPowerLowPassFilter() {
-	// Set values to use for the q value and frequency cutoff
-	var Q_value = 0;
-	var frequency = 20000;
-	var newDivider = 10000;
-	// function to lower the frequency cutoff
-	var lowPass_Down = setInterval(
-	  function() {
-	  	Q_value += 0.4;
-      frequency = newDivider;
-	  	newDivider /= 1.1;
-	    if (frequency > 500) {
-	    	filter.Q.value = Q_value;
-	    	filter.frequency.value = frequency;
-	    	// console.log("frequency", frequency);
-	    	// console.log("Q_value", Q_value);
-	    } else {
-	    	Q_value = 0;
-	    	clearInterval(lowPass_Down);
-	    	// setTimeout(function() { filter.frequency.value = 20000; }, 1500);
-	    }
-	  }, 10);
-
-	function lowPass_Up_Call () {
-		console.log("gogogogo");
-		// function to raise the frequency cutoff
-		var lowPass_Up = setInterval(
-		  function() {
-		  	Q_value += 0.4;
-	      frequency = newDivider;
-		  	newDivider *= 1.1;
-		    if (frequency < 10000) {
-		    	filter.Q.value = Q_value;
-		    	filter.frequency.value = frequency;
-		    	console.log("frequency", frequency);
-		    	console.log("Q_value", Q_value);
-		    } else {
-		    	Q_value = 0;
-		    	clearInterval(lowPass_Up);
-		    }
-		  }, 10);
-	}
-	setTimeout(function() { lowPass_Up_Call(); }, 1000);
-}
 
 
 
@@ -287,6 +238,69 @@ function activateStarPowerLightning() {
 	// Fire second lightning
 	setTimeout(function() { activateLightningChain('StarPowerBorderLightning2', -60, -60); }, 500);
 }
+
+
+function activateStarPowerAudio_Effects() {
+	// Add Low Pass Filter
+	setTimeout(function() { starPowerLowPassFilter(); }, 9100);
+	// Add ping_pong delay
+	starPowerPing_Pong_Delay();
+}
+function starPowerLowPassFilter() {
+	// Set values to use for the q value and frequency cutoff
+	var Q_value = 0;
+	var frequency = 20000;
+	var newDivider = 10000;
+	// function to lower the frequency cutoff
+	var lowPass_Down = setInterval(
+	  function() {
+	  	Q_value += 0.5;
+      frequency = newDivider;
+	  	newDivider /= 1.1;
+	    if (frequency > 500) {
+	    	filter.Q.value = Q_value;
+	    	filter.frequency.value = frequency;
+	    } else {
+	    	// Q_value = 0;
+	    	clearInterval(lowPass_Down);
+	    	// setTimeout(function() { filter.frequency.value = 20000; }, 1500);
+	    }
+	  }, 10);
+	function lowPass_Up_Call () {
+		console.log("gogogogo");
+		// function to raise the frequency cutoff
+		var lowPass_Up = setInterval(
+		  function() {
+		  	Q_value -= 0.5;
+	      frequency = newDivider;
+		  	newDivider *= 1.1;
+		    if (frequency < 10000) {
+		    	filter.Q.value = 0;
+		    	filter.frequency.value = frequency;
+		    } else {
+		    	Q_value = 0;
+		    	clearInterval(lowPass_Up);
+		    }
+		  }, 10);
+	}
+	setTimeout(function() { lowPass_Up_Call(); }, 1000);
+}
+function starPowerPing_Pong_Delay() {
+	var ppWet_Level = 0;
+	var addDelay = setInterval(
+	    function() {
+	      ppWet_Level += 0.025;
+	      if (ppWet_Level < 1) {
+					ping_pong.wetLevel.gain.value = ppWet_Level;
+	      } else {
+	        // rest the ping pong and break the loop
+	        ping_pong.wetLevel.gain.value = 0;
+	        clearInterval(addDelay);
+	      }
+	    }, 250);
+}
+
+// Activate star power when player presses space bar
 function activateStarPower() {
 	if (starPower === 300) {
 		// Add border visual
@@ -294,8 +308,8 @@ function activateStarPower() {
 		// Add lightning effects
 		activateStarPowerLightning();
 		setTimeout(function() { activateStarPowerLightning(); }, 5000);
-		// Add Low Pass Filter
-		setTimeout(function() { starPowerLowPassFilter(); }, 9100);
+		// Add audio effects
+		activateStarPowerAudio_Effects();
 		// Add applause if it isn't already going
 		if (audio_applause.paused) {
 			audio_applause.play();
