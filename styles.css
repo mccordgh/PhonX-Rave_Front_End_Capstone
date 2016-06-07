@@ -5,6 +5,26 @@ body {
   background-width: 40px;
 }
 
+h6 {
+  padding-left: 40px;
+}
+
+#leader_board div:nth-child(2) {
+  color: grey;
+}
+#leader_board h5 {
+  padding-left: 50px;
+}
+
+#leader_board {
+  /*border: 2px solid red;*/
+  /*border-radius: 20px;*/
+  height: 600px;
+  overflow: auto;
+  padding: 40px 40px;
+  margin-left: 0px;
+}
+
 .newBackDrop {
   background-image: url("./app/img/assets/PhonX.jpg");
 }
@@ -15,6 +35,19 @@ body {
   border: 4px solid purple;
   background: red;
   height: 400px;
+}
+
+h1, .button_div {
+  text-align: center;
+}
+
+.mybutton {
+  font-size: 24px;
+}
+
+button {
+  width: 300px;
+  height: 100px;
 }
 
 /*#trial {
@@ -34,20 +67,19 @@ body {
 }*/
 
 #mask{
-    position:absolute; /* important */
-    top:0px; /* start from top */
-    left:0px; /* start from left */
-    height:100%; /* cover the whole page */
-    width:100%;  /* cover the whole page */
-    display:none; /* don't show it '*/
-
-    /* styling bellow */
-    background-color: black;
+  position:absolute;
+  top:0px;
+  left:0px;
+  height:100%;
+  width:100%;
+  display:none;
+  /* styling bellow */
+  background-color: black;
 }
 
 .modal_window{
-    position:absolute; /* important so we can position it on center later */
-    display:none; /* don't show it */
+  position:absolute;
+  display:none;
 
     /* styling bellow */
     color:white;
@@ -55,10 +87,10 @@ body {
 
 /* style a specific modal window  */
 #modal_window{
-    padding:50px;
-    border:1px solid gray;
-    background: #246493;
-    color:black;
+  padding:50px;
+  border:1px solid gray;
+  background: #246493;
+  color:black;
 }
 
 #game_container {
@@ -83,9 +115,6 @@ body {
 .star_power1 {
   box-shadow: 0 0 180px pink;
 }
-/*.star_power2 {
-  box-shadow: 0 0 180px orange;
-}*/
 .star_power3 {
   box-shadow: 0 0 180px purple;
 }

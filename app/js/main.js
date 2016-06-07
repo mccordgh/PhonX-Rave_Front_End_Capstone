@@ -15,8 +15,10 @@ function startGame () {
 	StartFadeOutIMG.alpha = 0;
 	game.add.tween(StartFadeOutIMG).to( { alpha: 1 }, 150, Phaser.Easing.Linear.None, true, 0, 75, true);
 	setTimeout(function() { StartFadeOutIMG.kill(); }, 300);
+	// Variables for the image function
 	var exitNum = 0;
 	var scale = 1;
+	// Start Button animation
 	var scaleUp = setInterval(
 	  function() {
 	  	exitNum++;
@@ -30,23 +32,22 @@ function startGame () {
 	  }, 20);
 
 	// Load audio
-	// audio_Bg = new Audio("./app/audio/Zionexx_Guitar_Hero.wav");
-	// audio_Melody = new Audio("./app/audio/Zionexx_Guitar_Hero_Melody.wav");
 	audio_Wrong_Note1 = new Audio("./app/audio/missedNotes/Missed_Note11.wav");
 	audio_Wrong_Note2 = new Audio("./app/audio/missedNotes/Missed_Note22.wav");
 	audio_Wrong_Note3 = new Audio("./app/audio/missedNotes/Missed_Note33.wav");
 	audio_Wrong_Note4 = new Audio("./app/audio/missedNotes/Missed_Note44.wav");
 	spExplosion = new Audio("./app/audio/explosion2.wav");
-	spExplosion.volume = 0.6;
+	spExplosion.volume = 0.3;
 	audio_boo = new Audio("./app/audio/boo.wav");
 	audio_applause = new Audio("./app/audio/applause.wav");
-	audio_Wrong_Note1.volume = 0.5;
-	audio_Wrong_Note2.volume = 0.5;
-	audio_Wrong_Note3.volume = 0.5;
-	audio_Wrong_Note4.volume = 0.5;
+	audio_applause2 = new Audio("./app/audio/applause.wav");
+	audio_Wrong_Note1.volume = 0.4;
+	audio_Wrong_Note2.volume = 0.4;
+	audio_Wrong_Note3.volume = 0.4;
+	audio_Wrong_Note4.volume = 0.4;
 	audio_applause.volume = 0.6;
+	audio_applause2.volume = 0.8;
 	// Play audio
-
 	setTimeout(function() {
 		// Play main audio
 		audio_Bg.play();
@@ -57,7 +58,7 @@ function startGame () {
 	fireSong();
 }
 
-// Update run multiple times a second
+// Update: runs multiple times a second
 function update() {
 
 	// Update the score based on the users points
@@ -88,11 +89,14 @@ function update() {
 		}
 	}
 	// Create a random number to utilize for shake animation
-	var shakeNum = Math.floor(Math.random() * (4 - 0 + 1)) + 0;
-	if (multiplier === 8) {
+	// var shakeNum = Math.floor(Math.random() * (4 - 0 + 1)) + 0;
+	var shakeNum = Math.floor(Math.random() * 5);
+	if (multiplier > 8) {
+		// Shake the multiplier
 		multiplierNumber.x = 273 + shakeNum;
 		multiplierNumber.y = 72 + shakeNum;
 	} else {
+		// Keep the multiplier still
 		multiplierNumber.x = 275;
 		multiplierNumber.y = 74;
 	}
@@ -151,6 +155,7 @@ function audioFadeOut(currSong) {
 // Reset laser when the laser goes out of bounds (missed a note)
 function resetLaser(laser, wrongNoteCheck) {
 	// console.log("laser", laser);
+	// Rest the multiplier counter
 	multiplier = 1;
 	// check for the number of missed notes and fire boo audio
 	booCounter--;
@@ -159,7 +164,7 @@ function resetLaser(laser, wrongNoteCheck) {
 		$("#game_container").addClass("MULTImissedNoteBoarder");
 		audio_boo.play();
 	};
-	// mute the applause
+	// mute the applause if it is playing
 	if (!audio_applause.paused) {
 		audioFadeOut(audio_applause);
 	};
@@ -183,6 +188,7 @@ function resetLaser(laser, wrongNoteCheck) {
 	};
 }
 
+// This animates the border when star power is activated
 function activateStarPowerBorder() {
 	var counter = 0;
 	var changeBoarder = setInterval(
@@ -207,12 +213,6 @@ function activateStarPowerBorder() {
 	    }
 	  }, 500);
 }
-
-
-
-
-
-
 
 
 // Functions to animate the lightning strikes
@@ -241,13 +241,15 @@ function activateStarPowerLightning() {
 	setTimeout(function() { activateLightningChain('StarPowerBorderLightning2', -60, -60); }, 500);
 }
 
-
+// This activates all the audio effects on the activation of star power
 function activateStarPowerAudio_Effects() {
-	// Add Low Pass Filter
+	// Add Low Pass Filter, it is delayed until the end of star power
 	setTimeout(function() { starPowerLowPassFilter(); }, 9100);
 	// Add ping_pong delay
 	starPowerPing_Pong_Delay();
 }
+
+//Low Pass filter effect
 function starPowerLowPassFilter() {
 	// Set values to use for the q value and frequency cutoff
 	var Q_value = 0;
@@ -255,6 +257,7 @@ function starPowerLowPassFilter() {
 	var newDivider = 10000;
 	// function to lower the frequency cutoff
 	var lowPass_Down = setInterval(
+		// Lower the cutoff frequency, add to the q-value to emphasize the frequencies as it cuts them off
 	  function() {
 	  	Q_value += 0.5;
       frequency = newDivider;
@@ -265,12 +268,10 @@ function starPowerLowPassFilter() {
 	    } else {
 	    	// Q_value = 0;
 	    	clearInterval(lowPass_Down);
-	    	// setTimeout(function() { filter.frequency.value = 20000; }, 1500);
 	    }
 	  }, 10);
+	// function to raise the frequency cutoff back to normal
 	function lowPass_Up_Call () {
-		console.log("gogogogo");
-		// function to raise the frequency cutoff
 		var lowPass_Up = setInterval(
 		  function() {
 		  	Q_value -= 0.5;
@@ -287,19 +288,20 @@ function starPowerLowPassFilter() {
 	}
 	setTimeout(function() { lowPass_Up_Call(); }, 1000);
 }
+// This controls the ping-pong audio delay
 function starPowerPing_Pong_Delay() {
 	var ppWet_Level = 0;
 	var addDelay = setInterval(
 	    function() {
-	      ppWet_Level += 0.025;
+	      ppWet_Level += 0.05;
 	      if (ppWet_Level < 1) {
 					ping_pong.wetLevel.gain.value = ppWet_Level;
 	      } else {
-	        // rest the ping pong and break the loop
-	        ping_pong.wetLevel.gain.value = 0;
 	        clearInterval(addDelay);
 	      }
 	    }, 250);
+    // rest the ping pong and break the loop
+		setTimeout(function() { ping_pong.wetLevel.gain.value = 0; }, 10000);
 }
 
 // Activate star power when player presses space bar
@@ -320,19 +322,22 @@ function activateStarPower() {
 		};
 		// Disable Star Power after 10 seconds
 		setTimeout(function() {
+			// Redefine that star power is not active any more
 			isStarPowerActive = false;
 			$("#game_container").removeClass("star_power");
 			// Ensure that starPower is reset
 			starPower = 0 ;
 		}, 10000);
+		// Variable to indicate that star power is currently on
 		isStarPowerActive = true;
-		// Diminish star power over time
+		// Diminish star power number over time
 		var diminishStarpower = setInterval(
   	// lower the star power until it reaches 0, then clear the interval
 	  function() {
-	    if (starPower > 0) {
+	    if (starPower > 10) {
 	    	starPower -= 1;
 	    } else {
+	    	starPower = 0;
 		    clearInterval(diminishStarpower);
 	    }
 	  }, 34);
@@ -386,7 +391,7 @@ function calmultiplyer() {
 	// Check for starPower
 	if (isStarPowerActive === false) {
 		// Add to starPower, don't allow it to go over 100.
-		starPower += Math.floor(multiplier/2) + 2;
+		starPower += 10 // Math.floor(multiplier/2) + 6;
 		if (starPower > 300) {
 			starPower = 300;
 			// Animation to indicate that StarPower is available

@@ -10,7 +10,7 @@ $(document).ready(function(){
     var modal_width = $(this).outerWidth();
     // Calculate top and left offset needed for centering
     var top = 50;
-    var left = (window_width-modal_width)/2;
+    var left = (window_width-modal_width)/3;
     // Apply new top and left css values
     $(this).css({'top' : top , 'left' : left});
   });
@@ -83,6 +83,7 @@ function getPlayers (score, streak) {
     console.log("playerList", playerList);
     var playerScoreArray = [];
     var playerNameArray = [];
+    var playerStreakArray = [];
     var contentString = `<h1>Your Score:</h1><h2>${score}</h2>`;
     // Loop through, find the highest score, create a new array
     for (let player in playerList) {
@@ -94,12 +95,14 @@ function getPlayers (score, streak) {
     for (var i = 1; i < playerScoreArray.length+1; i++) {
       // Loop through and sort the data by the score property, create a name array to correspond with the score array
       for (let player in playerList) {
-        if (playerList[player].highScore === playerScoreArray[i -1]) {
+        if (playerList[player].highScore === playerScoreArray[i-1]) {
           playerNameArray.push(playerList[player].userName);
+          playerStreakArray.push(playerList[player].longestStreak)
         };
       }
       // Add to the DOM in the correct order now that both arrays are in order
-      contentString += `<h4>${i} ${playerNameArray[i-1]} : ${playerScoreArray[i-1]}</h4>`
+      contentString += `<h4>${i} ${playerNameArray[i-1]}: ${playerScoreArray[i-1]}</h4>
+                        <h5>Longest Streak: ${playerStreakArray[i-1]}</h5>`
     };
     // Post the leader_board
     show_modal(contentString);

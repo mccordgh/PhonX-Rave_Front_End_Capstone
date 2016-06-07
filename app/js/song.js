@@ -121,7 +121,7 @@ var fireSong = function() {
         setTimeout(function() { fire_J_Laser(); }, 3750);
         setTimeout(function() { fire_K_Laser(); }, 3750);
       }
-      if (difficulty === "expert") {
+      if (difficulty === "medium") {
         setTimeout(function() { fire_L_Laser(); }, 3750);
       }
       // Drop.b
@@ -242,6 +242,8 @@ var fireSong = function() {
   setTimeout(function() { outro(); }, 63000);
   setTimeout(function() { outro(); }, 71000);
 
+  // Add applause
+  setTimeout(function() {audio_applause2.play()}, 79000);
   // Fire function to add score to player
   setTimeout(function() { postScore(playerScore, currentHighStreak); }, 81000);
   // display leaderboard with ajax request
