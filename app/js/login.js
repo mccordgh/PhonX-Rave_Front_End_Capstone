@@ -29,6 +29,7 @@ $("#sign_up_BTN").on('click touch', ()=>{
 })
 
 $("#login_up_BTN").on('click touch', ()=>{
+  window.alert("hello?");
   let userEmail = $("#sign_up_email").val();
   let userPassword = $("#sign_up_password").val();
 
