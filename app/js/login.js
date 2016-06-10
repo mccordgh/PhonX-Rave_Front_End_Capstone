@@ -2,7 +2,7 @@
 
 var currentPlayerUID;
 var ref = new Firebase("https://phonx-rave.firebaseio.com/");
-$("#sign_up_BTN").click(()=>{
+$("#sign_up_BTN").on('click touch', ()=>{
   //Define user name and psWord
   let userName = $("#sign_up_userName").val();
   let userEmail = $("#sign_up_email").val();
@@ -28,7 +28,7 @@ $("#sign_up_BTN").click(()=>{
   });
 })
 
-$("#login_up_BTN").click(()=>{
+$("#login_up_BTN").on('click touch', ()=>{
   let userEmail = $("#sign_up_email").val();
   let userPassword = $("#sign_up_password").val();
 
@@ -52,7 +52,7 @@ $("#login_up_BTN").click(()=>{
   });
 });
 
-$("#logout_up_BTN").click(()=>{
+$("#logout_up_BTN").on('click touch', ()=>{
   ref.unauth();
 })
 
