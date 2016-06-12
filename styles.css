@@ -127,10 +127,10 @@ button {
 
 
 
-#touchzone {
+#touchArea {
   width: 200px;
   height: 100px;
-  background: red;
+  background: black;
   border-radius: 20px;
 }
 

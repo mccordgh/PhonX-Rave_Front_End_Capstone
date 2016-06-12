@@ -2,24 +2,52 @@
 
 var currentPlayerUID;
 var onPage = false;
+var getPointerEvent = function(event) {
+    return event.originalEvent.targetTouches ? event.originalEvent.targetTouches[0] : event;
+};
+var $touchArea = $('#touchArea'),
+    touchStarted = false, // detect if a touch event is sarted
+    currX = 0,
+    currY = 0,
+    cachedX = 0,
+    cachedY = 0;
 
-function init() {
-  // Get a reference to our touch-sensitive element
-  var touchzone = document.getElementById("touchzone");
-  // Add an event handler for the touchstart event
-  touchzone.addEventListener("touchstart", touchHandler, false);
-  alert("come OnNNN!!!")
-}
-
-function touchHandler(event) {
-  alert("come OnNNN!!!")
-  // Get a reference to our coordinates div
-  var coords = document.getElementById("coords");
-  // Write the coordinates of the touch to the div
-  coords.innerHTML = 'x: ' + event.touches[0].pageX + ', y: ' + event.touches[0].pageY;
-}
-
-
+//setting the events listeners
+$touchArea.on('touchstart mousedown',function (e){
+    e.preventDefault(); 
+    var pointer = getPointerEvent(e);
+    // caching the current x
+    cachedX = currX = pointer.pageX;
+    // caching the current y
+    cachedY = currY = pointer.pageY;
+    // a touch event is detected      
+    touchStarted = true;
+    $touchArea.text('Touchstarted');
+    // detecting if after 200ms the finger is still in the same position
+    setTimeout(function (){
+        if ((cachedX === currX) && !touchStarted && (cachedY === currY)) {
+            // Here you get the Tap event
+            $touchArea.text('Tap');
+        }
+    },200);
+});
+$touchArea.on('touchend mouseup touchcancel',function (e){
+    e.preventDefault();
+    // here we can consider finished the touch event
+    touchStarted = false;
+    $touchArea.text('Touchended');
+});
+$touchArea.on('touchmove mousemove',function (e){
+    e.preventDefault();
+    var pointer = getPointerEvent(e);
+    currX = pointer.pageX;
+    currY = pointer.pageY;
+    if(touchStarted) {
+         // here you are swiping
+         $touchArea.text('Swiping');
+    }
+   
+});
 
 
 
