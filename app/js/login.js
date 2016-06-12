@@ -1,7 +1,42 @@
 "use strict";
 
+window.onload = function() {
+  console.log("wid", self.innerWidth);
+  if (self.innerWidth < 450) {
+    console.log("go");
+
+    let userEmail = "1@1.com";
+    let userPassword = "1";
+
+    ref.authWithPassword({
+      email    : userEmail,
+      password : userPassword
+    }, function(error, authData) {
+      if (error) {
+        console.log("Login Failed!", error);
+      } else {
+        // Write code to allow user to access the website
+        console.log("Authenticated successfully with payload:", authData);
+        // Assign the correct currentPlayerUID
+        currentPlayerUID = authData.uid
+        // Hide the login screen
+        $(".login").addClass("hidden");
+        // On click, go to the difficulty screen
+        $(".difficulty").removeClass("hidden");
+      }
+    });
+
+    setTimeout(function() { 
+        // Set difficulty
+      difficulty = "expert";
+      // On click, create the game and change the screen
+      $(".difficulty").addClass("hidden");
+      createGame();
+    }, 500);
+  }
+};
+
 var currentPlayerUID;
-var onPage = false;
 var ref = new Firebase("https://phonx-rave.firebaseio.com/");
 $("#sign_up_BTN").on('click', ()=>{
   //Define user name and psWord
@@ -30,21 +65,7 @@ $("#sign_up_BTN").on('click', ()=>{
 })
 
 
-// use enter to fire log in... log in will handle if the user has been created
-$(document).on("keypress", function(e) {
-  if(e.keyCode == '13'){
-    if (onPage) {
-      expert();
-    } else {
-      log_in();
-    }
-  }
-})
-$("#login_up_BTN").on('click', log_in())
-
-function log_in (){
-  window.alert("hello?");
-  onPage = true;
+$("#login_up_BTN").on('click', ()=>{
   let userEmail = $("#sign_up_email").val();
   let userPassword = $("#sign_up_password").val();
 
@@ -65,7 +86,7 @@ function log_in (){
       $(".difficulty").removeClass("hidden");
     }
   });
-};
+});
 
 function createPlayer(uid, name){
   currentPlayerUID = uid;
@@ -91,15 +112,13 @@ $("#medium").click(()=>{
   createGame();
 });
 
-$("#expert").click(expert());
-
-function expert(){
+$("#expert").click(()=>{
   // Set difficulty
   difficulty = "expert";
   // On click, create the game and change the screen
   $(".difficulty").addClass("hidden");
   createGame();
-};
+});
 
 
 

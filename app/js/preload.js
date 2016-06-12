@@ -1,4 +1,5 @@
 // Game Variables
+
 var GAME_WIDTH = 450;
 var GAME_HEIGHT = 700;
 var game;
