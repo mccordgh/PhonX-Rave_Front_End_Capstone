@@ -2,7 +2,7 @@
 
 var currentPlayerUID;
 var ref = new Firebase("https://phonx-rave.firebaseio.com/");
-$("#sign_up_BTN").on('click touchstart', ()=>{
+$("#sign_up_BTN").on('click tap', ()=>{
   //Define user name and psWord
   let userName = $("#sign_up_userName").val();
   let userEmail = $("#sign_up_email").val();
@@ -28,7 +28,7 @@ $("#sign_up_BTN").on('click touchstart', ()=>{
   });
 })
 
-$("#login_up_BTN").on('click touchstart', ()=>{
+$("#login_up_BTN").on('click tap', ()=>{
   window.alert("hello?");
   let userEmail = $("#sign_up_email").val();
   let userPassword = $("#sign_up_password").val();
@@ -48,12 +48,11 @@ $("#login_up_BTN").on('click touchstart', ()=>{
       $(".login").addClass("hidden");
       // On click, go to the difficulty screen
       $(".difficulty").removeClass("hidden");
-
     }
   });
 });
 
-$("#logout_up_BTN").on('click touchstart', ()=>{
+$("#logout_up_BTN").on('click tap', ()=>{
   ref.unauth();
 })
 
@@ -72,6 +71,7 @@ function createPlayer(uid, name){
     playerId: uid
   })
 };
+
 
 var difficulty;
 $("#medium").click(()=>{
