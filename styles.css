@@ -127,6 +127,14 @@ button {
 
 
 
+#touchzone {
+  width: 200px;
+  height: 100px;
+  background: red;
+  border-radius: 20px;
+}
+
+
 
 
 
