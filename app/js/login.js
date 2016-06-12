@@ -1,6 +1,6 @@
 "use strict";
+alert('go');
 setTimeout(function() {
-  alert("go")
   createGame(); 
   $("#container")
 }, 1000);
@@ -9,8 +9,6 @@ window.onload = function() {
 
   $(".login").addClass("hidden");
   // createGame();
-
-  
   // console.log("wid", self.innerWidth);
   // if (self.innerWidth < 450) {
   //   console.log("go");
