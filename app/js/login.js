@@ -12,6 +12,7 @@ function init() {
 }
 
 function touchHandler(event) {
+  alert("come OnNNN!!!")
   // Get a reference to our coordinates div
   var coords = document.getElementById("coords");
   // Write the coordinates of the touch to the div
