@@ -1,8 +1,9 @@
 "use strict";
 
 var currentPlayerUID;
+var onPage = false;
 var ref = new Firebase("https://phonx-rave.firebaseio.com/");
-$("#sign_up_BTN").on('click tap', ()=>{
+$("#sign_up_BTN").on('click', ()=>{
   //Define user name and psWord
   let userName = $("#sign_up_userName").val();
   let userEmail = $("#sign_up_email").val();
@@ -28,8 +29,22 @@ $("#sign_up_BTN").on('click tap', ()=>{
   });
 })
 
-$("#login_up_BTN").on('click tap', ()=>{
+
+// use enter to fire log in... log in will handle if the user has been created
+$(document).on("keypress", function(e) {
+  if(e.keyCode == '13'){
+    if (onPage) {
+      expert();
+    } else {
+      log_in();
+    }
+  }
+})
+$("#login_up_BTN").on('click', log_in())
+
+function log_in (){
   window.alert("hello?");
+  onPage = true;
   let userEmail = $("#sign_up_email").val();
   let userPassword = $("#sign_up_password").val();
 
@@ -50,13 +65,7 @@ $("#login_up_BTN").on('click tap', ()=>{
       $(".difficulty").removeClass("hidden");
     }
   });
-});
-
-$("#logout_up_BTN").on('click tap', ()=>{
-  ref.unauth();
-})
-
-// function addNameId()
+};
 
 function createPlayer(uid, name){
   currentPlayerUID = uid;
@@ -81,11 +90,33 @@ $("#medium").click(()=>{
   $(".difficulty").addClass("hidden");
   createGame();
 });
-$("#expert").click(()=>{
+
+$("#expert").click(expert());
+
+function expert(){
   // Set difficulty
   difficulty = "expert";
   // On click, create the game and change the screen
   $(".difficulty").addClass("hidden");
   createGame();
-});
+};
+
+
+
+
+
+
+
+
+
+document.addEventListener("touch", function(e) {
+  console.log("go");
+  e.preventDefault();
+  var touch = e.touches[0];
+  window.alert(touch.pageX + " - " + touch.pageY);
+}, false);
+
+
+
+
 
