@@ -1,48 +1,4 @@
 "use strict";
-alert('go');
-setTimeout(function() {
-  createGame(); 
-  $("#container")
-}, 1000);
-
-window.onload = function() {
-
-  $(".login").addClass("hidden");
-  // createGame();
-  // console.log("wid", self.innerWidth);
-  // if (self.innerWidth < 450) {
-  //   console.log("go");
-
-  //   let userEmail = "1@1.com";
-  //   let userPassword = "1";
-
-  //   ref.authWithPassword({
-  //     email    : userEmail,
-  //     password : userPassword
-  //   }, function(error, authData) {
-  //     if (error) {
-  //       console.log("Login Failed!", error);
-  //     } else {
-  //       // Write code to allow user to access the website
-  //       console.log("Authenticated successfully with payload:", authData);
-  //       // Assign the correct currentPlayerUID
-  //       currentPlayerUID = authData.uid
-  //       // Hide the login screen
-  //       $(".login").addClass("hidden");
-  //       // On click, go to the difficulty screen
-  //       $(".difficulty").removeClass("hidden");
-  //     }
-  //   });
-
-  //   setTimeout(function() { fire_L_Laser(); 
-  //       // Set difficulty
-  //     difficulty = "expert";
-  //     // On click, create the game and change the screen
-  //     $(".difficulty").addClass("hidden");
-  //     createGame();
-  //   }, 000);
-  // }
-};
 
 var currentPlayerUID;
 var ref = new Firebase("https://phonx-rave.firebaseio.com/");
@@ -117,7 +73,7 @@ $("#medium").click(()=>{
   difficulty = "medium";
   // On click, create the game and change the screen
   $(".difficulty").addClass("hidden");
-  createGame();
+  $(".instructions").removeClass("hidden");
 });
 
 $("#expert").click(()=>{
@@ -125,6 +81,13 @@ $("#expert").click(()=>{
   difficulty = "expert";
   // On click, create the game and change the screen
   $(".difficulty").addClass("hidden");
+  $(".instructions").removeClass("hidden");
+});
+
+
+$("#startGame").click(()=>{
+  // On click, create the game and change the screen
+  $(".instructions").addClass("hidden");
   createGame();
 });
 

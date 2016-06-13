@@ -102,6 +102,11 @@ function update() {
 	}
 	// Check to see if star power is full
 	if (starPower === 300) {
+		// this is used to fire the space bar image to indicate to the user they have starpower
+		if (firstTimeSpaceBarFlag === true) {
+			firstTimeSpaceBarFlag = false
+			spaceBarIndicator();
+		}
 		// animate the star bar by randomizing the x and y coordinates
 		starPowerBarIMG.x = 48 + shakeNum;
 		starPowerBarIMG.y = 278 + shakeNum;
@@ -121,6 +126,44 @@ function update() {
 	// Update the Star Power Background with the updated crop amount
 	cropDimensions.height = 160 - (starPower/2 + 12);
 	starPowerBarIMG.crop(cropDimensions);
+}
+
+//Fire the this function to create spacebar image so the user knows they have starpower. 
+function spaceBarIndicator(){
+	function animateLoop() {
+		var spaceBarAnimation = game.add.image(100, 540, 'spaceBar');
+		spaceBarAnimation.scale.setTo(.5, .5);
+
+		setTimeout (function animate () {
+			spaceBarAnimation.alpha = 0;
+			game.add.tween(spaceBarAnimation).to( { alpha: 1 }, 150, Phaser.Easing.Linear.None, true, 0, 75, true);
+			setTimeout(function() { spaceBarAnimation.kill(); }, 300);
+			// Variables for the image function
+			var exitNum = 0;
+			var scale = .5;
+			// Start Button animation
+			var scaleUp = setInterval(
+			  function() {
+			  	exitNum++;
+			  	if (exitNum > 1000) {
+			  		clearInterval(scaleUp);
+			  	};
+		      scale += 0.2;
+			    spaceBarAnimation.scale.setTo(scale, scale);
+			    spaceBarAnimation.x -= 40;
+			    spaceBarAnimation.y -= 30;
+			  }, 20);
+		}, 500);
+	}
+	// Repeat the animation until the player activates starpower
+	var repeatSpaceBarAnimation = setInterval( function() {
+		if (starPower !== 300) {
+			clearInterval(repeatSpaceBarAnimation);
+			firstTimeSpaceBarFlag = true;
+		} else {
+			animateLoop();
+		};
+	}, 2000)
 }
 
 // Mute audio on missed notes

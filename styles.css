@@ -33,8 +33,11 @@ h6 {
   /*background-image: url("./app/img/assets/PhonX Collage.png");*/
   border-radius: 30px;
   border: 4px solid purple;
-  background: red;
+  /*background: red;*/
   height: 400px;
+}
+.m6 {
+  height: 440px;
 }
 
 h1, .button_div {
@@ -125,17 +128,24 @@ button {
   box-shadow: 0 0 180px lightblue;
 }
 
-
-
-#touchArea {
-  width: 200px;
+.jklIMGDiv {
+  text-align: center;
+  border: none;
   height: 100px;
-  background: black;
-  border-radius: 20px;
 }
-
-
-
+.jklIMG {
+  width: 100px;
+  box-shadow: 0 0 20px grey;
+  border-radius: 50%;
+}
+.spaceIMG{
+  width: 200px;
+  box-shadow: 0 0 20px grey;
+  border-radius: 30px;
+}
+#startGame{
+  margin-top: 22px;
+}
 
 
 

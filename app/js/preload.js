@@ -25,7 +25,7 @@ var fadeOutCheck = false;
 var button;
 var resetLaserObject;
 var cropDimensions;
-var starPower = 200;
+var starPower = 300;
 var StarBar_height;
 var isStarPowerActive = false;
 var starBarFull = false;
@@ -33,6 +33,7 @@ var starPowerCroppedY;
 var starPowerBarIMG;
 var starPowerBarMeterIMG;
 var PFMimg;
+var firstTimeSpaceBarFlag = true;
 
 // Create a Phaser game instance
 function createGame() {
@@ -60,6 +61,7 @@ function preload() {
   game.load.image('laser1', dir + 'Note_Images/J_image.png');
   game.load.image('laser2', dir + 'Note_Images/K_image.png');
   game.load.image('laser3', dir + 'Note_Images/L_image.png');
+  game.load.image('spaceBar', dir + 'Note_Images/space.png');
   game.load.image('StarPowerLightning', dir + 'lightning4.png');
   game.load.image('successNote', dir + 'fireball2.png');
   game.load.image('button', dir + 'start.png');
