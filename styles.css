@@ -146,6 +146,12 @@ button {
 #startGame{
   margin-top: 22px;
 }
+.replay {
+  background: red;
+  color: black;
+  border-radius: 10px;
+  box-shadow: 0 0 20px red;
+}
 
 
 
