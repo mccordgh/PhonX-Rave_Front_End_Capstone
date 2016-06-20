@@ -18,18 +18,7 @@ $(document).ready(function(){
   $('.close_modal').click(function(){
     // Use the function to close it
     close_modal();
-    // $('#container').html("");
-    // $('#difficulty').removeClass("hidden");
   });
-
-  // Close and restart the game when the modal is up
-  // console.log("leaderBoardDiv", leaderBoardDiv);
-  // $('body').on('keypress', function(){
-  //   var leaderBoardDiv = $('#leader_board').html();
-  //   if (leaderBoardDiv !== '') {
-  //     close_modal();
-  //   };
-  // })
 
 });
 
@@ -39,6 +28,7 @@ function close_modal(){
   $('#mask').fadeOut(500);
   // Hide modal window(s)
   $('.modal_window').fadeOut(500);
+  location.reload();
 }
 
 function show_modal(htmlString){
@@ -96,7 +86,7 @@ function getPlayers (score, streak) {
     var playerScoreArray = [];
     var playerNameArray = [];
     var playerStreakArray = [];
-    var contentString = "<div class='replay'><h4>Press any button to play again.</h4></div>"
+    var contentString = "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
     contentString += `<h1>Your Score:</h1><h2>${score}</h2>`;
     // Loop through, find the highest score, create a new array
     for (let player in playerList) {
@@ -117,7 +107,7 @@ function getPlayers (score, streak) {
       contentString += `<h4>${i} ${playerNameArray[i-1]}: ${playerScoreArray[i-1]}</h4>
                         <h5>Longest Streak: ${playerStreakArray[i-1]}</h5>`
     };
-    contentString += "<div class='replay'><h4>Press any button to play again.</h4></div>"
+    contentString += "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
     // Post the leader_board
     show_modal(contentString);
   })
