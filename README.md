@@ -1,6 +1,7 @@
-# PhaserJS Groups example
+# PhonX Rave - Front_End_Capstone
 
-Blogpost: https://www.codecaptain.io/blog/game-development/shooting-bullets-using-phaser-groups/518
+demo:
+www.phonxrave.herokuapp.com
 
 This demo shows how to work with groups in PhaserJS.
 
