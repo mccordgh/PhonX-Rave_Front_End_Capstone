@@ -1,7 +1,7 @@
 # PhonX Rave - Front_End_Capstone
 
 demo:
-www.phonxrave.herokuapp.com
+phonxrave.herokuapp.com
 
 This demo shows how to work with groups in PhaserJS.
 
