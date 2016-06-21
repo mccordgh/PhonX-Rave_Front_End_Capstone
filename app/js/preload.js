@@ -25,7 +25,7 @@ var fadeOutCheck = false;
 var button;
 var resetLaserObject;
 var cropDimensions;
-var starPower = 200;
+var starPower = 0;
 var StarBar_height;
 var isStarPowerActive = false;
 var starBarFull = false;
