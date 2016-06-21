@@ -3,6 +3,7 @@
 demo:
 phonxrave.herokuapp.com
 
+[Click Here for DEMO!](phonxrave.herokuapp.com)
 <a href="phonxrave.herokuapp.com">Click Here for DEMO!</a>
 
 This demo shows how to work with groups in PhaserJS.
