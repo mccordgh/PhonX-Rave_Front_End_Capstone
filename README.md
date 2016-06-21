@@ -4,8 +4,7 @@
 
 Inspired by guitar hero, I have created a game that uses my own music to create a phaser game that utalizes dynamic audio manipulation.
 
-Check out a demo at:
-phonxrave.herokuapp.com
+[Click here for a DEMO!](../../../../phonxrave.herokuapp.com)
 
 # Features
 
