@@ -25,6 +25,25 @@ h6 {
   margin-left: 0px;
 }
 
+.login_modal {
+  margin: 10%;
+}
+
+#log_In_Title, #sign_Up_Title {
+  padding-top: 0;
+}
+
+.modal_close_btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 11px;
+  background-color: darkgrey;
+  float: right;
+  margin-right: 12px;
+  margin-top: 8px;
+}
+
 .newBackDrop {
   background-image: url("./app/img/assets/PhonX.jpg");
 }
@@ -37,10 +56,11 @@ h6 {
   height: 400px;
 }
 .m6 {
-  height: 440px;
+  height: 460px;
 }
 
 h1, .button_div {
+  padding-top: 20px;
   text-align: center;
 }
 
@@ -83,9 +103,8 @@ button {
 .modal_window{
   position:absolute;
   display:none;
-
-    /* styling bellow */
-    color:white;
+  /* styling bellow */
+  color:white;
 }
 
 /* style a specific modal window  */
@@ -152,6 +171,5 @@ button {
   border-radius: 10px;
   box-shadow: 0 0 20px red;
 }
-
 
 
