@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/CodeCaptainIO/Phaser-Groups/issues"
   },
-  "homepage": "https://github.com/CodeCaptainIO/Phaser-Groups#readme"
+  "homepage": "https://github.com/CodeCaptainIO/Phaser-Groups#readme",
+  "dependencies": {
+    "midievents": "^1.0.1",
+    "midifile": "^1.0.4"
+  }
 }
