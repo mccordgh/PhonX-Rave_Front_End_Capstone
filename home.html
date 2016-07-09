@@ -5,9 +5,11 @@
 
   <title>PhonX</title>
 
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <link rel="stylesheet" href="app/css/reset.css"/>
   <link rel="stylesheet" href="styles.css">
-  <link type="text/css" rel="stylesheet" href="app/libs/bower_components/Materialize/dist/css/materialize.min.css"  media="screen,projection"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="app/libs/phaser.js"></script>
 
@@ -25,26 +27,46 @@
   <div id="trial2"></div>
 
   <!-- LOGIN -->
-  <div class="login">
+  <div class="login_intro">
     <div class="row">
       <div class="col m6 offset-m3 white">
         <section>
           <h1>PhonX Rave</h1>
-          <div>
-              User Name: <input id="sign_up_userName" placeholder="If you're new, create a user name!" type="text" autofocus="true">
+          <div class="button_div">
+            <button type="button" class="btn btn-primary btn-lg launch_login_modal" data-toggle="modal" data-target="#myModal">Log in</button>
+          </div>
+          <div class="button_div"><h4>- Or -</h4></div>
+          <div class="button_div">
+            <button type="button" class="btn btn-primary btn-lg launch_signup_modal" data-toggle="modal" data-target="#myModal">Sign Up</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade login" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <button type="" class="modal_close_btn" data-dismiss="modal">X</button>
+    <div class="login_modal">
+      <section>
+        <h1 id="log_In_Title">Log In</h1>
+        <h1 id="sign_Up_Title">Sign Up</h1>
+        <div id="modal_center">
+          <div id="user_Name_Input">
+              User Name: <input id="sign_up_userName" type="text" autofocus="true">
           </div>
           <div>
-              Email: <input id="sign_up_email" type="text">
+              Email: <input id="sign_up_email" type="text" autofocus="true">
           </div>
           <div>
               Password: <input id="sign_up_password" type="password">
           </div>
           <div class="button_div">
-            <button id="login_up_BTN" class="mybutton waves-effect waves-light btn">Login</button>
-            <button id="sign_up_BTN" class="mybutton waves-effect waves-light btn">Sign Up</button>
+            <button id="login_up_BTN" data-dismiss="modal" class="mybutton waves-effect waves-light btn">Login</button>
+            <button id="sign_up_BTN" data-dismiss="modal" class="mybutton waves-effect waves-light btn">Sign Up</button>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   </div>
 
@@ -102,6 +124,11 @@
   <script src="http://reverbjs.org/reverb.js"></script>
   <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <!-- <script src="bower_components/Materialize/dist/js/materialize.min.js"></script> -->
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
   <script src="node_modules/tunajs/tuna.js"></script>
   <script src="node_modules/tunajs/tuna-min.js"></script>
   <script src="app/js/login.js"></script>

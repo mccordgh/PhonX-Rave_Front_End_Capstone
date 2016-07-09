@@ -25,6 +25,48 @@ h6 {
   margin-left: 0px;
 }
 
+.modal {
+  max-width: 600px;
+  height: 500px;
+  color: white;
+  background-image: url("./app/img/assets/PhonX.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  /*background-attachment: fixed;*/
+}
+
+#modal_center {
+  opacity: 0.95;
+  padding: 5px 5% 0 5%;
+  color: black;
+  background-color: white;
+  border-radius: 8px;
+}
+
+.login_modal {
+  margin: 10%;
+}
+
+#login_up_BTN, #sign_up_BTN {
+  margin-bottom: 20px;
+}
+
+#log_In_Title, #sign_Up_Title {
+  padding-top: 0;
+}
+
+.modal_close_btn {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 11px;
+  background-color: darkgrey;
+  float: right;
+  margin-right: 12px;
+  margin-top: 8px;
+}
+
 .newBackDrop {
   background-image: url("./app/img/assets/PhonX.jpg");
 }
@@ -37,10 +79,11 @@ h6 {
   height: 400px;
 }
 .m6 {
-  height: 440px;
+  height: 460px;
 }
 
 h1, .button_div {
+  padding-top: 20px;
   text-align: center;
 }
 
@@ -53,21 +96,9 @@ button {
   height: 100px;
 }
 
-/*#trial {
-  width: 1200px;
-  height: 2px;
-  position: fixed;
-  top: 588px;
-  background: red;
+#medium {
+  margin-bottom: 20px;
 }
-
-#trial2 {
-  width: 1200px;
-  height: 2px;
-  position: fixed;
-  top: 680px;
-  background: red;
-}*/
 
 #mask{
   position:absolute;
@@ -83,9 +114,8 @@ button {
 .modal_window{
   position:absolute;
   display:none;
-
-    /* styling bellow */
-    color:white;
+  /* styling bellow */
+  color:white;
 }
 
 /* style a specific modal window  */
@@ -147,11 +177,11 @@ button {
   margin-top: 22px;
 }
 .replay {
+  text-align: center;
   background: red;
   color: black;
   border-radius: 10px;
   box-shadow: 0 0 20px red;
 }
-
 
 
