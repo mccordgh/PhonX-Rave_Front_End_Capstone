@@ -1,14 +1,20 @@
-# PhaserJS Groups example
+# PhonX Rave - Front_End_Capstone
 
-Blogpost: https://www.codecaptain.io/blog/game-development/shooting-bullets-using-phaser-groups/518
 
-This demo shows how to work with groups in PhaserJS.
+
+Inspired by guitar hero, I have created a game that uses my own music to create a phaser game that utalizes dynamic audio manipulation.
+
+For a live DEMO go to: </br>
+phonxrave/herokuapp.com
 
 # Features
 
-- How to set up a Phaser Group
-- Create an Arcade physics body for movement
-- Detect when lasers are out of bound
-- Object Pooling using Phaser Groups for improving performance
-- Phaser mouse or touch input
+- Dynamic audio manipulation
+  - Ping Pong Delay
+  - Lowpass filter
+  - Reverb
+  - Audio Stems
+- Score counter with star power to double the score
+- Firebase to keep track of high scores and longest streaks
+- Object Pooling using Phaser Groups
 - Phaser keyboard input events
