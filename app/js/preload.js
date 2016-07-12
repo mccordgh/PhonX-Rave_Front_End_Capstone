@@ -86,10 +86,8 @@ function create() {
 
   // Change the back drop
   if (chosenSong === "I_Want_You") {
-    console.log("iwantyou");
     $('body').addClass('newBackDrop2')
   } else if (chosenSong === "Slime") {
-    console.log("slime");
     $('body').addClass('newBackDrop')
   }
   // Create the variable for the height of the image

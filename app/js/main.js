@@ -444,7 +444,11 @@ function calmultiplyer() {
 	// Check for starPower
 	if (isStarPowerActive === false) {
 		// Add to starPower, don't allow it to go over 100.
-		starPower += 10 // Math.floor(multiplier/2) + 6;
+		if (chosenSong === "I_Want_You") {
+			starPower += 6
+	  } else { // if (chosenSong === "Slime") {
+			starPower += 10
+	  }
 		if (starPower > 300) {
 			starPower = 300;
 			// Animation to indicate that StarPower is available
