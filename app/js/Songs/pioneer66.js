@@ -1,21 +1,21 @@
 var firePioneer_66 = function() {
 
-  setTimeout(function() { fire_L_Laser(); }, (4.457*0));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*192));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*384));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*576));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*768));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*960));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*1152));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*1344));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*1536));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*1728));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*1920));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*2112));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*2304));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*2496));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*2688));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*2880));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*0));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*192));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*384));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*576));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*768));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*960));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*1152));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*1344));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*1536));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*1728));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*1920));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*2112));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*2304));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*2496));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*2688));
+  // setTimeout(function() { fire_L_Laser(); }, (4.457*2880));
 
 
 
@@ -356,16 +356,22 @@ var firePioneer_66 = function() {
   setTimeout(function() { fire_J_Laser(); }, (4.457*36672));
   setTimeout(function() { fire_K_Laser(); }, (4.457*36672));
 
-
-
-  // // Add applause
-  // setTimeout(function() {audio_applause2.play()}, 79000);
-  // // Fire function to add score to player
-  // setTimeout(function() { postScore(playerScore, currentHighStreak, "pioneer66"); }, 81000);
-  // // display leaderboard with ajax request
-  // setTimeout(function() {
-  //   getPlayers(playerScore, currentHighStreak);
-  //   // remove the game content
-  //   $("#game_container").html("");
-  // }, 82005);
+  // Add applause
+  setTimeout(function() {audio_applause2.play()}, 79000);
+  // Fire function to add score to player
+  setTimeout(function() { postScore(playerScore, currentHighStreak, "pioneer66_"); }, (4.457*38072));
 }
+// postScore(playerScore, currentHighStreak, "pioneer66_")
+
+
+
+
+
+
+
+
+
+
+
+
+

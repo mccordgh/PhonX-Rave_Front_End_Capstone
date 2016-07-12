@@ -19,7 +19,6 @@ $(document).ready(function(){
     // Use the function to close it
     close_modal();
   });
-
 });
 
 // THE FUNCTIONS
@@ -56,49 +55,25 @@ function postScore(score, streak, song) {
     method: "GET"
   }).done(function(playerList) {
     // if (song === "slime") {
-      // Get access to current player highScore
-      console.log("currentPlayerUID", currentPlayerUID);
-      // Loop through all players
-      for (variable in playerList) {
-        // Check for current player
-        if (playerList[variable].playerId === currentPlayerUID) {
-          // If score is greater than the stored data, replace the high score
-          if (score > playerList[variable].highScore) {
-            var userScoreRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
-            // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
-            userScoreRef.update({ highScore: score});
-          }
-          // If longest streakToPost is greater than the stored data, replace the longest streak
-          if (streakToPost > playerList[variable].longestStreak) {
-            var userStreakRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
-            // Modify the 'first' and 'last' children, but leave other data at userStreakRef unchanged
-            userStreakRef.update({ longestStreak: streakToPost});
-          }
+    // Get access to current player highScore
+    console.log("currentPlayerUID", currentPlayerUID);
+    // Loop through all players
+    for (variable in playerList) {
+      // Check for current player
+      if (playerList[variable].playerId === currentPlayerUID) {
+        // If score is greater than the stored data, replace the high score
+        var userRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
+        if (score > playerList[variable][highScoreId]) {
+          // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
+          userRef.update({ [highScoreId]: score});
+        }
+        // If longest streakToPost is greater than the stored data, replace the longest streak
+        if (streakToPost > playerList[variable][highStreakId]) {
+          // Modify the 'first' and 'last' children, but leave other data at userStreakRef unchanged
+          userRef.update({ [highStreakId]: streakToPost});
         }
       }
-    // }
-    // else if (song === "pioneer66") {
-    //   // Get access to current player highScore
-    //   console.log("currentPlayerUID", currentPlayerUID);
-    //   // Loop through all players
-    //   for (variable in playerList) {
-    //     // Check for current player
-    //     if (playerList[variable].playerId === currentPlayerUID) {
-    //       // If score is greater than the stored data, replace the high score
-    //       if (score > playerList[variable].pioneer66_highScore) {
-    //         var userScoreRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
-    //         // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
-    //         userScoreRef.update({ pioneer66_highScore: score});
-    //       }
-    //       // If longest streakToPost is greater than the stored data, replace the longest streak
-    //       if (streakToPost > playerList[variable].pioneer66_longestStreak) {
-    //         var userStreakRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
-    //         // Modify the 'first' and 'last' children, but leave other data at userStreakRef unchanged
-    //         userStreakRef.update({ pioneer66_longestStreak: streakToPost});
-    //       }
-    //     }
-    //   }
-    // }; // add more songs here
+    }
   }).then(()=>{
     $.ajax({
     url: "https://phonx-rave.firebaseio.com/Players/.json",
@@ -129,11 +104,6 @@ function postScore(score, streak, song) {
           );
         };
       }
-
-
-
-
-
       console.log("playerLeaderBoard", playerLeaderBoard);
       Array.prototype.sortOn = function(key){
           this.sort(function(a, b){
@@ -146,33 +116,11 @@ function postScore(score, streak, song) {
           });
       }
       playerLeaderBoard.sortOn("playerHighScore");
+      playerLeaderBoard.reverse();
       // playerLeaderBoard.sort( srt() );
       console.log("playerLeaderBoard sorted", playerLeaderBoard);
-
-
-
-
-
-
-
-
-
-
-
-      // Sort the array by score from highest to lowest
-      playerScoreArray.sort(function(a,b){return b - a})
-      // Loop through the array and add to the string in the correct order
-      for (var i = 1; i < playerScoreArray.length+1; i++) {
-        // Loop through and sort the data by the score property, create a name array to correspond with the score array
-        for (let player in playerList) {
-          if (playerList[player][highScoreId] === playerScoreArray[i-1]) {
-            playerNameArray.push(playerList[player].userName);
-            playerStreakArray.push(playerList[player][highStreakId])
-          };
-        }
-        // Add to the DOM in the correct order now that both arrays are in order
-        contentString += `<h4>${i} ${playerNameArray[i-1]}: ${playerScoreArray[i-1]}</h4>
-                          <h5>Longest Streak: ${playerStreakArray[i-1]}</h5>`
+      for (var i = 0; i < playerLeaderBoard.length; i++) {
+        contentString += `<h4>${i+1} ${playerLeaderBoard[i].playerName}: ${playerLeaderBoard[i].playerHighScore}</h4><h5>Longest Streak: ${playerLeaderBoard[i].playerHighStreak}</h5>`
       };
       contentString += "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
       // Post the leader_board

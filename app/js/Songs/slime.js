@@ -245,16 +245,10 @@ var fireSlime = function() {
   // Add applause
   setTimeout(function() {audio_applause2.play()}, 79000);
   // Fire function to add score to player
-  // setTimeout(function() { postScore(playerScore, currentHighStreak, ""); }, 82000);
-  // display leaderboard with ajax request
-  // setTimeout(function() {
-  //   getPlayers(playerScore, currentHighStreak, "");
-  //   // remove the game content
-  //   $("#game_container").html("");
-  // }, 82005);
+  setTimeout(function() { postScore(playerScore, currentHighStreak, "slime_"); }, 82000);
 };
 
-postScore(playerScore, currentHighStreak, "");
+// postScore(playerScore, currentHighStreak, "");
 
 
 
