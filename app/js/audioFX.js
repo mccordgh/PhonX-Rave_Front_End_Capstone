@@ -8,19 +8,11 @@ var filter;
 var ping_pong;
 var tuna;
 
-var creatAudio = function (chosenSong) {
+var creatAudio = function (chosenSong, num1, num2) {
   // Star out with the audio context
   var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  // var audio_Melody = $('audio')[2];
-  // var audio_Bg = $('audio')[3];
-  // Access your audio files
-  if (chosenSong === "pioneer66") {
-    audio_Melody = $('audio')[2];
-    audio_Bg = $('audio')[3];
-  } else if (chosenSong === "slime") {
-    audio_Melody = $('audio')[0];
-    audio_Bg = $('audio')[1];
-  }
+  audio_Melody = $('audio')[num1];
+  audio_Bg = $('audio')[num2];
   // var reverb_audio_Melody = $('audio')[0];
   // var reverb_audio_BG = $('audio')[1];
 

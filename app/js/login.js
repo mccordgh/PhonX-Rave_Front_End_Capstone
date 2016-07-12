@@ -111,14 +111,14 @@ function createPlayer(uid, name){
 
 // Functions to choose a song
 $("#I_Want_You").on('click', ()=>{
-  creatAudio("pioneer66")
+  creatAudio("pioneer66", 2, 3)
   chosenSong = "I_Want_You";
   $(".choose_song").addClass("hidden");
   $(".difficulty").removeClass("hidden");
 });
 $("#Slime").on('click', ()=>{
   chosenSong = "Slime";
-  creatAudio("slime")
+  creatAudio("slime", 0, 1)
   $(".choose_song").addClass("hidden");
   $(".difficulty").removeClass("hidden");
 });

@@ -44,6 +44,8 @@ function show_modal(htmlString){
 
 // Function to post score to Firebase
 function postScore(score, streak, song) {
+  var highScoreId = `${song}highScore`
+  var highStreakId = `${song}longestStreak`
   var streakToPost = streak;
   if (currentStreak > currentHighStreak) {
     streakToPost = currentStreak;
@@ -53,7 +55,7 @@ function postScore(score, streak, song) {
     url: "https://phonx-rave.firebaseio.com/Players/.json",
     method: "GET"
   }).done(function(playerList) {
-    if (song === "slime") {
+    // if (song === "slime") {
       // Get access to current player highScore
       console.log("currentPlayerUID", currentPlayerUID);
       // Loop through all players
@@ -74,69 +76,153 @@ function postScore(score, streak, song) {
           }
         }
       }
-    }
-    else if (song === "pioneer66") {
-      // Get access to current player highScore
-      console.log("currentPlayerUID", currentPlayerUID);
-      // Loop through all players
-      for (variable in playerList) {
-        // Check for current player
-        if (playerList[variable].playerId === currentPlayerUID) {
-          // If score is greater than the stored data, replace the high score
-          if (score > playerList[variable].pioneer66_highScore) {
-            var userScoreRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
-            // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
-            userScoreRef.update({ pioneer66_highScore: score});
-          }
-          // If longest streakToPost is greater than the stored data, replace the longest streak
-          if (streakToPost > playerList[variable].pioneer66_longestStreak) {
-            var userStreakRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
-            // Modify the 'first' and 'last' children, but leave other data at userStreakRef unchanged
-            userStreakRef.update({ pioneer66_longestStreak: streakToPost});
-          }
-        }
-      }
-    }; // add more songs here
-  })
-}
-
-// AJAX request to get leader board
-function getPlayers (score, streak, song) {
-  $.ajax({
+    // }
+    // else if (song === "pioneer66") {
+    //   // Get access to current player highScore
+    //   console.log("currentPlayerUID", currentPlayerUID);
+    //   // Loop through all players
+    //   for (variable in playerList) {
+    //     // Check for current player
+    //     if (playerList[variable].playerId === currentPlayerUID) {
+    //       // If score is greater than the stored data, replace the high score
+    //       if (score > playerList[variable].pioneer66_highScore) {
+    //         var userScoreRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
+    //         // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
+    //         userScoreRef.update({ pioneer66_highScore: score});
+    //       }
+    //       // If longest streakToPost is greater than the stored data, replace the longest streak
+    //       if (streakToPost > playerList[variable].pioneer66_longestStreak) {
+    //         var userStreakRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
+    //         // Modify the 'first' and 'last' children, but leave other data at userStreakRef unchanged
+    //         userStreakRef.update({ pioneer66_longestStreak: streakToPost});
+    //       }
+    //     }
+    //   }
+    // }; // add more songs here
+  }).then(()=>{
+    $.ajax({
     url: "https://phonx-rave.firebaseio.com/Players/.json",
     method: "GET"
   }).done(function(playerList) {
-    console.log("playerList", playerList);
-    var playerScoreArray = [];
-    var playerNameArray = [];
-    var playerStreakArray = [];
-    var contentString = "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
-    contentString += `<h1>Your Score:</h1><h2>${score}</h2>`;
-    // Loop through, find the highest score, create a new array
-    let trialvar = "highScore";
-    for (let player in playerList) {
-      playerScoreArray.push(playerList[player][trialvar]);
-    }
-    // Sort the array by score from highest to lowest
-    playerScoreArray.sort(function(a,b){return b - a})
-    // Loop through the array and add to the string in the correct order
-    for (var i = 1; i < playerScoreArray.length+1; i++) {
-      // Loop through and sort the data by the score property, create a name array to correspond with the score array
+      $("#game_container").html("");
+      console.log("playerList", playerList);
+      var highScoreId = `${song}highScore`
+      var highStreakId = `${song}longestStreak`
+      console.log("highStreakId", highStreakId);
+      console.log("highScoreId", highScoreId);
+      var playerScoreArray = [];
+      var playerNameArray = [];
+      var playerStreakArray = [];
+      var playerLeaderBoard = [];
+      var contentString = "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
+      contentString += `<h1>Your Score:</h1><h2>${score}</h2>`;
+      // Loop through, find the highest score, create a new array
       for (let player in playerList) {
-        if (playerList[player].highScore === playerScoreArray[i-1]) {
-          playerNameArray.push(playerList[player].userName);
-          playerStreakArray.push(playerList[player].longestStreak)
+        if (playerList[player][highScoreId] !== 0) {
+          playerScoreArray.push(playerList[player][highScoreId]);
+          playerLeaderBoard.push(
+            {
+              playerName : playerList[player].userName,
+              playerHighScore : playerList[player][highScoreId],
+              playerHighStreak : playerList[player][highStreakId]
+            }
+          );
         };
       }
-      // Add to the DOM in the correct order now that both arrays are in order
-      contentString += `<h4>${i} ${playerNameArray[i-1]}: ${playerScoreArray[i-1]}</h4>
-                        <h5>Longest Streak: ${playerStreakArray[i-1]}</h5>`
-    };
-    contentString += "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
-    // Post the leader_board
-    show_modal(contentString);
+
+
+
+
+
+      console.log("playerLeaderBoard", playerLeaderBoard);
+      Array.prototype.sortOn = function(key){
+          this.sort(function(a, b){
+              if(a[key] < b[key]){
+                  return -1;
+              }else if(a[key] > b[key]){
+                  return 1;
+              }
+              return 0;
+          });
+      }
+      playerLeaderBoard.sortOn("playerHighScore");
+      // playerLeaderBoard.sort( srt() );
+      console.log("playerLeaderBoard sorted", playerLeaderBoard);
+
+
+
+
+
+
+
+
+
+
+
+      // Sort the array by score from highest to lowest
+      playerScoreArray.sort(function(a,b){return b - a})
+      // Loop through the array and add to the string in the correct order
+      for (var i = 1; i < playerScoreArray.length+1; i++) {
+        // Loop through and sort the data by the score property, create a name array to correspond with the score array
+        for (let player in playerList) {
+          if (playerList[player][highScoreId] === playerScoreArray[i-1]) {
+            playerNameArray.push(playerList[player].userName);
+            playerStreakArray.push(playerList[player][highStreakId])
+          };
+        }
+        // Add to the DOM in the correct order now that both arrays are in order
+        contentString += `<h4>${i} ${playerNameArray[i-1]}: ${playerScoreArray[i-1]}</h4>
+                          <h5>Longest Streak: ${playerStreakArray[i-1]}</h5>`
+      };
+      contentString += "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
+      // Post the leader_board
+      show_modal(contentString);
+    })
   })
 }
+
+// // AJAX request to get leader board
+// function getPlayers (score, streak, song) {
+//   $.ajax({
+//     url: "https://phonx-rave.firebaseio.com/Players/.json",
+//     method: "GET"
+//   }).done(function(playerList) {
+//     console.log("playerList", playerList);
+//     var highScoreId = `${song}highScore`
+//     var highStreakId = `${song}longestStreak`
+//     console.log("highStreakId", highStreakId);
+//     console.log("highScoreId", highScoreId);
+//     var playerScoreArray = [];
+//     var playerNameArray = [];
+//     var playerStreakArray = [];
+//     var contentString = "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
+//     contentString += `<h1>Your Score:</h1><h2>${score}</h2>`;
+//     // Loop through, find the highest score, create a new array
+//     for (let player in playerList) {
+//       if (playerList[player][highScoreId] !== 0) {
+//         playerScoreArray.push(playerList[player][highScoreId]);
+//       };
+//     }
+//     // Sort the array by score from highest to lowest
+//     playerScoreArray.sort(function(a,b){return b - a})
+//     // Loop through the array and add to the string in the correct order
+//     for (var i = 1; i < playerScoreArray.length+1; i++) {
+//       // Loop through and sort the data by the score property, create a name array to correspond with the score array
+//       for (let player in playerList) {
+//         if (playerList[player][highScoreId] === playerScoreArray[i-1]) {
+//           playerNameArray.push(playerList[player].userName);
+//           playerStreakArray.push(playerList[player][highStreakId])
+//         };
+//       }
+//       // Add to the DOM in the correct order now that both arrays are in order
+//       contentString += `<h4>${i} ${playerNameArray[i-1]}: ${playerScoreArray[i-1]}</h4>
+//                         <h5>Longest Streak: ${playerStreakArray[i-1]}</h5>`
+//     };
+//     contentString += "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
+//     // Post the leader_board
+//     show_modal(contentString);
+//   })
+// }
 
 
 
