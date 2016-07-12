@@ -248,7 +248,7 @@ var fireSlime = function() {
   setTimeout(function() { postScore(playerScore, currentHighStreak, "slime_"); }, 82000);
 };
 
-postScore(playerScore, currentHighStreak, "slime_");
+// postScore(playerScore, currentHighStreak, "slime_");
 
 
 
