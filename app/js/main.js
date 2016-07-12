@@ -47,20 +47,30 @@ function startGame () {
 	audio_Wrong_Note4.volume = 0.4;
 	audio_applause.volume = 0.6;
 	audio_applause2.volume = 0.8;
-	// Play audio
-	setTimeout(function() {
+
+	// Play audio and fire notes for appropriate song
+	if (chosenSong === "Slime") {
+		setTimeout(function() {
+			// Play main audio
+			audio_Bg.play();
+			audio_Melody.play();
+			// Fire laser notes
+		}, 425);
+		fireSlime();
+	} else if (chosenSong === "I_Want_You") {
 		// Play main audio
 		audio_Bg.play();
 		audio_Melody.play();
-	}, 425);
+		// Fire laser notes
+		setTimeout(function() {
+			firePioneer_66();
+		}, 400);
+	}
 
-	// Launch Notes
-	fireSong();
 }
 
 // Update: runs multiple times a second
 function update() {
-
 	// Update the score based on the users points
 	scoreText.setText('Score:' + playerScore);
 	multiplierText.setText('Multiplier:');
@@ -128,7 +138,7 @@ function update() {
 	starPowerBarIMG.crop(cropDimensions);
 }
 
-//Fire the this function to create spacebar image so the user knows they have starpower. 
+//Fire the this function to create spacebar image so the user knows they have starpower.
 function spaceBarIndicator(){
 	function animateLoop() {
 		var spaceBarAnimation = game.add.image(100, 540, 'spaceBar');

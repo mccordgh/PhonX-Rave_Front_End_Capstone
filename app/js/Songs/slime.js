@@ -1,7 +1,7 @@
 // INTRO //
 // A.a //
 
-var fireSong = function() {
+var fireSlime = function() {
   var sectionA = 0;
   var introAa = function () {
     setTimeout(function() { fire_L_Laser(); }, 000);
@@ -245,10 +245,10 @@ var fireSong = function() {
   // Add applause
   setTimeout(function() {audio_applause2.play()}, 79000);
   // Fire function to add score to player
-  setTimeout(function() { postScore(playerScore, currentHighStreak); }, 81000);
+  setTimeout(function() { postScore(playerScore, currentHighStreak, "slime"); }, 81000);
   // display leaderboard with ajax request
   setTimeout(function() {
-    getPlayers(playerScore, currentHighStreak);
+    getPlayers(playerScore, currentHighStreak, "slime");
     // remove the game content
     $("#game_container").html("");
   }, 82005);

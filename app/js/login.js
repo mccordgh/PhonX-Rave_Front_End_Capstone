@@ -1,7 +1,9 @@
 "use strict";
 
-var currentPlayerUID;
-var ref = new Firebase("https://phonx-rave.firebaseio.com/");
+let currentPlayerUID;
+let ref = new Firebase("https://phonx-rave.firebaseio.com/");
+let difficulty;
+let chosenSong;
 
 // when the login modal is clicked, show appropriate divs
 $(".launch_login_modal").on('click', ()=>{
@@ -57,12 +59,11 @@ $("#sign_up_BTN").on('click', ()=>{
       createPlayer(userData.uid, userName);
       // Hide the login screen
       $(".login_intro").addClass("hidden");
-      // On click, go to the difficulty screen
-      $(".difficulty").removeClass("hidden");
+      // On click, go to the choose_song screen
+      $(".choose_song").removeClass("hidden");
     }
   });
 })
-
 
 $("#login_up_BTN").on('click', ()=>{
   let userEmail = $("#sign_up_email").val();
@@ -89,7 +90,7 @@ $("#login_up_BTN").on('click', ()=>{
       // Hide the login screen
       $(".login_intro").addClass("hidden");
       // On click, go to the difficulty screen
-      $(".difficulty").removeClass("hidden");
+      $(".choose_song").removeClass("hidden");
     }
   });
 });
@@ -108,8 +109,21 @@ function createPlayer(uid, name){
   })
 };
 
+// Functions to choose a song
+$("#I_Want_You").on('click', ()=>{
+  creatAudio("pioneer66")
+  chosenSong = "I_Want_You";
+  $(".choose_song").addClass("hidden");
+  $(".difficulty").removeClass("hidden");
+});
+$("#Slime").on('click', ()=>{
+  chosenSong = "Slime";
+  creatAudio("slime")
+  $(".choose_song").addClass("hidden");
+  $(".difficulty").removeClass("hidden");
+});
 
-var difficulty;
+// Functions to set difficulty
 $("#medium").click(()=>{
   // Set difficulty
   difficulty = "medium";
@@ -117,7 +131,6 @@ $("#medium").click(()=>{
   $(".difficulty").addClass("hidden");
   $(".instructions").removeClass("hidden");
 });
-
 $("#expert").click(()=>{
   // Set difficulty
   difficulty = "expert";

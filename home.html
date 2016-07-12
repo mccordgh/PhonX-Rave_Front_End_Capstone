@@ -49,7 +49,7 @@
         <h1 id="log_In_Title">Log In</h1>
         <h1 id="sign_Up_Title">Sign Up</h1>
         <div id="modal_center">
-          <div id="user_Name_Input">
+          <div id="user_Name_Input"> 
               User Name: <input id="sign_up_userName" type="text" autofocus="true">
           </div>
           <div>
@@ -64,6 +64,20 @@
           </div>
         </div>
       </section>
+    </div>
+  </div>
+
+  <!-- CHOOSE SONG -->
+  <div class="choose_song hidden">
+    <div class="row">
+      <div class="col m6 offset-m3 white">
+        <h1>Choose your song:</h1>
+        <div class="button_div">
+          <button id="I_Want_You" class="mybutton waves-effect waves-light btn">I Want You</button>
+          <button id="Slime" class="mybutton waves-effect waves-light btn">Slime</button>
+          <button id="coming_soon" disabled class="mybutton waves-effect waves-light btn">Coming Soon</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -111,8 +125,12 @@
   </div>
 
   <div id="song">
+        <!-- Slime -->
     <audio src="./app/audio/Zionexx_Guitar_Hero_Melody.wav"></audio>
     <audio src="./app/audio/Zionexx_Guitar_Hero.wav"></audio>
+        <!-- Pioneer66 -->
+    <audio src="./app/audio/Pioneer66/P_66_Melody.wav"></audio>
+    <audio src="./app/audio/Pioneer66/P_66_BG.wav"></audio>
   </div>
 
   <div id="container"></div>
@@ -121,17 +139,22 @@
   <script src="http://reverbjs.org/reverb.js"></script>
   <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
   <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <!-- Midi Data Node Module -->
+  <script src="node_modules/midifile/dist/MIDIFile.js"></script>
+  <script src="node_modules/midievents/dist/MIDIEvents.js"></script>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
   <script src="node_modules/tunajs/tuna.js"></script>
   <script src="node_modules/tunajs/tuna-min.js"></script>
   <script src="app/js/login.js"></script>
-  <script src="app/js/modal.js"></script>
+  <script src="app/js/score_modal.js"></script>
   <script src="app/js/audioFX.js"></script>
   <script src="app/js/preload.js"></script>
   <script src="app/js/main.js"></script>
-  <script src="app/js/song.js"></script>
+  <script src="app/js/Songs/slime.js"></script>
+  <script src="app/js/Songs/pioneer66.js"></script>
+  <script src="app/js/midiData.js"></script>
 
 </body>
 </html>

@@ -119,9 +119,9 @@ function create() {
 
   // This will create 100 sprites and add it to the stage. They're inactive and invisible, but they're there for later use.
   // We only have 100 lasers available, and will 'clean' and reset they're off the screen.
-  lasers_K_.createMultiple(100, 'laser1');
-  lasers_L_.createMultiple(100, 'laser2');
-  lasers_J_.createMultiple(100, 'laser3');
+  lasers_K_.createMultiple(200, 'laser1');
+  lasers_L_.createMultiple(200, 'laser2');
+  lasers_J_.createMultiple(200, 'laser3');
   lasers_K_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
   lasers_L_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
   lasers_J_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
