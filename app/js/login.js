@@ -159,9 +159,9 @@ $("#medium").click(()=>{
   $(".difficulty").addClass("hidden");
   $(".instructions").removeClass("hidden");
 });
-$("#expert").click(()=>{
+$("#hard").click(()=>{
   // Set difficulty
-  difficulty = "expert";
+  difficulty = "hard";
   // On click, create the game and change the screen
   $(".difficulty").addClass("hidden");
   $(".instructions").removeClass("hidden");

@@ -21,23 +21,30 @@ var firePioneer_66 = function() {
 
 
 
-  setTimeout(function() { fire_L_Laser(); }, (4.457*2928));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*2976));
-  setTimeout(function() { fire_J_Laser(); }, (4.457*3024));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_L_Laser(); }, (4.457*2928));
+    setTimeout(function() { fire_K_Laser(); }, (4.457*2976));
+    setTimeout(function() { fire_J_Laser(); }, (4.457*3024));
+  }
   setTimeout(function() { fire_J_Laser(); }, (4.457*3072));
   setTimeout(function() { fire_K_Laser(); }, (4.457*3168));
   setTimeout(function() { fire_K_Laser(); }, (4.457*3264));
   setTimeout(function() { fire_L_Laser(); }, (4.457*3312));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*3408));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_L_Laser(); }, (4.457*3408));
+  }
   setTimeout(function() { fire_J_Laser(); }, (4.457*3456));
   setTimeout(function() { fire_K_Laser(); }, (4.457*3552));
   setTimeout(function() { fire_K_Laser(); }, (4.457*3648));
   setTimeout(function() { fire_L_Laser(); }, (4.457*3696));
+
   setTimeout(function() { fire_J_Laser(); }, (4.457*3840));
   setTimeout(function() { fire_K_Laser(); }, (4.457*3936));
   setTimeout(function() { fire_K_Laser(); }, (4.457*4032));
   setTimeout(function() { fire_L_Laser(); }, (4.457*4080));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*4176));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_L_Laser(); }, (4.457*4176));
+  }
   setTimeout(function() { fire_J_Laser(); }, (4.457*4224));
   setTimeout(function() { fire_K_Laser(); }, (4.457*4320));
   setTimeout(function() { fire_J_Laser(); }, (4.457*4464));
@@ -60,15 +67,23 @@ var firePioneer_66 = function() {
   setTimeout(function() { fire_K_Laser(); }, (4.457*6624));
   setTimeout(function() { fire_K_Laser(); }, (4.457*6768));
   setTimeout(function() { fire_L_Laser(); }, (4.457*6864));
-  setTimeout(function() { fire_J_Laser(); }, (4.457*7056));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_J_Laser(); }, (4.457*7056));
+  }
   setTimeout(function() { fire_K_Laser(); }, (4.457*7104));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*7152));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_L_Laser(); }, (4.457*7152));
+  }
   setTimeout(function() { fire_K_Laser(); }, (4.457*7200));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*7248));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_L_Laser(); }, (4.457*7248));
+  }
   setTimeout(function() { fire_J_Laser(); }, (4.457*7392));
   setTimeout(function() { fire_K_Laser(); }, (4.457*7488));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*7584));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*7632));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_L_Laser(); }, (4.457*7584));
+    setTimeout(function() { fire_K_Laser(); }, (4.457*7632));
+  }
   setTimeout(function() { fire_J_Laser(); }, (4.457*7680));
   setTimeout(function() { fire_K_Laser(); }, (4.457*7776));
   setTimeout(function() { fire_K_Laser(); }, (4.457*7872));
@@ -84,18 +99,26 @@ var firePioneer_66 = function() {
   setTimeout(function() { fire_J_Laser(); }, (4.457*8784));
   setTimeout(function() { fire_K_Laser(); }, (4.457*8928));
   setTimeout(function() { fire_J_Laser(); }, (4.457*9024));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*9072));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_L_Laser(); }, (4.457*9072));
+  }
   setTimeout(function() { fire_K_Laser(); }, (4.457*9120));
-  setTimeout(function() { fire_J_Laser(); }, (4.457*9168));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_J_Laser(); }, (4.457*9168));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*9216));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*9360));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_L_Laser(); }, (4.457*9360));
+  }
   setTimeout(function() { fire_K_Laser(); }, (4.457*9408));
   setTimeout(function() { fire_J_Laser(); }, (4.457*9456));
   setTimeout(function() { fire_L_Laser(); }, (4.457*9504));
   setTimeout(function() { fire_K_Laser(); }, (4.457*9648));
   setTimeout(function() { fire_L_Laser(); }, (4.457*9792));
   setTimeout(function() { fire_J_Laser(); }, (4.457*9888));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*9936));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*9936));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*9984));
   setTimeout(function() { fire_L_Laser(); }, (4.457*10176));
   setTimeout(function() { fire_J_Laser(); }, (4.457*10272));
@@ -104,7 +127,9 @@ var firePioneer_66 = function() {
   setTimeout(function() { fire_K_Laser(); }, (4.457*10560));
   setTimeout(function() { fire_J_Laser(); }, (4.457*10656));
   setTimeout(function() { fire_L_Laser(); }, (4.457*10752));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*10800));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*10800));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*10848));
   setTimeout(function() { fire_J_Laser(); }, (4.457*10992));
   setTimeout(function() { fire_L_Laser(); }, (4.457*11136));
@@ -112,21 +137,35 @@ var firePioneer_66 = function() {
   setTimeout(function() { fire_J_Laser(); }, (4.457*11328));
   setTimeout(function() { fire_L_Laser(); }, (4.457*11424));
   setTimeout(function() { fire_J_Laser(); }, (4.457*11520));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*11568));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*11568));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*11616));
   setTimeout(function() { fire_J_Laser(); }, (4.457*11664));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*11712));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*11712));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*11760));
   setTimeout(function() { fire_J_Laser(); }, (4.457*11808));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*11856));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*11856));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*11904));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*11952));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*11952));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*12000));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*12048));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*12048));
+  }
   setTimeout(function() { fire_J_Laser(); }, (4.457*12096));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*12144));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*12144));
+  }
   setTimeout(function() { fire_J_Laser(); }, (4.457*12192));
-  setTimeout(function() { fire_L_Laser(); }, (4.457*12240));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_L_Laser(); }, (4.457*12240));
+  }
   setTimeout(function() { fire_J_Laser(); }, (4.457*12288));
   setTimeout(function() { fire_K_Laser(); }, (4.457*12528));
   setTimeout(function() { fire_L_Laser(); }, (4.457*12624));
@@ -292,20 +331,30 @@ var firePioneer_66 = function() {
   setTimeout(function() { fire_K_Laser(); }, (4.457*30576));
   setTimeout(function() { fire_J_Laser(); }, (4.457*30624));
   setTimeout(function() { fire_L_Laser(); }, (4.457*30672));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*30816));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*30816));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*30816));
-  setTimeout(function() { fire_J_Laser(); }, (4.457*30912));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_J_Laser(); }, (4.457*30912));
+  }
   setTimeout(function() { fire_K_Laser(); }, (4.457*30912));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*31008));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*31008));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*31008));
   setTimeout(function() { fire_L_Laser(); }, (4.457*31104));
   setTimeout(function() { fire_K_Laser(); }, (4.457*31200));
   setTimeout(function() { fire_J_Laser(); }, (4.457*31296));
   setTimeout(function() { fire_K_Laser(); }, (4.457*31392));
   setTimeout(function() { fire_L_Laser(); }, (4.457*31488));
-  setTimeout(function() { fire_J_Laser(); }, (4.457*31680));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_J_Laser(); }, (4.457*31680));
+  }
   setTimeout(function() { fire_K_Laser(); }, (4.457*31680));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*31776));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*31776));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*31776));
   setTimeout(function() { fire_L_Laser(); }, (4.457*31872));
   setTimeout(function() { fire_K_Laser(); }, (4.457*31968));
@@ -317,9 +366,13 @@ var firePioneer_66 = function() {
   setTimeout(function() { fire_L_Laser(); }, (4.457*32640));
   setTimeout(function() { fire_K_Laser(); }, (4.457*32736));
   setTimeout(function() { fire_J_Laser(); }, (4.457*32832));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*33024));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*33024));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*33024));
-  setTimeout(function() { fire_J_Laser(); }, (4.457*33216));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_J_Laser(); }, (4.457*33216));
+  }
   setTimeout(function() { fire_K_Laser(); }, (4.457*33216));
   setTimeout(function() { fire_J_Laser(); }, (4.457*33408));
   setTimeout(function() { fire_L_Laser(); }, (4.457*33792));
@@ -341,19 +394,25 @@ var firePioneer_66 = function() {
   setTimeout(function() { fire_K_Laser(); }, (4.457*35104));
   setTimeout(function() { fire_J_Laser(); }, (4.457*35136));
   setTimeout(function() { fire_K_Laser(); }, (4.457*35232));
-  setTimeout(function() { fire_K_Laser(); }, (4.457*35328));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_K_Laser(); }, (4.457*35328));
+  }
   setTimeout(function() { fire_L_Laser(); }, (4.457*35328));
   setTimeout(function() { fire_K_Laser(); }, (4.457*35520));
   setTimeout(function() { fire_K_Laser(); }, (4.457*35712));
   setTimeout(function() { fire_L_Laser(); }, (4.457*35808));
   setTimeout(function() { fire_K_Laser(); }, (4.457*35904));
   setTimeout(function() { fire_J_Laser(); }, (4.457*36000));
-  setTimeout(function() { fire_J_Laser(); }, (4.457*36096));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_J_Laser(); }, (4.457*36096));
+  }
   setTimeout(function() { fire_K_Laser(); }, (4.457*36096));
   setTimeout(function() { fire_K_Laser(); }, (4.457*36288));
   setTimeout(function() { fire_L_Laser(); }, (4.457*36384));
   setTimeout(function() { fire_K_Laser(); }, (4.457*36480));
-  setTimeout(function() { fire_J_Laser(); }, (4.457*36672));
+  if (difficulty === "hard") {
+    setTimeout(function() { fire_J_Laser(); }, (4.457*36672));
+  }
   setTimeout(function() { fire_K_Laser(); }, (4.457*36672));
 
   // Add applause

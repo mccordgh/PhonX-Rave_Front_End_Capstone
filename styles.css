@@ -1,5 +1,5 @@
 body {
-  background-image: url("./app/img/assets/PhonX Collage.png");
+  background-image: url("./app/img/assets/Backgrounds/PhonX Collage.png");
   background-width: 40px;
 }
 
@@ -27,7 +27,7 @@ h6 {
   max-width: 600px;
   height: 500px;
   color: white;
-  background-image: url("./app/img/assets/PhonX.jpg");
+  background-image: url("./app/img/assets/Backgrounds/PhonX.jpg");
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
@@ -66,7 +66,10 @@ h6 {
 }
 
 .newBackDrop {
-  background-image: url("./app/img/assets/PhonX.jpg");
+  background-image: url("./app/img/assets/Backgrounds/PhonX.jpg");
+}
+.newBackDrop2 {
+  background-image: url("./app/img/assets/Backgrounds/DJ_Crowd.jpg");
 }
 
 .col {
@@ -84,6 +87,11 @@ h1, .button_div {
   padding-top: 20px;
   text-align: center;
 }
+.button_div button {
+  width: 70%;
+  max-width: 255px;
+  /*display: block;*/
+}
 
 .mybutton {
   font-size: 24px;
@@ -94,7 +102,7 @@ button {
   height: 100px;
 }
 
-#medium, #expert {
+#medium, #expert, #I_Want_You, #Slime {
   margin-bottom: 20px;
 }
 

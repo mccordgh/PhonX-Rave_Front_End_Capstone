@@ -85,7 +85,13 @@ function init() {
 function create() {
 
   // Change the back drop
-  $('body').addClass('newBackDrop')
+  if (chosenSong === "I_Want_You") {
+    console.log("iwantyou");
+    $('body').addClass('newBackDrop2')
+  } else if (chosenSong === "Slime") {
+    console.log("slime");
+    $('body').addClass('newBackDrop')
+  }
   // Create the variable for the height of the image
   StarBar_height = game.cache.getImage("starPowerBarIMG").height;
   cropDimensions = new Phaser.Rectangle(0, 0, 160, 160); //(starPower/2)
