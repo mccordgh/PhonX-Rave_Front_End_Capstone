@@ -165,6 +165,13 @@ $("#medium").click(()=>{
   $(".difficulty").addClass("hidden");
   $(".instructions").removeClass("hidden");
 });
+$("#easy").click(()=>{
+  // Set difficulty
+  difficulty = "easy";
+  // On click, create the game and change the screen
+  $(".difficulty").addClass("hidden");
+  $(".instructions").removeClass("hidden");
+});
 $("#hard").click(()=>{
   // Set difficulty
   difficulty = "hard";
