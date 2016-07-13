@@ -41,12 +41,14 @@ function startGame () {
 	audio_boo = new Audio("./app/audio/boo.wav");
 	audio_applause = new Audio("./app/audio/applause.wav");
 	audio_applause2 = new Audio("./app/audio/applause.wav");
+	audio_applause3 = new Audio("./app/audio/applause.wav");
 	audio_Wrong_Note1.volume = 0.4;
 	audio_Wrong_Note2.volume = 0.4;
 	audio_Wrong_Note3.volume = 0.4;
 	audio_Wrong_Note4.volume = 0.4;
-	audio_applause.volume = 0.6;
-	audio_applause2.volume = 0.8;
+	audio_applause.volume = 0.5;
+	audio_applause2.volume = 0.7;
+	audio_applause3.volume = 0.4;
 
 	// Play audio and fire notes for appropriate song
 	if (chosenSong === "Slime") {
@@ -64,7 +66,15 @@ function startGame () {
 		// Fire laser notes
 		setTimeout(function() {
 			firePioneer_66();
-		}, 400);
+		}, 300);
+	} else if (chosenSong === "Fade") {
+		// Play main audio
+		setTimeout(function() {
+			audio_Bg.play();
+			audio_Melody.play();
+		}, 1500);
+		// Fire laser notes
+		fireFade();
 	}
 
 }
@@ -195,7 +205,7 @@ function audioFadeOut(currSong) {
 	    if (vol > 0) {currSong.volume = vol;}
 	    else {
 	    	// rest the volume of the cheering for next streak
-	    	vol = .6;
+	    	vol = .5;
 		    currSong.pause();
 		    currSong.currentTime = 0;
 		    currSong.volume = vol;
@@ -347,10 +357,19 @@ function starPowerPing_Pong_Delay() {
 	var addDelay = setInterval(
 	    function() {
 	      ppWet_Level += 0.05;
-	      if (ppWet_Level < 1) {
-					ping_pong.wetLevel.gain.value = ppWet_Level;
+	      if (chosenSong === "Slime") {
+	      	if (ppWet_Level < 1) {
+						ping_pong.wetLevel.gain.value = ppWet_Level;
+		      } else {
+		        clearInterval(addDelay);
+		      }
 	      } else {
-	        clearInterval(addDelay);
+	      	// This adds less ping pong delay than on "Slime"
+	      	if (ppWet_Level < .7) {
+						ping_pong.wetLevel.gain.value = ppWet_Level;
+		      } else {
+		        clearInterval(addDelay);
+		      }
 	      }
 	    }, 250);
     // rest the ping pong and break the loop
@@ -446,8 +465,10 @@ function calmultiplyer() {
 		// Add to starPower, don't allow it to go over 100.
 		if (chosenSong === "I_Want_You") {
 			starPower += 6
-	  } else { // if (chosenSong === "Slime") {
+	  } else if (chosenSong === "Slime") {
 			starPower += 10
+	  } else if (chosenSong === "Fade") {
+	  	starPower += 6
 	  }
 		if (starPower > 300) {
 			starPower = 300;

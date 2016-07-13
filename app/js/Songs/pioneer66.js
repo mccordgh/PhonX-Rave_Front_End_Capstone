@@ -416,9 +416,9 @@ var firePioneer_66 = function() {
   setTimeout(function() { fire_K_Laser(); }, (4.463*36672));
 
   // Add applause
-  setTimeout(function() {audio_applause2.play()}, 79000);
+  setTimeout(function() {audio_applause3.play()}, (4.463*36672));
   // Fire function to add score to player
-  setTimeout(function() { postScore(playerScore, currentHighStreak, "pioneer66_"); }, (4.463*38072));
+  setTimeout(function() { postScore(playerScore, currentHighStreak, "pioneer66_"); }, (4.463*37072));
 }
 // postScore(playerScore, currentHighStreak, "pioneer66_")
 

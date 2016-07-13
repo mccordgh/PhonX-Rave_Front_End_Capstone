@@ -49,19 +49,26 @@ var creatAudio = function (chosenSong, num1, num2) {
   // Create a PingPongDelay with the tuna library
   tuna = new Tuna(audioCtx);
 
-  if (chosenSong === "pioneer66") {
+  if (chosenSong === "Pioneer66") {
     ping_pong = new tuna.PingPongDelay({
       wetLevel: 0, //0 to 1
-      feedback: .5, //0 to 1
+      feedback: 0, //0 to 1
       delayTimeLeft: 214, //1 to 10000 (milliseconds)
       delayTimeRight: 428 //1 to 10000 (milliseconds)
     });
-  } else if (chosenSong === "slime") {
+  } else if (chosenSong === "Slime") {
     ping_pong = new tuna.PingPongDelay({
       wetLevel: 0, //0 to 1
       feedback: .5, //0 to 1
       delayTimeLeft: 125, //1 to 10000 (milliseconds)
       delayTimeRight: 250 //1 to 10000 (milliseconds)
+    });
+  } else if (chosenSong === "Fade") {
+    ping_pong = new tuna.PingPongDelay({
+      wetLevel: 0, //0 to 1
+      feedback: .5, //0 to 1
+      delayTimeLeft: 224, //1 to 10000 (milliseconds)
+      delayTimeRight: 448 //1 to 10000 (milliseconds)
     });
   }
 
