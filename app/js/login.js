@@ -38,31 +38,53 @@ $("#sign_up_BTN").on('click', ()=>{
   console.log(userName);
   console.log(userEmail);
   console.log(userPassword);
-  ref.createUser({
-    email    : userEmail,
-    password : userPassword
-  }, function(error, userData) {
-    if (error) {
-      if (userName === "" || userEmail === "" || userPassword === "") {
-        alert("Please fill in all the required information");
-        return;
-      };
-      console.log("Error creating user:", error);
-    } else {
-      if (userName === "" || userEmail === "" || userPassword === "") {
-        alert("Please fill in all the required information");
-        return;
-      };
-      console.log("Successfully created user account with uid:", userData.uid);
-      // On click, create the game
-      console.log("ref.getAuth", userData.uid);
-      createPlayer(userData.uid, userName);
-      // Hide the login screen
-      $(".login_intro").addClass("hidden");
-      // On click, go to the choose_song screen
-      $(".choose_song").removeClass("hidden");
+  // Get access to all users and make sure the user name is not taken
+  $.ajax({
+    url: "https://phonx-rave.firebaseio.com/Players/.json",
+    method: "GET"
+  }).done(function(playerList) {
+    // set a flag variable
+    let isTaken = false;
+    for (var variable in playerList) {
+      // Check for duplicate names in firebase
+      if (playerList[variable].userName === userName) {
+        isTaken = true;
+      }
     }
-  });
+    if (isTaken === true) {
+      alert("That user name is already taken.")
+    } else {
+      ref.createUser({
+        email    : userEmail,
+        password : userPassword
+      }, function(error, userData) {
+        if (error) {
+          if (userName === "" || userEmail === "" || userPassword === "") {
+            alert("Please fill in all the required information");
+            return;
+          };
+          console.log("Error creating user:", error);
+          var message = error.toString();
+          if (message.indexOf("The specified email address") > 0) {
+            alert("This email is already associated with another profile")
+          };
+        } else {
+          if (userName === "" || userEmail === "" || userPassword === "") {
+            alert("Please fill in all the required information");
+            return;
+          };
+          console.log("Successfully created user account with uid:", userData.uid);
+          // On click, create the game
+          console.log("ref.getAuth", userData.uid);
+          createPlayer(userData.uid, userName);
+          // Hide the login screen
+          $(".login_intro").addClass("hidden");
+          // On click, go to the choose_song screen
+          $(".choose_song").removeClass("hidden");
+        }
+      });
+    }
+  })
 })
 
 $("#login_up_BTN").on('click', ()=>{
@@ -82,6 +104,10 @@ $("#login_up_BTN").on('click', ()=>{
         window.alert("Incorrect password")
       };
       console.log(error);
+      var message = error.toString();
+      if (message.indexOf("d user does not") > 0) {
+            alert("The specified user does not exist")
+          };
     } else {
       // Write code to allow user to access the website
       console.log("Authenticated successfully with payload:", authData);
