@@ -129,50 +129,6 @@ function postScore(score, streak, song) {
   })
 }
 
-// // AJAX request to get leader board
-// function getPlayers (score, streak, song) {
-//   $.ajax({
-//     url: "https://phonx-rave.firebaseio.com/Players/.json",
-//     method: "GET"
-//   }).done(function(playerList) {
-//     console.log("playerList", playerList);
-//     var highScoreId = `${song}highScore`
-//     var highStreakId = `${song}longestStreak`
-//     console.log("highStreakId", highStreakId);
-//     console.log("highScoreId", highScoreId);
-//     var playerScoreArray = [];
-//     var playerNameArray = [];
-//     var playerStreakArray = [];
-//     var contentString = "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
-//     contentString += `<h1>Your Score:</h1><h2>${score}</h2>`;
-//     // Loop through, find the highest score, create a new array
-//     for (let player in playerList) {
-//       if (playerList[player][highScoreId] !== 0) {
-//         playerScoreArray.push(playerList[player][highScoreId]);
-//       };
-//     }
-//     // Sort the array by score from highest to lowest
-//     playerScoreArray.sort(function(a,b){return b - a})
-//     // Loop through the array and add to the string in the correct order
-//     for (var i = 1; i < playerScoreArray.length+1; i++) {
-//       // Loop through and sort the data by the score property, create a name array to correspond with the score array
-//       for (let player in playerList) {
-//         if (playerList[player][highScoreId] === playerScoreArray[i-1]) {
-//           playerNameArray.push(playerList[player].userName);
-//           playerStreakArray.push(playerList[player][highStreakId])
-//         };
-//       }
-//       // Add to the DOM in the correct order now that both arrays are in order
-//       contentString += `<h4>${i} ${playerNameArray[i-1]}: ${playerScoreArray[i-1]}</h4>
-//                         <h5>Longest Streak: ${playerStreakArray[i-1]}</h5>`
-//     };
-//     contentString += "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
-//     // Post the leader_board
-//     show_modal(contentString);
-//   })
-// }
-
-
 
 
 

@@ -69,7 +69,24 @@ h6 {
   background-image: url("./app/img/assets/Backgrounds/PhonX.jpg");
 }
 .newBackDrop2 {
-  background-image: url("./app/img/assets/Backgrounds/DJ_Crowd.jpg");
+  background: url("./app/img/assets/Backgrounds/space.jpg") no-repeat center center fixed;
+  /*background: url("images/blueBG.jpg") */
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: repeat;
+  background-position:center;
+}
+.newBackDrop3 {
+  background: url("./app/img/assets/Backgrounds/DJ_Crowd.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: repeat;
+  background-position:center;
 }
 
 .col {
