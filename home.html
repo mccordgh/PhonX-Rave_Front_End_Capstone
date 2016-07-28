@@ -14,153 +14,179 @@
   <script src="app/libs/phaser.js"></script>
 
 </head>
-<body class="home">
+  <body class="home">
 
 
-  <!-- LEADER BOARD MODAL -->
-  <div id='mask' class='close_modal'></div>
-  <div id='leader_board' class='modal_window'></div>
+    <!-- LEADER BOARD MODAL -->
+    <div id='mask' class='close_modal'></div>
+    <div id='leader_board' class='modal_window'></div>
 
-  <div id="game_container"></div>
+    <div id="game_container"></div>
 
-  <!-- LOGIN -->
-  <div class="login_intro">
-    <div class="row">
-      <div class="col m6 offset-m3 white">
+    <!-- LOGIN -->
+    <div class="login_intro">
+      <div class="row">
+        <div class="col m8 offset-m2 white">
+          <section>
+            <h1>PhonX Rave</h1>
+            <div class="button_div">
+              <button type="button" class="btn btn-primary btn-lg launch_login_modal" data-toggle="modal" data-target="#myModal">Log in</button>
+            </div>
+            <div class="button_div"><h4>- Or -</h4></div>
+            <div class="button_div">
+              <button type="button" class="btn btn-primary btn-lg launch_signup_modal" data-toggle="modal" data-target="#myModal">Sign Up</button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade login" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <button type="" class="modal_close_btn" data-dismiss="modal">X</button>
+      <div class="login_modal">
         <section>
-          <h1>PhonX Rave</h1>
-          <div class="button_div">
-            <button type="button" class="btn btn-primary btn-lg launch_login_modal" data-toggle="modal" data-target="#myModal">Log in</button>
-          </div>
-          <div class="button_div"><h4>- Or -</h4></div>
-          <div class="button_div">
-            <button type="button" class="btn btn-primary btn-lg launch_signup_modal" data-toggle="modal" data-target="#myModal">Sign Up</button>
+          <h1 id="log_In_Title">Log In</h1>
+          <h1 id="sign_Up_Title">Sign Up</h1>
+          <div id="modal_center">
+            <div id="user_Name_Input">
+                User Name: <input id="sign_up_userName" type="text" autofocus="true">
+            </div>
+            <div>
+                Email: <input id="sign_up_email" type="text" autofocus="true">
+            </div>
+            <div>
+                Password: <input id="sign_up_password" type="password">
+            </div>
+            <div class="button_div">
+              <button id="login_up_BTN" data-dismiss="modal" class="mybutton waves-effect waves-light btn">Login</button>
+              <button id="sign_up_BTN" data-dismiss="modal" class="mybutton waves-effect waves-light btn">Sign Up</button>
+            </div>
           </div>
         </section>
       </div>
     </div>
-  </div>
 
-  <!-- Modal -->
-  <div class="modal fade login" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <button type="" class="modal_close_btn" data-dismiss="modal">X</button>
-    <div class="login_modal">
-      <section>
-        <h1 id="log_In_Title">Log In</h1>
-        <h1 id="sign_Up_Title">Sign Up</h1>
-        <div id="modal_center">
-          <div id="user_Name_Input">
-              User Name: <input id="sign_up_userName" type="text" autofocus="true">
-          </div>
-          <div>
-              Email: <input id="sign_up_email" type="text" autofocus="true">
-          </div>
-          <div>
-              Password: <input id="sign_up_password" type="password">
-          </div>
+    <!-- CHOOSE SONG -->
+    <div class="choose_song hidden">
+      <div class="row">
+        <div class="col m8 offset-m2 white">
+          <h1>Choose your song:</h1>
           <div class="button_div">
-            <button id="login_up_BTN" data-dismiss="modal" class="mybutton waves-effect waves-light btn">Login</button>
-            <button id="sign_up_BTN" data-dismiss="modal" class="mybutton waves-effect waves-light btn">Sign Up</button>
-          </div>
-        </div>
-      </section>
-    </div>
-  </div>
-
-  <!-- CHOOSE SONG -->
-  <div class="choose_song hidden">
-    <div class="row">
-      <div class="col m6 offset-m3 white">
-        <h1>Choose your song:</h1>
-        <div class="button_div">
-          <button id="I_Want_You" class="mybutton waves-effect waves-light btn">I Want You</button><br>
-          <button id="Fade" class="mybutton waves-effect waves-light btn">Fade</button><br>
-          <button id="Slime" class="mybutton waves-effect waves-light btn">Slime</button><br>
-          <button id="coming_soon" disabled class="mybutton waves-effect waves-light btn">Coming Soon</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DIFFICULTY -->
-  <div class="difficulty hidden">
-    <div class="row">
-      <div class="col m6 offset-m3 white">
-        <h1>Choose your difficulty:</h1>
-        <div class="button_div">
-          <button id="easy" class="mybutton waves-effect waves-light btn">Easy</button><br>
-          <button id="medium" class="mybutton waves-effect waves-light btn">Medium</button><br>
-          <button id="hard" class="mybutton waves-effect waves-light btn">Hard</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- INSTRUCTIONS -->
-  <div class="instructions hidden">
-    <div class="row">
-      <div class="col m6 offset-m3 white">
-        <h1>Controls:</h1>
-        <div class="row" id="controlIMG">
-          <div class="col s4 jklIMGDiv">
-            <img class="jklIMG" src="app/img/J_image.png" alt="">
-          </div>
-          <div class="col s4 jklIMGDiv">
-            <img class="jklIMG" src="app/img/K_image.png" alt="">
-          </div>
-          <div class="col s4 jklIMGDiv">
-            <img class="jklIMG" src="app/img/L_image.png" alt="">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 jklIMGDiv">
-            <img class="spaceIMG" src="app/img/assets/Note_Images/space.png" alt="">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col s12 jklIMGDiv">
-            <button id="startGame" class="mybutton waves-effect waves-light btn">Start!</button>
+            <button id="I_Want_You" class="mybutton waves-effect waves-light btn">I Want You</button><br>
+            <button id="Fade" class="mybutton waves-effect waves-light btn">Fade</button><br>
+            <button id="Slime" class="mybutton waves-effect waves-light btn">Slime</button><br>
+            <button id="coming_soon" disabled class="mybutton waves-effect waves-light btn">Coming Soon</button>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div id="song">
-        <!-- Slime -->
-    <audio src="./app/audio/Zionexx_Guitar_Hero_Melody.wav"></audio>
-    <audio src="./app/audio/Zionexx_Guitar_Hero.wav"></audio>
-        <!-- Pioneer66 -->
-    <audio src="./app/audio/Pioneer66/P_66_Melody.wav"></audio>
-    <audio src="./app/audio/Pioneer66/P_66_BG.wav"></audio>
-        <!-- Fade -->
-    <audio src="./app/audio/Fade/Fade_Melody.wav"></audio>
-    <audio src="./app/audio/Fade/Fade_BG.wav"></audio>
-  </div>
+    <!-- DIFFICULTY -->
+    <div class="difficulty hidden">
+      <div class="row">
+        <div class="col m8 offset-m2 white">
+          <h1>Choose your difficulty:</h1>
+          <div class="button_div">
+            <button id="easy" class="mybutton waves-effect waves-light btn">Easy</button><br>
+            <button id="medium" class="mybutton waves-effect waves-light btn">Medium</button><br>
+            <button id="hard" class="mybutton waves-effect waves-light btn">Hard</button>
+          </div>
+          <button type="" class="back_2 back_btn" data-dismiss="modal">back</button>
+        </div>
+      </div>
+    </div>
 
-  <div id="container"></div>
+    <!-- INSTRUCTIONS -->
+    <div class="instructions hidden">
+      <div class="row">
+        <div class="col m8 offset-m2 white">
+          <h1>Controls:</h1>
+          <div class="row" id="controlIMG">
+            <div class="col s4 jklIMGDiv">
+              <img class="jklIMG" src="app/img/J_image.png" alt="">
+            </div>
+            <div class="col s4 jklIMGDiv">
+              <img class="jklIMG" src="app/img/K_image.png" alt="">
+            </div>
+            <div class="col s4 jklIMGDiv">
+              <img class="jklIMG" src="app/img/L_image.png" alt="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 jklIMGDiv">
+              <img class="spaceIMG" src="app/img/assets/Note_Images/space.png" alt="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12 jklIMGDiv startBtn">
+              <button id="startGame" class="mybutton waves-effect waves-light btn">Start!</button><br>
+            </div>
+            <button type="" class="back_3 back_btn" data-dismiss="modal">back</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
-  <script src="http://reverbjs.org/reverb.js"></script>
-  <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <!-- Midi Data Node Module -->
-  <script src="node_modules/midifile/dist/MIDIFile.js"></script>
-  <script src="node_modules/midievents/dist/MIDIEvents.js"></script>
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-  <script src="node_modules/tunajs/tuna.js"></script>
-  <script src="node_modules/tunajs/tuna-min.js"></script>
-  <script src="app/js/login.js"></script>
-  <script src="app/js/score_modal.js"></script>
-  <script src="app/js/audioFX.js"></script>
-  <script src="app/js/preload.js"></script>
-  <script src="app/js/main.js"></script>
-  <script src="app/js/Songs/slime.js"></script>
-  <script src="app/js/Songs/pioneer66.js"></script>
-  <script src="app/js/Songs/fade.js"></script>
-  <script src="app/js/midiData.js"></script>
+    <!-- LEADERBOARD BUTTON -->
+      <div class="leaderboard_btn_div hidden">
+      <div class="row">
+        <div class="col m8 offset-m2 white purple_div_2">
+          <button id="show_leaderboard" class="mybutton waves-effect waves-light btn">Leader board</button>
+        </div>
+      </div>
+    </div>
 
-</body>
+
+    <!-- LEADERBOARD -->
+    <div class="leaderboard hidden">
+      <div class="row">
+        <div class="col m8 offset-m2 white purple_div">
+          <h1>Leader board:</h1>
+          <div class="leader_board_info">
+            
+          </div>
+          <button type="" class="start_over back_btn" data-dismiss="modal">back</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="song">
+          <!-- Slime -->
+      <audio src="./app/audio/Zionexx_Guitar_Hero_Melody.wav"></audio>
+      <audio src="./app/audio/Zionexx_Guitar_Hero.wav"></audio>
+          <!-- Pioneer66 -->
+      <audio src="./app/audio/Pioneer66/P_66_Melody.wav"></audio>
+      <audio src="./app/audio/Pioneer66/P_66_BG.wav"></audio>
+          <!-- Fade -->
+      <audio src="./app/audio/Fade/Fade_Melody.wav"></audio>
+      <audio src="./app/audio/Fade/Fade_BG.wav"></audio>
+    </div>
+
+    <div id="container"></div>
+
+    <script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+    <script src="http://reverbjs.org/reverb.js"></script>
+    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <!-- Midi Data Node Module -->
+    <script src="node_modules/midifile/dist/MIDIFile.js"></script>
+    <script src="node_modules/midievents/dist/MIDIEvents.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+    <script src="node_modules/tunajs/tuna.js"></script>
+    <script src="node_modules/tunajs/tuna-min.js"></script>
+    <script src="app/js/login.js"></script>
+    <script src="app/js/score_modal.js"></script>
+    <script src="app/js/audioFX.js"></script>
+    <script src="app/js/preload.js"></script>
+    <script src="app/js/main.js"></script>
+    <script src="app/js/Songs/slime.js"></script>
+    <script src="app/js/Songs/pioneer66.js"></script>
+    <script src="app/js/Songs/fade.js"></script>
+    <script src="app/js/midiData.js"></script>
+
+  </body>
 </html>

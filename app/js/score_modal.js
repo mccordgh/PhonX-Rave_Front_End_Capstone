@@ -32,11 +32,17 @@ function close_modal(){
 
 function show_modal(htmlString){
   // Set display to block and opacity to 0 so we can use fadeTo
+
   $('#mask').css({ 'display' : 'block', opacity : 0});
+
   // Fade in the mask to opacity 0.8
+
   $('#mask').fadeTo(500,0.8);
+
   // Show the modal window
+
   $('#leader_board').fadeIn(500);
+
   // Fill in the html with the current leader board string built up in the ajax call
   $('#leader_board').html(htmlString);
 }
@@ -54,6 +60,7 @@ function postScore(score, streak, song) {
     url: "https://phonx-rave.firebaseio.com/Players/.json",
     method: "GET"
   }).done(function(playerList) {
+    console.log("playerList", playerList);
     // if (song === "slime") {
     // Get access to current player highScore
     console.log("currentPlayerUID", currentPlayerUID);

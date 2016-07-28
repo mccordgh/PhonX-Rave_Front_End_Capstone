@@ -30,6 +30,33 @@ $("#logInScreen").on('click', ()=>{
   $(".login").removeClass("hidden");
 })
 
+// Back Button functions
+$(".back_2").on('click', ()=>{
+  $(".choose_song").removeClass("hidden");
+  $(".difficulty").addClass("hidden");
+})
+
+$(".back_3").on('click', ()=>{
+  $(".difficulty").removeClass("hidden");
+  $(".instructions").addClass("hidden");
+})
+
+// Show the overall leader board
+$("#show_leaderboard").on('click', ()=>{
+  $(".leaderboard_btn_div").addClass("hidden");
+  $(".choose_song").addClass("hidden");
+  $(".difficulty").addClass("hidden");
+  $(".instructions").addClass("hidden");
+  $(".leaderboard").removeClass("hidden");
+})
+
+$(".start_over").on('click', ()=>{
+  $(".leaderboard").addClass("hidden");
+  $(".leaderboard_btn_div").removeClass("hidden");
+  $(".choose_song").removeClass("hidden");
+})
+
+
 $("#sign_up_BTN").on('click', ()=>{
   //Define user name and psWord
   let userName = $("#sign_up_userName").val();
@@ -81,6 +108,7 @@ $("#sign_up_BTN").on('click', ()=>{
           $(".login_intro").addClass("hidden");
           // On click, go to the choose_song screen
           $(".choose_song").removeClass("hidden");
+          $(".leaderboard_btn_div").removeClass("hidden");
         }
       });
     }
@@ -117,6 +145,7 @@ $("#login_up_BTN").on('click', ()=>{
       $(".login_intro").addClass("hidden");
       // On click, go to the difficulty screen
       $(".choose_song").removeClass("hidden");
+      $(".leaderboard_btn_div").removeClass("hidden");
     }
   });
 });
@@ -209,6 +238,7 @@ $("#hard").click(()=>{
 
 $("#startGame").click(()=>{
   // On click, create the game and change the screen
+  $(".leaderboard_btn_div").addClass("hidden");
   $(".instructions").addClass("hidden");
   createGame();
 });

@@ -1,4 +1,6 @@
 var audioCtx;
+// Star out with the audio context
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 var audio_Melody;
 var audio_Bg;
 var source1;
@@ -7,10 +9,13 @@ var main_GainNode1;
 var filter;
 var ping_pong;
 var tuna;
+var sameSongCheck = 0;
 
 var creatAudio = function (chosenSong, num1, num2) {
-  // Star out with the audio context
-  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  // When the user clicks back and selects the same song check
+  sameSongCheck += 1;
+  console.log("sameSongCheck", sameSongCheck);
+
   audio_Melody = $('audio')[num1];
   audio_Bg = $('audio')[num2];
   // var reverb_audio_Melody = $('audio')[0];
@@ -18,8 +23,10 @@ var creatAudio = function (chosenSong, num1, num2) {
 
   // Create a MediaElementAudioSourceNode
   // Feed the HTMLMediaElement into it
-  source1 = audioCtx.createMediaElementSource(audio_Bg);
-  source2 = audioCtx.createMediaElementSource(audio_Melody);
+  if (sameSongCheck === 1) { // only run this part the first time the function is called
+    source1 = audioCtx.createMediaElementSource(audio_Bg);
+    source2 = audioCtx.createMediaElementSource(audio_Melody);
+  };
 
   // Create two gain node
   main_GainNode1 = audioCtx.createGain();
