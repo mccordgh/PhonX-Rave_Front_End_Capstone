@@ -276,6 +276,19 @@ button {
   text-align: center;
 }
 
+.end_leader_board_info {
+  /*background-image: url("./app/img/assets/Backgrounds/metal_background.jpg");*/
+  overflow: auto;
+  height: 600px;
+  text-align: center;
+}
+.end_leader_board_info h5 {
+  font-size: 20px;
+}
+.end_leaderboard_container {
+  height: 700px;
+}
+
 .leader_board_3divs h5 {
   font-size: 15px;
   margin: 6px;

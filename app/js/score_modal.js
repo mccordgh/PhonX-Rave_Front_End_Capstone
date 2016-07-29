@@ -126,7 +126,7 @@ function postScore(score, streak, song) {
       // playerLeaderBoard.sort( srt() );
       console.log("playerLeaderBoard sorted", playerLeaderBoard);
       for (var i = 0; i < playerLeaderBoard.length; i++) {
-        contentString += `<h4>${i+1} ${playerLeaderBoard[i].playerName}: ${playerLeaderBoard[i].playerHighScore}</h4><h5>Longest Streak: ${playerLeaderBoard[i].playerHighStreak}</h5>`
+        contentString += `<h4>${i+1}. ${playerLeaderBoard[i].playerName}: ${playerLeaderBoard[i].playerHighScore}</h4><h5>Longest Streak: ${playerLeaderBoard[i].playerHighStreak}</h5>`
       };
       // Post the leader_board
       $(".end_leader_board_info").html(contentString);
