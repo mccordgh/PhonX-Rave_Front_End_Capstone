@@ -140,7 +140,7 @@ $("#show_leaderboard").on('click', ()=>{
       console.log("Pioneer66_playerLeaderBoard sorted", Pioneer66_playerLeaderBoard);
       contentString += '<div class="col m4 leader_board_3divs"><h4>I Want You</h4>'
       for (var i = 0; i < Pioneer66_playerLeaderBoard.length; i++) {
-        contentString += `<h5>${i+1} ${Pioneer66_playerLeaderBoard[i].playerName}: ${Pioneer66_playerLeaderBoard[i].playerHighScore}</h5><p>Longest Streak: ${Pioneer66_playerLeaderBoard[i].playerHighStreak}</p>`
+        contentString += `<h5>${i+1}. ${Pioneer66_playerLeaderBoard[i].playerName}: ${Pioneer66_playerLeaderBoard[i].playerHighScore}</h5><p>Longest Streak: ${Pioneer66_playerLeaderBoard[i].playerHighStreak}</p>`
       };
       contentString += '</div>';
       // Loop through, find the highest score, create a new array for Fade
@@ -175,7 +175,7 @@ $("#show_leaderboard").on('click', ()=>{
       console.log("Fade_playerLeaderBoard sorted", Fade_playerLeaderBoard);
       contentString += '<div class="col m4 leader_board_3divs"><h4>Fade</h4>'
       for (var i = 0; i < Fade_playerLeaderBoard.length; i++) {
-        contentString += `<h5>${i+1} ${Fade_playerLeaderBoard[i].playerName}: ${Fade_playerLeaderBoard[i].playerHighScore}</h5><p>Longest Streak: ${Fade_playerLeaderBoard[i].playerHighStreak}</p>`
+        contentString += `<h5>${i+1}. ${Fade_playerLeaderBoard[i].playerName}: ${Fade_playerLeaderBoard[i].playerHighScore}</h5><p>Longest Streak: ${Fade_playerLeaderBoard[i].playerHighStreak}</p>`
       };
       contentString += '</div>';
 
@@ -216,7 +216,7 @@ $("#show_leaderboard").on('click', ()=>{
       console.log("Slime_playerLeaderBoard sorted", Slime_playerLeaderBoard);
       contentString += '<div class="col m4 leader_board_3divs"><h4>Slime</h4>'
       for (var i = 0; i < Slime_playerLeaderBoard.length; i++) {
-        contentString += `<h5>${i+1} ${Slime_playerLeaderBoard[i].playerName}: ${Slime_playerLeaderBoard[i].playerHighScore}</h5><p>Longest Streak: ${Slime_playerLeaderBoard[i].playerHighStreak}</p>`
+        contentString += `<h5>${i+1}. ${Slime_playerLeaderBoard[i].playerName}: ${Slime_playerLeaderBoard[i].playerHighScore}</h5><p>Longest Streak: ${Slime_playerLeaderBoard[i].playerHighStreak}</p>`
       };
       contentString += '</div>';
 
@@ -240,6 +240,24 @@ $("#show_leaderboard").on('click', ()=>{
 })
 
 $(".start_over").on('click', ()=>{
+  j_TouchDown = false;
+  k_TouchDown = false;
+  l_TouchDown = false;
+  currentHighStreak = 0;
+  currentStreak = 0;
+  multiplier = 1;
+  applauseId = 0;
+  applauseCounter = 0;
+  booCounter = 0;
+  multiplierFontSize = 35;
+  playerScore = 0;
+  fadeOutCheck = false;
+  starPower = 0;
+  isStarPowerActive = false;
+  starBarFull = false;
+  firstTimeSpaceBarFlag = true;
+  $(".end_of_song_leaderboard").addClass("hidden");
+  $(".end_leader_board_info").html("");
   $(".leaderboard").addClass("hidden");
   $(".leaderboard_btn_div").removeClass("hidden");
   $(".choose_song").removeClass("hidden");
