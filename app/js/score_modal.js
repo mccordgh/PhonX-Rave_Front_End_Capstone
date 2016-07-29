@@ -27,7 +27,7 @@ function close_modal(){
   $('#mask').fadeOut(500);
   // Hide modal window(s)
   $('.modal_window').fadeOut(500);
-  location.reload();
+  // location.reload();
 }
 
 function show_modal(htmlString){
@@ -96,7 +96,7 @@ function postScore(score, streak, song) {
       var playerNameArray = [];
       var playerStreakArray = [];
       var playerLeaderBoard = [];
-      var contentString = "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
+      var contentString = "<div class='replay'><h4>Click to play again!</h4></div>"
       contentString += `<h1>Your Score:</h1><h2>${score}</h2>`;
       // Loop through, find the highest score, create a new array
       for (let player in playerList) {
@@ -129,12 +129,17 @@ function postScore(score, streak, song) {
       for (var i = 0; i < playerLeaderBoard.length; i++) {
         contentString += `<h4>${i+1} ${playerLeaderBoard[i].playerName}: ${playerLeaderBoard[i].playerHighScore}</h4><h5>Longest Streak: ${playerLeaderBoard[i].playerHighStreak}</h5>`
       };
-      contentString += "<div class='replay'><h4>Click anywhere to play again!</h4></div>"
+      contentString += "<div class='replay'><h4>Click to play again!</h4></div>"
       // Post the leader_board
       show_modal(contentString);
     })
   })
 }
+
+$(".replay").on("click", ()=> {
+  close_modal();
+  $(".choose_song").removeClass("hidden");
+})
 
 
 
