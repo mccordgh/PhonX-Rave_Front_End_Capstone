@@ -240,6 +240,10 @@ $("#show_leaderboard").on('click', ()=>{
 })
 
 $(".start_over").on('click', ()=>{
+  $('body').removeClass('newBackDrop');
+  $('body').removeClass('newBackDrop2');
+  $('body').removeClass('newBackDrop3');
+  $('body').addClass('newBackDrop_First');
   j_TouchDown = false;
   k_TouchDown = false;
   l_TouchDown = false;
@@ -402,19 +406,19 @@ function createPlayer(uid, name){
 // Functions to choose a song
 $("#I_Want_You").on('click', ()=>{
   chosenSong = "I_Want_You";
-  creatAudio("Pioneer66", 2, 3)
+  // creatAudio("Pioneer66", 2, 3)
   $(".choose_song").addClass("hidden");
   $(".difficulty").removeClass("hidden");
 });
 $("#Slime").on('click', ()=>{
   chosenSong = "Slime";
-  creatAudio("Slime", 0, 1)
+  // creatAudio("Slime", 0, 1)
   $(".choose_song").addClass("hidden");
   $(".difficulty").removeClass("hidden");
 });
 $("#Fade").on('click', ()=>{
   chosenSong = "Fade";
-  creatAudio("Fade", 4, 5)
+  // creatAudio("Fade", 4, 5)
   $(".choose_song").addClass("hidden");
   $(".difficulty").removeClass("hidden");
 });

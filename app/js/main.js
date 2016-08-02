@@ -54,15 +54,17 @@ function startGame () {
 	if (chosenSong === "Slime") {
 		setTimeout(function() {
 			// Play main audio
-			audio_Bg.play();
-			audio_Melody.play();
+			audio_Melody_Slime.muted = false;
+			audio_Bg_Slime.play();
+			audio_Melody_Slime.play();
 			// Fire laser notes
 		}, 425);
 		fireSlime();
 	} else if (chosenSong === "I_Want_You") {
 		// Play main audio
-		audio_Bg.play();
-		audio_Melody.play();
+		audio_Melody_P66.muted = false;
+		audio_Bg_P66.play();
+		audio_Melody_P66.play();
 		// Fire laser notes
 		setTimeout(function() {
 			firePioneer_66();
@@ -70,8 +72,9 @@ function startGame () {
 	} else if (chosenSong === "Fade") {
 		// Play main audio
 		setTimeout(function() {
-			audio_Bg.play();
-			audio_Melody.play();
+			audio_Melody_Fade.muted = false;
+			audio_Bg_Fade.play();
+			audio_Melody_Fade.play();
 		}, 1500);
 		// Fire laser notes
 		fireFade();
@@ -188,7 +191,9 @@ function spaceBarIndicator(){
 
 // Mute audio on missed notes
 function mute_song(){
-	audio_Melody.muted = true;
+	audio_Melody_Slime.muted = true;
+	audio_Melody_P66.muted = true;
+	audio_Melody_Fade.muted = true;
 }
 
 // function to fade out audio
@@ -326,8 +331,12 @@ function starPowerLowPassFilter() {
       frequency = newDivider;
 	  	newDivider /= 1.1;
 	    if (frequency > 500) {
-	    	filter.Q.value = Q_value;
-	    	filter.frequency.value = frequency;
+	    	filter0.Q.value = Q_value;
+	    	filter1.Q.value = Q_value;
+	    	filter2.Q.value = Q_value;
+	    	filter0.frequency.value = frequency;
+	    	filter1.frequency.value = frequency;
+	    	filter2.frequency.value = frequency;
 	    } else {
 	    	// Q_value = 0;
 	    	clearInterval(lowPass_Down);
@@ -341,8 +350,12 @@ function starPowerLowPassFilter() {
 	      frequency = newDivider;
 		  	newDivider *= 1.1;
 		    if (frequency < 10000) {
-		    	filter.Q.value = 0;
-		    	filter.frequency.value = frequency;
+		    	filter0.Q.value = 0;
+		    	filter1.Q.value = 0;
+		    	filter2.Q.value = 0;
+		    	filter0.frequency.value = frequency;
+		    	filter1.frequency.value = frequency;
+		    	filter2.frequency.value = frequency;
 		    } else {
 		    	Q_value = 0;
 		    	clearInterval(lowPass_Up);
@@ -359,21 +372,26 @@ function starPowerPing_Pong_Delay() {
 	      ppWet_Level += 0.05;
 	      if (chosenSong === "Slime") {
 	      	if (ppWet_Level < 1) {
-						ping_pong.wetLevel.gain.value = ppWet_Level;
+						ping_pong_Slime.wetLevel.gain.value = ppWet_Level;
 		      } else {
 		        clearInterval(addDelay);
 		      }
 	      } else {
 	      	// This adds less ping pong delay than on "Slime"
 	      	if (ppWet_Level < .7) {
-						ping_pong.wetLevel.gain.value = ppWet_Level;
+						ping_pong_P66.wetLevel.gain.value = ppWet_Level;
+						ping_pong_Fade.wetLevel.gain.value = ppWet_Level;
 		      } else {
 		        clearInterval(addDelay);
 		      }
 	      }
 	    }, 250);
     // rest the ping pong and break the loop
-		setTimeout(function() { ping_pong.wetLevel.gain.value = 0; }, 10000);
+		setTimeout(function() {
+			ping_pong_Slime.wetLevel.gain.value = 0;
+			ping_pong_P66.wetLevel.gain.value = 0;
+			ping_pong_Fade.wetLevel.gain.value = 0;
+		}, 10000);
 }
 
 // Activate star power when player presses space bar
@@ -423,7 +441,15 @@ function dealWithCorrectNotes(thisNote) {
 	// Add to currentStreak
 	currentStreak++
 	// Enable music for correct notes
-	audio_Melody.muted = false;
+	if (chosenSong === "Slime") {
+		audio_Melody_Slime.muted = false;
+	};
+	if (chosenSong === "I_Want_You") {
+		audio_Melody_P66.muted = false;
+	};
+	if (chosenSong === "Fade") {
+		audio_Melody_Fade.muted = false;
+	};
 	// Kill the note so it doesn't go out of bounds
 	thisNote.destroy();
 	// remove missed not visual

@@ -93,6 +93,9 @@ h6 {
   margin-bottom: 20px;
 }
 
+.newBackDrop_First {
+  background-image: url("./app/img/assets/Backgrounds/PhonX Collage.png");
+}
 .newBackDrop {
   background-image: url("./app/img/assets/Backgrounds/PhonX.jpg");
 }
@@ -299,7 +302,9 @@ button {
   width: 80%;
 }
 
-
+.choose_song button{
+  height: 72px;
+}
 
 
 

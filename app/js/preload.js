@@ -86,11 +86,11 @@ function create() {
 
   // Change the back drop
   if (chosenSong === "I_Want_You") {
-    $('body').addClass('newBackDrop2')
+    $('body').addClass('newBackDrop2');
   } else if (chosenSong === "Slime") {
-    $('body').addClass('newBackDrop')
+    $('body').addClass('newBackDrop');
   } else if (chosenSong === "Fade") {
-    $('body').addClass('newBackDrop3')
+    $('body').addClass('newBackDrop3');
   }
   // Create the variable for the height of the image
   StarBar_height = game.cache.getImage("starPowerBarIMG").height;
