@@ -16,6 +16,23 @@ var creatAudio = function (chosenSong, num1, num2) {
   sameSongCheck += 1;
   console.log("sameSongCheck", sameSongCheck);
 
+
+
+
+    // <div id="song">
+    //       <!-- Slime -->
+    //   <audio src="./app/audio/Zionexx_Guitar_Hero_Melody.wav"></audio>
+    //   <audio src="./app/audio/Zionexx_Guitar_Hero.wav"></audio>
+    //       <!-- Pioneer66 -->
+    //   <audio src="./app/audio/Pioneer66/P_66_Melody.wav"></audio>
+    //   <audio src="./app/audio/Pioneer66/P_66_BG.wav"></audio>
+    //       <!-- Fade -->
+    //   <audio src="./app/audio/Fade/Fade_Melody.wav"></audio>
+    //   <audio src="./app/audio/Fade/Fade_BG.wav"></audio>
+    // </div>
+
+
+
   audio_Melody = $('audio')[num1];
   audio_Bg = $('audio')[num2];
   // var reverb_audio_Melody = $('audio')[0];
