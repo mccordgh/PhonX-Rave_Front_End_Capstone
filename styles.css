@@ -14,6 +14,10 @@ h6 {
   padding-left: 50px;
 }
 
+.chooseSongHeader {
+  text-align: center;
+}
+
 #leader_board {
   /*border: 2px solid red;*/
   /*border-radius: 20px;*/
