@@ -63,22 +63,7 @@ $("#show_leaderboard").on('click', ()=>{
     for (var i = 0; i < playerList.length; i++) {
       console.log(playerList[i]);
     };
-    // for (variable in playerList) {
-    //   // Check for current player
-    //   if (playerList[variable].playerId === currentPlayerUID) {
-    //     // If score is greater than the stored data, replace the high score
-    //     var userRef = new Firebase(`https://phonx-rave.firebaseio.com/Players/${variable}`);
-    //     if (score > playerList[variable][highScoreId]) {
-    //       // Modify the 'first' and 'last' children, but leave other data at userScoreRef unchanged
-    //       userRef.update({ [highScoreId]: score});
-    //     }
-    //     // If longest streakToPost is greater than the stored data, replace the longest streak
-    //     if (streakToPost > playerList[variable][highStreakId]) {
-    //       // Modify the 'first' and 'last' children, but leave other data at userStreakRef unchanged
-    //       userRef.update({ [highStreakId]: streakToPost});
-    //     }
-    //   }
-    // }
+
   }).then(()=>{
     $.ajax({
     url: "https://phonx-rave.firebaseio.com/Players/.json",
@@ -178,10 +163,6 @@ $("#show_leaderboard").on('click', ()=>{
         contentString += `<h5>${i+1}. ${Fade_playerLeaderBoard[i].playerName}: ${Fade_playerLeaderBoard[i].playerHighScore}</h5><p>Longest Streak: ${Fade_playerLeaderBoard[i].playerHighStreak}</p>`
       };
       contentString += '</div>';
-
-
-
-
 
 
       // Loop through, find the highest score, create a new array for Fade
