@@ -372,7 +372,7 @@ function starPowerPing_Pong_Delay() {
 	      ppWet_Level += 0.05;
 	      if (chosenSong === "Slime") {
 	      	if (ppWet_Level < 1) {
-						ping_pong_Slime.wetLevel.gain.value = ppWet_Level;
+						ping_pong_Slime.wetLevel.gain.value = ppWet_Level; //value of wet level
 		      } else {
 		        clearInterval(addDelay);
 		      }

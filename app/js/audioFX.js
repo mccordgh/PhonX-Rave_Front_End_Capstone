@@ -24,7 +24,9 @@ var source5 = audioCtx.createMediaElementSource(audio_Bg_Fade);
 var main_GainNode0 = audioCtx.createGain();
 var main_GainNode1 = audioCtx.createGain();
 var main_GainNode2 = audioCtx.createGain();
+main_GainNode0.gain.value = 1;
 main_GainNode1.gain.value = 1;
+main_GainNode2.gain.value = 1;
 
 // Create the filter.
 var filter0 = audioCtx.createBiquadFilter();
