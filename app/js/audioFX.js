@@ -1,41 +1,35 @@
-var audioCtx;
-// Star out with the audio context
-var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+// Reference to the audio stems in the HTML Doc
 var audio_Melody_Slime = $('audio')[0];
 var audio_Bg_Slime = $('audio')[1];
 var audio_Melody_P66 = $('audio')[2];
 var audio_Bg_P66 = $('audio')[3];
 var audio_Melody_Fade = $('audio')[4];
 var audio_Bg_Fade = $('audio')[5];
-// var source1;
-// var source2;
-// var main_GainNode1;
-// var filter;
-var ping_pong;
-// var tuna;
-// var sameSongCheck = 0;
+// var ping_pong;
 
+// Star out with the audio context
 // Create a MediaElementAudioSourceNode
 // Feed the HTMLMediaElement into it
+var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
 var source0 = audioCtx.createMediaElementSource(audio_Melody_Slime);
 var source1 = audioCtx.createMediaElementSource(audio_Bg_Slime);
+
 var source2 = audioCtx.createMediaElementSource(audio_Melody_P66);
 var source3 = audioCtx.createMediaElementSource(audio_Bg_P66);
 var source4 = audioCtx.createMediaElementSource(audio_Melody_Fade);
 var source5 = audioCtx.createMediaElementSource(audio_Bg_Fade);
 
-// Create two gain node
+// Create gain node
 var main_GainNode0 = audioCtx.createGain();
 var main_GainNode1 = audioCtx.createGain();
 var main_GainNode2 = audioCtx.createGain();
-// var secondary_gainNode2 = audioCtx.createGain();
 main_GainNode1.gain.value = 1;
 
 // Create the filter.
 var filter0 = audioCtx.createBiquadFilter();
 var filter1 = audioCtx.createBiquadFilter();
 var filter2 = audioCtx.createBiquadFilter();
-// filter.type = lowpass;
 // Set inital frequency
 filter0.frequency.value = 100000;
 filter1.frequency.value = 100000;
@@ -68,6 +62,7 @@ var ping_pong_Fade = new tuna.PingPongDelay({
 // Connect the AudioBufferSourceNode to the gainNode
 source0.connect(main_GainNode0);
 source1.connect(main_GainNode0);
+
 source2.connect(main_GainNode1);
 source3.connect(main_GainNode1);
 source4.connect(main_GainNode2);

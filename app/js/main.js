@@ -37,11 +37,11 @@ function startGame () {
 	audio_Wrong_Note3 = new Audio("./app/audio/missedNotes/Missed_Note33.wav");
 	audio_Wrong_Note4 = new Audio("./app/audio/missedNotes/Missed_Note44.wav");
 	spExplosion = new Audio("./app/audio/explosion2.wav");
-	spExplosion.volume = 0.3;
 	audio_boo = new Audio("./app/audio/boo.wav");
 	audio_applause = new Audio("./app/audio/applause.wav");
 	audio_applause2 = new Audio("./app/audio/applause.wav");
 	audio_applause3 = new Audio("./app/audio/applause.wav");
+	spExplosion.volume = 0.3;
 	audio_Wrong_Note1.volume = 0.4;
 	audio_Wrong_Note2.volume = 0.4;
 	audio_Wrong_Note3.volume = 0.4;
@@ -207,7 +207,7 @@ function audioFadeOut(currSong) {
 	var fadeout = setInterval(
 	  function() {
       vol -= 0.025;
-	    if (vol > 0) {currSong.volume = vol;}
+	    if (vol >= 0) {currSong.volume = vol;}
 	    else {
 	    	// rest the volume of the cheering for next streak
 	    	vol = .5;

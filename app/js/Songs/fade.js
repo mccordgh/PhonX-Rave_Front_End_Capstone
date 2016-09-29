@@ -11,13 +11,10 @@ var fireFade = function() {
     setTimeout(function() { fire_L_Laser(); }, (4.67*1344));
     setTimeout(function() { fire_K_Laser(); }, (4.67*1440));
     setTimeout(function() { fire_K_Laser(); }, (4.67*1632));
-    //setTimeout(function() { fire_L_Laser(); }, (4.67*1680));
     setTimeout(function() { fire_K_Laser(); }, (4.67*1728));
     setTimeout(function() { fire_L_Laser(); }, (4.67*1824));
-    // setTimeout(function() { fire_K_Laser(); }, (4.67*1872));
     setTimeout(function() { fire_J_Laser(); }, (4.67*1920));
     setTimeout(function() { fire_K_Laser(); }, (4.67*2016));
-    // setTimeout(function() { fire_J_Laser(); }, (4.67*2064));
     setTimeout(function() { fire_K_Laser(); }, (4.67*2208));
     setTimeout(function() { fire_K_Laser(); }, (4.67*2304));
     setTimeout(function() { fire_J_Laser(); }, (4.67*2496));
@@ -38,7 +35,6 @@ var fireFade = function() {
     setTimeout(function() { fire_L_Laser(); }, (4.67*4608));
     setTimeout(function() { fire_K_Laser(); }, (4.67*4992));
     setTimeout(function() { fire_L_Laser(); }, (4.67*5280));
-    // setTimeout(function() { fire_K_Laser(); }, (4.67*5328));
     setTimeout(function() { fire_J_Laser(); }, (4.67*5376));
     setTimeout(function() { fire_L_Laser(); }, (4.67*5568));
     setTimeout(function() { fire_K_Laser(); }, (4.67*5664));
@@ -136,7 +132,6 @@ var fireFade = function() {
     setTimeout(function() { fire_J_Laser(); }, (4.67*14016));
     setTimeout(function() { fire_K_Laser(); }, (4.67*14112));
     setTimeout(function() { fire_L_Laser(); }, (4.67*14208));
-    // setTimeout(function() { fire_K_Laser(); }, (4.67*14256));
     setTimeout(function() { fire_J_Laser(); }, (4.67*14304));
     setTimeout(function() { fire_L_Laser(); }, (4.67*14592));
     setTimeout(function() { fire_J_Laser(); }, (4.67*14784));
@@ -156,7 +151,6 @@ var fireFade = function() {
     setTimeout(function() { fire_K_Laser(); }, (4.67*16896));
     setTimeout(function() { fire_K_Laser(); }, (4.67*17280));
     setTimeout(function() { fire_L_Laser(); }, (4.67*17568));
-    // setTimeout(function() { fire_K_Laser(); }, (4.67*17616));
     setTimeout(function() { fire_J_Laser(); }, (4.67*17664));
     setTimeout(function() { fire_K_Laser(); }, (4.67*17856));
     setTimeout(function() { fire_J_Laser(); }, (4.67*17952));
@@ -244,18 +238,14 @@ var fireFade = function() {
     setTimeout(function() { fire_K_Laser(); }, (4.67*25056));
     setTimeout(function() { fire_L_Laser(); }, (4.67*25152));
     setTimeout(function() { fire_L_Laser(); }, (4.67*25248));
-    // setTimeout(function() { fire_K_Laser(); }, (4.67*25296));
     setTimeout(function() { fire_L_Laser(); }, (4.67*25344));
     setTimeout(function() { fire_J_Laser(); }, (4.67*25536));
     setTimeout(function() { fire_K_Laser(); }, (4.67*25632));
-    // setTimeout(function() { fire_L_Laser(); }, (4.67*25776));
     setTimeout(function() { fire_K_Laser(); }, (4.67*25824));
-    // setTimeout(function() { fire_J_Laser(); }, (4.67*25872));
     setTimeout(function() { fire_L_Laser(); }, (4.67*25920));
     setTimeout(function() { fire_K_Laser(); }, (4.67*26208));
     setTimeout(function() { fire_L_Laser(); }, (4.67*26304));
     setTimeout(function() { fire_L_Laser(); }, (4.67*26400));
-    // setTimeout(function() { fire_K_Laser(); }, (4.67*26448));
     setTimeout(function() { fire_L_Laser(); }, (4.67*26496));
     setTimeout(function() { fire_L_Laser(); }, (4.67*26640));
     setTimeout(function() { fire_J_Laser(); }, (4.67*27072));
