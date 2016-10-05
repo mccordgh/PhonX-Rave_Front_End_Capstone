@@ -200,17 +200,6 @@ $("#show_leaderboard").on('click', ()=>{
         contentString += `<h5>${i+1}. ${Slime_playerLeaderBoard[i].playerName}: ${Slime_playerLeaderBoard[i].playerHighScore}</h5><p>Longest Streak: ${Slime_playerLeaderBoard[i].playerHighStreak}</p>`
       };
       contentString += '</div>';
-
-
-
-
-
-
-
-
-
-
-
       contentString += '</div>';
       // Post the leader_board
       console.log("contentString", contentString);

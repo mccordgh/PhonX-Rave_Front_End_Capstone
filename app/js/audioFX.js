@@ -1,3 +1,21 @@
+var songArray = [
+  {
+    title: "Slime",
+    melodySource: "Zionexx_Guitar_Hero_Melody.wav",
+    bgSource: "Zionexx_Guitar_Hero.wav"
+  },
+  {
+    title: "Fade",
+    melodySource: "Pioneer66/P_66_Melody.wav",
+    bgSource: "Pioneer66/P_66_BG.wav"
+  },
+  {
+    title: "P66",
+    melodySource: "Fade/Fade_Melody.wav",
+    bgSource: "Fade/Fade_BG.wav"
+  }
+]
+
 // Reference to the audio stems in the HTML Doc
 var audio_Melody_Slime = $('audio')[0];
 var audio_Bg_Slime = $('audio')[1];
@@ -11,6 +29,8 @@ var audio_Bg_Fade = $('audio')[5];
 // Create a MediaElementAudioSourceNode
 // Feed the HTMLMediaElement into it
 var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+
 
 var source0 = audioCtx.createMediaElementSource(audio_Melody_Slime);
 var source1 = audioCtx.createMediaElementSource(audio_Bg_Slime);
