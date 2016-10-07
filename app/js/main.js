@@ -1,5 +1,7 @@
 // Start Game
 function startGame () {
+	gameStartTimeStamp = Date.now();
+	console.log("gameStartTimeStamp", gameStartTimeStamp);
 				// // TEST LASERS
 				// fire_K_Laser();
 				// setTimeout(function() { fire_K_Laser(); }, 1000);
@@ -77,9 +79,16 @@ function startGame () {
 			audio_Melody_Fade.play();
 		}, 1500);
 		// Fire laser notes
-		fireFade();
+		for (var i = 0; i < fadeTimingEvents.length; i++) {
+	    console.log("i",i);
+	    if (fadeTimingEvents[i].difficulty === difficulty) {
+        // This is the difficulty that has been chosen
+        for (var j = 0; j < fadeTimingEvents[i].notes.length; j++) {
+          fireFade(fadeTimingEvents[i].notes[j][0], fadeTimingEvents[i].notes[j][1])
+        };
+	    };
+		};
 	}
-
 }
 
 // Update: runs multiple times a second
