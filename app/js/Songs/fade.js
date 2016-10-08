@@ -43,7 +43,7 @@ function trial(noteArray){
 
 for (var i = 0; i < fadeTimingEvents.length; i++) {
     if (fadeTimingEvents[i].difficulty === "hard") {
-        // This is the difficulty that has been chosen
+        // This is the difficulty that has been chosen.
         // for (var j = 0; j < fadeTimingEvents[i].notes.length; j++) {
         currentSongNotesToFire = fadeTimingEvents[i];
         // invoke()
