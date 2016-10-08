@@ -77,17 +77,20 @@ function startGame () {
 			audio_Melody_Fade.muted = false;
 			audio_Bg_Fade.play();
 			audio_Melody_Fade.play();
-		}, 1500);
+		}, 500);
 		// Fire laser notes
 		for (var i = 0; i < fadeTimingEvents.length; i++) {
-	    console.log("i",i);
 	    if (fadeTimingEvents[i].difficulty === difficulty) {
-        // This is the difficulty that has been chosen
-        for (var j = 0; j < fadeTimingEvents[i].notes.length; j++) {
-          fireFade(fadeTimingEvents[i].notes[j][0], fadeTimingEvents[i].notes[j][1])
-        };
+        // This is the difficulty that has been chosen.
+        // for (var j = 0; j < fadeTimingEvents[i].notes.length; j++) {
+        currentSongNotesToFire = fadeTimingEvents[i];
+        // invoke()
+        console.log("currentSongNotesToFire", currentSongNotesToFire);
+        // invoke(fadeTimingEvents[i].notes[j][0], fadeTimingEvents[i].notes[j][1])
+        // };
 	    };
 		};
+		fireFade();
 	}
 }
 
@@ -117,6 +120,9 @@ function update() {
 			};
 			if (key.keyCode === 76) {
 				calScore(lasers_J_);
+			};
+			if (key.keyCode === 13) {
+				pauseGame();
 			};
 		}
 	}
@@ -158,6 +164,24 @@ function update() {
 	// Update the Star Power Background with the updated crop amount
 	cropDimensions.height = 160 - (starPower/2 + 12);
 	starPowerBarIMG.crop(cropDimensions);
+}
+
+function pauseGame(){
+	// if the game is not paused, pause it
+	if (gameIsPaused === false) {
+		gameStartTimeStamp = Date.now();
+		console.log("pause", gameStartTimeStamp);
+		gameIsPaused = true;
+		audio_Bg_Fade.pause();
+		audio_Melody_Fade.pause();
+		clearInterval(intId);
+	} else { // unpause the game
+		console.log("unpause");
+		fireFade();
+		audio_Bg_Fade.play();
+		audio_Melody_Fade.play();
+		gameIsPaused = false;
+	}
 }
 
 //Fire the this function to create spacebar image so the user knows they have starpower.

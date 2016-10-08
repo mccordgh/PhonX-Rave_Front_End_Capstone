@@ -35,6 +35,7 @@ var starPowerBarIMG;
 var starPowerBarMeterIMG;
 var PFMimg;
 var firstTimeSpaceBarFlag = true;
+var gameIsPaused = false;
 
 // Create a Phaser game instance
 function createGame() {
@@ -75,7 +76,7 @@ var multiplierNumber;
 
 function init() {
   // Listen to space & enter keys
-  var keys = [Phaser.KeyCode.J, Phaser.KeyCode.K, Phaser.KeyCode.L, Phaser.KeyCode.SPACEBAR];
+  var keys = [Phaser.KeyCode.J, Phaser.KeyCode.K, Phaser.KeyCode.L, Phaser.KeyCode.SPACEBAR, Phaser.KeyCode.ENTER];
   // Create Phaser.Key objects for listening to the state
   phaserKeys = game.input.keyboard.addKeys(keys);
   // Capture these keys to stop the browser from receiving this event
