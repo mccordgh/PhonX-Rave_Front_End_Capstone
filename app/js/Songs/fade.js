@@ -28,38 +28,47 @@ var fireFade = function(timing, note) {
 // }, (1000));
 
 
-function trial(note, timing){
-    console.log("note",note);
-    if (note === "J") {
-        setTimeout(function(){fire_J_Laser();}, (4.67*timing));
-    };
-    if (note === "K") {
-        setTimeout(function(){fire_K_Laser();}, (4.67*timing));
-    };
-    if (note === "L") {
-        setTimeout(function(){fire_L_Laser();}, (4.67*timing));
-    };
+function trial(noteArray){
+    console.log("note",noteArray);
+    // if (note === "J") {
+    //     fire_J_Laser();
+    // };
+    // if (note === "K") {
+    //     fire_K_Laser();
+    // };
+    // if (note === "L") {
+    //     fire_L_Laser();
+    // };
 }
 
-
-function interval(func, wait, times){
-    var interv = function(w, t){
-        return function(){
-            if(typeof t === "undefined" || t-- > 0){
-                setTimeout(interv, w);
-                func("J", 2000);
-            }
-        };
-    }(wait, times);
-
-    setTimeout(interv, wait);
-    wait += 1000;
+for (var i = 0; i < fadeTimingEvents.length; i++) {
+    if (fadeTimingEvents[i].difficulty === "easy") {
+        // This is the difficulty that has been chosen
+        // for (var j = 0; j < fadeTimingEvents[i].notes.length; j++) {
+        currentSongNotesToFire = fadeTimingEvents[i];
+        // invoke()
+        console.log("currentSongNotesToFire", currentSongNotesToFire);
+        // invoke(fadeTimingEvents[i].notes[j][0], fadeTimingEvents[i].notes[j][1])
+        // };
+    };
 };
 
-interval(trial, 1000, 3);
+var count = 0;
+var time = 1000;
+var intId;
+var currentSongNotesToFire;
+function invoke(){
+    intId = setInterval(function(){
+        trial(currentSongNotesToFire.notes[count][1]);
+        time = currentSongNotesToFire.notes[count+1][0] - currentSongNotesToFire.notes[count][0]; //some new value
+        intId = window.clearInterval(intId);
+        count += 1;
+        console.log("time", time);
+        invoke();
+    }, time);
+}
 
-
-
+invoke();
 
 
 
