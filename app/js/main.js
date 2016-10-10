@@ -23,6 +23,9 @@ function startGame () {
 	// Start Button animation
 	var scaleUp = setInterval(
 	  function() {
+	  // 	if (pauseGame === true) {
+			// 	clearInterval(scaleUp);
+			// };
 	  	exitNum++;
 	  	if (exitNum > 1000) {
 	  		clearInterval(scaleUp);
@@ -81,13 +84,8 @@ function startGame () {
 		// Fire laser notes
 		for (var i = 0; i < fadeTimingEvents.length; i++) {
 	    if (fadeTimingEvents[i].difficulty === difficulty) {
-        // This is the difficulty that has been chosen.
-        // for (var j = 0; j < fadeTimingEvents[i].notes.length; j++) {
         currentSongNotesToFire = fadeTimingEvents[i];
-        // invoke()
         console.log("currentSongNotesToFire", currentSongNotesToFire);
-        // invoke(fadeTimingEvents[i].notes[j][0], fadeTimingEvents[i].notes[j][1])
-        // };
 	    };
 		};
 		fireFade();
