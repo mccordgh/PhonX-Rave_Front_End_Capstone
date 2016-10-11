@@ -111,13 +111,13 @@ function update() {
 				activateStarPower();
 			};
 			if (key.keyCode === 74) {
-				calScore(lasers_K_);
+				calScore(lasers_J_);
 			};
 			if (key.keyCode === 75) {
-				calScore(lasers_L_);
+				calScore(lasers_K_);
 			};
 			if (key.keyCode === 76) {
-				calScore(lasers_J_);
+				calScore(lasers_L_);
 			};
 			if (key.keyCode === 13) {
 				pauseGame();
@@ -164,6 +164,18 @@ function update() {
 	starPowerBarIMG.crop(cropDimensions);
 }
 
+var arrayOfVisiblePausedNotes = [];
+function stopAnimationOfVisibleNotes(currLaserGroup){
+	//Loop through all the lasers and find the ones that are on the page
+	for (var i = 0; i < currLaserGroup.children.length; i++) {
+			if (currLaserGroup.children[i].visible === true) {
+				// console.log("888",currLaserGroup.children[i]);
+				currLaserGroup.children[i].body.velocity.y = 0;
+				currLaserGroup.children[i].body.velocity.x = 0;
+				arrayOfVisiblePausedNotes.push(currLaserGroup.children[i]);
+			};
+		};
+}
 function pauseGame(){
 	// if the game is not paused, pause it
 	if (gameIsPaused === false) {
@@ -173,17 +185,11 @@ function pauseGame(){
 		//Pause the music
 		audio_Bg_Fade.pause();
 		audio_Melody_Fade.pause();
-		//Loop through all the lasers and find the ones that are on the page
-		console.log("lasers_K_",lasers_K_);
-		for (var i = 0; i < lasers_K_.children.length; i++) {
-			if (lasers_K_.children[i].visible === true) {
-				console.log("888",lasers_K_.children[i]);
-				lasers_K_.children[i].body.velocity.y = 0;
-				lasers_K_.children[i].body.velocity.x = 0;
-			};
-			// console.log("****", lasers_K_.children[i]);
-			// console.log("i",i);
-		};
+		//Stop the animation
+		stopAnimationOfVisibleNotes(lasers_J_);
+		stopAnimationOfVisibleNotes(lasers_K_);
+		stopAnimationOfVisibleNotes(lasers_L_);
+		// console.log("arrayOfVisiblePausedNotes",arrayOfVisiblePausedNotes);
 		clearInterval(intId);
 	} else { // unpause the game
 		console.log("unpause");
@@ -638,7 +644,7 @@ function scaleNote(curNote) {
 	var scaleUp = setInterval(
 	  function() {
 	  	exitNum++;
-	  	if (exitNum > 1000) {
+	  	if (exitNum > 1000 || gameIsPaused === true) {
 	  		clearInterval(scaleUp);
 	  	};
       scale += 0.002;
@@ -648,7 +654,7 @@ function scaleNote(curNote) {
 
 function fire_K_Laser() {
 	// Get the first laser that's inactive, by passing 'false' as a parameter
-	var laser = lasers_L_.getFirstExists(false);
+	var laser = lasers_K_.getFirstExists(false);
 	// scale note as it goes down the page
 	laser.scale.setTo(0.05, 0.05);
 	scaleNote(laser);
@@ -660,7 +666,7 @@ function fire_K_Laser() {
 	}
 }
 function fire_J_Laser() {
-	var laser = lasers_K_.getFirstExists(false);
+	var laser = lasers_J_.getFirstExists(false);
 	console.log("laser", laser);
 	laser.scale.setTo(0.05, 0.05);
 	laser.angle = 3;
@@ -672,7 +678,7 @@ function fire_J_Laser() {
 	}
 }
 function fire_L_Laser() {
-	var laser = lasers_J_.getFirstExists(false);
+	var laser = lasers_L_.getFirstExists(false);
 	laser.scale.setTo(0.05, 0.05);
 	laser.angle = -3;
 	scaleNote(laser);

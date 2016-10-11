@@ -127,20 +127,20 @@ function create() {
 
   // This will create 100 sprites and add it to the stage. They're inactive and invisible, but they're there for later use.
   // We only have 100 lasers available, and will 'clean' and reset they're off the screen.
-  lasers_K_.createMultiple(200, 'laser1');
-  lasers_L_.createMultiple(200, 'laser2');
-  lasers_J_.createMultiple(200, 'laser3');
+  lasers_J_.createMultiple(200, 'laser1');
+  lasers_K_.createMultiple(200, 'laser2');
+  lasers_L_.createMultiple(200, 'laser3');
+  lasers_J_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
   lasers_K_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
   lasers_L_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
-  lasers_J_.callAll('events.onOutOfBounds.add', 'events.onOutOfBounds', resetLaser);
   // Same as above, set the anchor of every sprite to 0.5, 1.0
+  lasers_J_.callAll('anchor.setTo', 'anchor', 0.5, 1.0);
   lasers_K_.callAll('anchor.setTo', 'anchor', 0.5, 1.0);
   lasers_L_.callAll('anchor.setTo', 'anchor', 0.5, 1.0);
-  lasers_J_.callAll('anchor.setTo', 'anchor', 0.5, 1.0);
   // This will set 'checkWorldBounds' to true on all sprites in the group
+  lasers_J_.setAll('checkWorldBounds', true);
   lasers_K_.setAll('checkWorldBounds', true);
   lasers_L_.setAll('checkWorldBounds', true);
-  lasers_J_.setAll('checkWorldBounds', true);
   button = game.add.button(game.world.centerX - 190, 200, 'button', startGame, this, 2, 1, 0);
 }
 
