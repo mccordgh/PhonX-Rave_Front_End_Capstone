@@ -6,7 +6,6 @@ function stopAnimationOfVisibleNotes(currLaserGroup){
       currLaserGroup.children[i].body.velocity.y = 0;
       currLaserGroup.children[i].body.velocity.x = 0;
       arrayOfVisiblePausedNotes.push(currLaserGroup.children[i]);
-      console.log("scale of laser",currLaserGroup.children[i].scale);
     };
   };
 }
@@ -48,7 +47,6 @@ function pauseGame(){
         arrayOfVisiblePausedNotes[i].body.velocity.y = 290;
         arrayOfVisiblePausedNotes[i].body.velocity.x = 80;
       }
-      console.log("arrayOfVisiblePausedNotes",arrayOfVisiblePausedNotes[i].x);
     };
     arrayOfVisiblePausedNotes = [];
   }

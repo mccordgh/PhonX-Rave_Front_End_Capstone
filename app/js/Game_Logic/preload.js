@@ -1,5 +1,4 @@
 // Game Variables
-
 var gameStartTimeStamp;
 var GAME_WIDTH = 450;
 var GAME_HEIGHT = 700;
