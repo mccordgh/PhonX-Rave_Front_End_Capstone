@@ -170,8 +170,20 @@ function pauseGame(){
 		gameStartTimeStamp = Date.now();
 		console.log("pause", gameStartTimeStamp);
 		gameIsPaused = true;
+		//Pause the music
 		audio_Bg_Fade.pause();
 		audio_Melody_Fade.pause();
+		//Loop through all the lasers and find the ones that are on the page
+		console.log("lasers_K_",lasers_K_);
+		for (var i = 0; i < lasers_K_.children.length; i++) {
+			if (lasers_K_.children[i].visible === true) {
+				console.log("888",lasers_K_.children[i]);
+				lasers_K_.children[i].body.velocity.y = 0;
+				lasers_K_.children[i].body.velocity.x = 0;
+			};
+			// console.log("****", lasers_K_.children[i]);
+			// console.log("i",i);
+		};
 		clearInterval(intId);
 	} else { // unpause the game
 		console.log("unpause");
@@ -649,6 +661,7 @@ function fire_K_Laser() {
 }
 function fire_J_Laser() {
 	var laser = lasers_K_.getFirstExists(false);
+	console.log("laser", laser);
 	laser.scale.setTo(0.05, 0.05);
 	laser.angle = 3;
 	scaleNote(laser);
