@@ -10,6 +10,7 @@ function stopAnimationOfVisibleNotes(currLaserGroup){
     };
   };
 }
+
 function pauseGame(){
   // if the game is not paused, pause it
   if (gameIsPaused === false) {
