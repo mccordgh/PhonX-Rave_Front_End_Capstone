@@ -13,7 +13,7 @@ function stopAnimationOfVisibleNotes(currLaserGroup){
 function pauseGame(){
   // if the game is not paused, pause it
   if (gameIsPaused === false) {
-    gameStartTimeStamp = Date.now();
+    gamePausedTimeStamp = Date.now();
     console.log("pause", gameStartTimeStamp);
     gameIsPaused = true;
     //Pause the music
@@ -26,6 +26,11 @@ function pauseGame(){
     // console.log("arrayOfVisiblePausedNotes",arrayOfVisiblePausedNotes);
     clearInterval(calcTimeDelay);
   } else { // unpause the game
+    // get the time delay from the amount of time paused
+    var unpauseTimeDelay = Date.now() - gamePausedTimeStamp;
+    console.log("unpauseTimeDelay", unpauseTimeDelay);
+    gameStartTimeStamp += unpauseTimeDelay
+    console.log("gameStartTimeStamp", gameStartTimeStamp);
     fireFade();
     audio_Bg_Fade.play();
     audio_Melody_Fade.play();

@@ -25,8 +25,8 @@ function fireFade(){
         // console.log("global time", gameStartTimeStamp);
         fireFadeNotes(currentSongNotesToFire.notes[noteCount][1]);
         var actualTimeNoteWasFired = Date.now() - gameStartTimeStamp;
-        //Get the difference between the timing of the notes
         calcTimeDelay = window.clearInterval(calcTimeDelay);
+        //Get the difference between the timing of the notes
         if (noteCount === 0) {
             console.log("global time + note time[i]", gameStartTimeStamp + currentSongNotesToFire.notes[noteCount+1][0]+500);
             console.log("time difference",time);
@@ -35,10 +35,7 @@ function fireFade(){
         console.log("Working Ok Calc",currentSongNotesToFire.notes[noteCount][0]);
         // adjust for the delay
         time -= (actualTimeNoteWasFired - currentSongNotesToFire.notes[noteCount][0])
-        console.log("XxCCXXXXXX",(actualTimeNoteWasFired - currentSongNotesToFire.notes[noteCount][0]));
         noteCount += 1;
-        // console.log("time", time);
-        // console.log("J timeStamp",(Date.now()-gameStartTimeStamp));
         fireFade();
     }, time);
     if (noteCount === 1) {
