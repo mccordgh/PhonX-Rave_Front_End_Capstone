@@ -89,3 +89,6 @@ function activateStarPowerLightning() {
   // Fire second lightning
   setTimeout(function() { activateLightningChain('StarPowerBorderLightning2', -60, -60); }, 500);
 }
+
+
+

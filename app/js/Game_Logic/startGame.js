@@ -65,20 +65,20 @@ function startGame () {
       firePioneer_66();
     }, 300);
   } else if (chosenSong === "Fade") {
-    // Play main audio
     setTimeout(function() {
-      audio_Melody_Fade.muted = false;
-      audio_Bg_Fade.play();
-      audio_Melody_Fade.play();
-    }, 500);
-    // Fire laser notes
-    for (var i = 0; i < fadeTimingEvents.length; i++) {
-      if (fadeTimingEvents[i].difficulty === difficulty) {
-        currentSongNotesToFire = fadeTimingEvents[i];
-        console.log("currentSongNotesToFire", currentSongNotesToFire);
+      // Fire laser notes
+      for (var i = 0; i < fadeTimingEvents.length; i++) {
+        if (fadeTimingEvents[i].difficulty === difficulty) {
+          currentSongNotesToFire = fadeTimingEvents[i];
+          console.log("currentSongNotesToFire", currentSongNotesToFire);
+        };
       };
-    };
-    fireFade();
+      fireFade();
+    }, 500);
+    // Play main audio
+    audio_Melody_Fade.muted = false;
+    audio_Bg_Fade.play();
+    audio_Melody_Fade.play();
   }
 }
 
