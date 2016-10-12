@@ -46,6 +46,8 @@ function startGame () {
   audio_applause3.volume = 0.4;
 
   // Play audio and fire notes for appropriate song
+  // variable for the delay
+  var delay;
   if (chosenSong === "Slime") {
     setTimeout(function() {
       // Play main audio
@@ -70,11 +72,12 @@ function startGame () {
       for (var i = 0; i < fadeTimingEvents.length; i++) {
         if (fadeTimingEvents[i].difficulty === difficulty) {
           currentSongNotesToFire = fadeTimingEvents[i];
-          console.log("currentSongNotesToFire", currentSongNotesToFire);
+          delay = currentSongNotesToFire.notes[0][0];
+          console.log("delay",delay);
         };
       };
       fireFade();
-    }, 500);
+    }, 550);
     // Play main audio
     audio_Melody_Fade.muted = false;
     audio_Bg_Fade.play();

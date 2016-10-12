@@ -24,7 +24,7 @@ function pauseGame(){
     stopAnimationOfVisibleNotes(lasers_K_);
     stopAnimationOfVisibleNotes(lasers_L_);
     // console.log("arrayOfVisiblePausedNotes",arrayOfVisiblePausedNotes);
-    clearInterval(intId);
+    clearInterval(calcTimeDelay);
   } else { // unpause the game
     fireFade();
     audio_Bg_Fade.play();
