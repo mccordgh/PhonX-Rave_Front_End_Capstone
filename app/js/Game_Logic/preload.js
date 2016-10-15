@@ -36,6 +36,7 @@ var starPowerBarMeterIMG;
 var PFMimg;
 var firstTimeSpaceBarFlag = true;
 var gameIsPaused = false;
+var leaderBoardStringId;
 
 // Create a Phaser game instance
 function createGame() {

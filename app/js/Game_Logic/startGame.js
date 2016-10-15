@@ -49,6 +49,7 @@ function startGame () {
   // variable for the delay
   var delay;
   if (chosenSong === "Slime") {
+    leaderBoardStringId = "slime_";
     // Play main audio
     audio_Melody_Slime.muted = false;
     audio_Bg_Slime.play();
@@ -64,9 +65,10 @@ function startGame () {
     };
     setTimeout(function() {
       // Fire laser notes
-      fireFade();
+      fireSongArrayOfNotes();
     }, delay);
   } else if (chosenSong === "I_Want_You") {
+    leaderBoardStringId = "pioneer66_";
     // Play main audio
     audio_Melody_P66.muted = false;
     audio_Bg_P66.play();
@@ -81,13 +83,14 @@ function startGame () {
     };
     setTimeout(function() {
       // Fire laser notes
-      fireFade();
+      fireSongArrayOfNotes();
     }, delay);
     // // Fire laser notes
     // setTimeout(function() {
     //   firePioneer_66();
     // }, 300);
   } else if (chosenSong === "Fade") {
+    leaderBoardStringId = "lvl3_";
     // Get access to the notes associated with the song and difficulty
     for (var i = 0; i < fadeTimingEvents.length; i++) {
       if (fadeTimingEvents[i].difficulty === difficulty) {
@@ -98,7 +101,7 @@ function startGame () {
     };
     setTimeout(function() {
       // Fire laser notes
-      fireFade();
+      fireSongArrayOfNotes();
     }, delay);
     // Play main audio
     audio_Melody_Fade.muted = false;

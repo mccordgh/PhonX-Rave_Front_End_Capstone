@@ -31,7 +31,7 @@ function pauseGame(){
     console.log("unpauseTimeDelay", unpauseTimeDelay);
     gameStartTimeStamp += unpauseTimeDelay
     console.log("gameStartTimeStamp", gameStartTimeStamp);
-    fireFade();
+    fireSongArrayOfNotes();
     audio_Bg_Fade.play();
     audio_Melody_Fade.play();
     gameIsPaused = false;
