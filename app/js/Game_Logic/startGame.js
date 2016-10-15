@@ -49,35 +49,57 @@ function startGame () {
   // variable for the delay
   var delay;
   if (chosenSong === "Slime") {
+    // Play main audio
+    audio_Melody_Slime.muted = false;
+    audio_Bg_Slime.play();
+    audio_Melody_Slime.play();
+    // fireSlime();
+    // Get access to the notes associated with the song and difficulty
+    for (var i = 0; i < slimeTimingEvents.length; i++) {
+      if (slimeTimingEvents[i].difficulty === difficulty) {
+        currentSongNotesToFire = slimeTimingEvents[i];
+        delay = currentSongNotesToFire.notes[0][0];
+        console.log("delay",delay);
+      };
+    };
     setTimeout(function() {
-      // Play main audio
-      audio_Melody_Slime.muted = false;
-      audio_Bg_Slime.play();
-      audio_Melody_Slime.play();
       // Fire laser notes
-    }, 425);
-    fireSlime();
+      fireFade();
+    }, delay);
   } else if (chosenSong === "I_Want_You") {
     // Play main audio
     audio_Melody_P66.muted = false;
     audio_Bg_P66.play();
     audio_Melody_P66.play();
-    // Fire laser notes
-    setTimeout(function() {
-      firePioneer_66();
-    }, 300);
-  } else if (chosenSong === "Fade") {
+    // Get access to the notes associated with the song and difficulty
+    for (var i = 0; i < p66TimingEvents.length; i++) {
+      if (p66TimingEvents[i].difficulty === difficulty) {
+        currentSongNotesToFire = p66TimingEvents[i];
+        delay = currentSongNotesToFire.notes[0][0];
+        console.log("delay",delay);
+      };
+    };
     setTimeout(function() {
       // Fire laser notes
-      for (var i = 0; i < fadeTimingEvents.length; i++) {
-        if (fadeTimingEvents[i].difficulty === difficulty) {
-          currentSongNotesToFire = fadeTimingEvents[i];
-          delay = currentSongNotesToFire.notes[0][0];
-          console.log("delay",delay);
-        };
-      };
       fireFade();
-    }, 550);
+    }, delay);
+    // // Fire laser notes
+    // setTimeout(function() {
+    //   firePioneer_66();
+    // }, 300);
+  } else if (chosenSong === "Fade") {
+    // Get access to the notes associated with the song and difficulty
+    for (var i = 0; i < fadeTimingEvents.length; i++) {
+      if (fadeTimingEvents[i].difficulty === difficulty) {
+        currentSongNotesToFire = fadeTimingEvents[i];
+        delay = currentSongNotesToFire.notes[0][0];
+        console.log("delay",delay);
+      };
+    };
+    setTimeout(function() {
+      // Fire laser notes
+      fireFade();
+    }, delay);
     // Play main audio
     audio_Melody_Fade.muted = false;
     audio_Bg_Fade.play();
