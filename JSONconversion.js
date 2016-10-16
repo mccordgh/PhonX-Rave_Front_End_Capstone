@@ -17,7 +17,7 @@ JSON.stringify(fadeTimingEvents[0].notes
 JSON.stringify(slimeTimingEvents[0].notes
   .map(function(item,i,array) {
     var newItem = []
-    newItem.push(item[0]-500);
+    newItem.push((item[0] - 78 + 78));
     newItem.push(item[1]);
 
     return newItem;

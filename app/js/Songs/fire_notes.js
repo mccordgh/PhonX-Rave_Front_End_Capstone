@@ -36,7 +36,7 @@ function fireSongArrayOfNotes(){
         time -= (actualTimeNoteWasFired - currentSongNotesToFire.notes[noteCount][0])
         noteCount += 1;
         // fire the notes if there are still notes to play
-        if (noteCount < currentSongNotesToFire.notes.length-1) {
+        if (noteCount < currentSongNotesToFire.notes.length) {
             fireSongArrayOfNotes();
         } else {
             clearInterval(calcTimeDelay);
