@@ -14,10 +14,10 @@ JSON.stringify(fadeTimingEvents[0].notes
     return newItem;
 }));
 
-JSON.stringify(p66TimingEvents[2].notes
+JSON.stringify(slimeTimingEvents[0].notes
   .map(function(item,i,array) {
     var newItem = []
-    newItem.push(item[0]+250);
+    newItem.push(item[0]-500);
     newItem.push(item[1]);
 
     return newItem;
