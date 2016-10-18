@@ -60,7 +60,6 @@ function startGame () {
       if (slimeTimingEvents[i].difficulty === difficulty) {
         currentSongNotesToFire = slimeTimingEvents[i];
         delay = currentSongNotesToFire.notes[0][0];
-        console.log("delay",delay);
       };
     };
     setTimeout(function() {
@@ -85,10 +84,6 @@ function startGame () {
       // Fire laser notes
       fireSongArrayOfNotes();
     }, delay);
-    // // Fire laser notes
-    // setTimeout(function() {
-    //   firePioneer_66();
-    // }, 300);
   } else if (chosenSong === "Fade") {
     leaderBoardStringId = "lvl3_";
     // Get access to the notes associated with the song and difficulty

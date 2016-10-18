@@ -23,7 +23,14 @@ JSON.stringify(slimeTimingEvents[0].notes
     return newItem;
 }));
 
+JSON.stringify(rNewArray
+  .map(function(item,i,array) {
+    var newItem = []
+    newItem.push((item[0]-1200));
+    newItem.push(item[1]);
 
+    return newItem;
+}));
 
 
 

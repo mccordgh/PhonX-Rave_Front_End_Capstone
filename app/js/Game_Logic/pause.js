@@ -19,6 +19,10 @@ function pauseGame(){
     //Pause the music
     audio_Bg_Fade.pause();
     audio_Melody_Fade.pause();
+    audio_Bg_P66.pause();
+    audio_Melody_P66.pause();
+    audio_Bg_Slime.pause();
+    audio_Melody_Slime.pause();
     //Stop the animation
     stopAnimationOfVisibleNotes(lasers_J_);
     stopAnimationOfVisibleNotes(lasers_K_);
@@ -32,8 +36,18 @@ function pauseGame(){
     gameStartTimeStamp += unpauseTimeDelay
     console.log("gameStartTimeStamp", gameStartTimeStamp);
     fireSongArrayOfNotes();
-    audio_Bg_Fade.play();
-    audio_Melody_Fade.play();
+    if (chosenSong === "Slime") {
+      audio_Bg_Slime.play();
+      audio_Melody_Slime.play();
+    }
+    if (chosenSong === "I_Want_You") {
+      audio_Bg_P66.play();
+      audio_Melody_P66.play();
+    }
+    if (chosenSong === "Fade") {
+      audio_Bg_Fade.play();
+      audio_Melody_Fade.play();
+    }
     gameIsPaused = false;
     // add animation back to the stopped visible notes
     for (var i = 0; i < arrayOfVisiblePausedNotes.length; i++) {
