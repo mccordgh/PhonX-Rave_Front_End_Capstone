@@ -4,7 +4,7 @@ function activateStarPower() {
     // Play Explosion to get this party started!
     spExplosion.play();
     // time stamp for the beginning of star power
-    starPowerStartTime = Date.now();
+    starPowerSTARTTime = Date.now();
     // Add border visual
     activateStarPowerBorder(null);
     // Add lightning effects
@@ -41,12 +41,20 @@ function activateStarPower() {
 }
 
 // This animates the border when star power is activated
-function activateStarPowerBorder(timeStampAfterPause) {
+function activateStarPowerBorder(unpauseTimeDelayVar) {
   var countTracker = 1;
   // calculation for the duration of star power
-  if (timeStampAfterPause === null) {
-    var endAnimationTime = starPowerStartTime + 10000;
-  };
+  if (unpauseTimeDelayVar === null) {
+    starPowerENDTime = starPowerSTARTTime + 10000;
+    console.log("starPowerENDTime",starPowerENDTime);
+  }else{
+    // console.log("unpauseTimeDelayVar",unpauseTimeDelayVar);
+    // console.log("gamePausedTimeStamp",gamePausedTimeStamp);
+    // console.log("starPowerENDTime",starPowerENDTime);
+    // console.log("here we are");
+    starPowerENDTime += unpauseTimeDelayVar
+    // console.log("starPowerENDTime",starPowerENDTime);
+  }
   var changeBoarder = setInterval(
     function() {
       if (gameIsPaused === true) {
@@ -56,7 +64,7 @@ function activateStarPowerBorder(timeStampAfterPause) {
         clearInterval(changeBoarder);
         starPowerPauseTime = Date.now();
       };
-      if (Date.now() < endAnimationTime) {
+      if (Date.now() < starPowerENDTime) {
         // Add and rotate borders here
         setTimeout(function() { $("#game_container").removeClass(); }, 100);
         $("#game_container").addClass("star_power"+countTracker);

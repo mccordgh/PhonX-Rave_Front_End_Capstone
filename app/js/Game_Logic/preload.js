@@ -29,7 +29,8 @@ var cropDimensions;
 var StarBar_height;
 var starPower = 300;
 var isStarPowerActive = false;
-var starPowerStartTime;
+var starPowerSTARTTime;
+var starPowerENDTime
 var starPowerPauseTime;
 var starBarFull = false;
 var starPowerCroppedY;
