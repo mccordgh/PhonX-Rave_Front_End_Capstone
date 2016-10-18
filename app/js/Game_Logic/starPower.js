@@ -3,8 +3,10 @@ function activateStarPower() {
   if (starPower === 300) {
     // Play Explosion to get this party started!
     spExplosion.play();
+    // time stamp for the beginning of star power
+    starPowerStartTime = Date.now();
     // Add border visual
-    activateStarPowerBorder();
+    activateStarPowerBorder(null);
     // Add lightning effects
     activateStarPowerLightning();
     setTimeout(function() { activateStarPowerLightning(); }, 5000);
@@ -39,29 +41,34 @@ function activateStarPower() {
 }
 
 // This animates the border when star power is activated
-function activateStarPowerBorder() {
-  var counter = 0;
+function activateStarPowerBorder(timeStampAfterPause) {
+  var countTracker = 1;
+  // calculation for the duration of star power
+  if (timeStampAfterPause === null) {
+    var endAnimationTime = starPowerStartTime + 10000;
+  };
   var changeBoarder = setInterval(
     function() {
-      if (counter < 20) {
-        counter += 1;
+      if (gameIsPaused === true) {
+        setTimeout(function() { $("#game_container").addClass("star_power"+countTracker); }, 101);
+        $("#game_container").addClass("star_power1");
+        // Stop the animation and find out how much star power time has passed
+        clearInterval(changeBoarder);
+        starPowerPauseTime = Date.now();
+      };
+      if (Date.now() < endAnimationTime) {
         // Add and rotate borders here
-        $("#game_container").addClass("star_power");
-        setTimeout(function() { $("#game_container").removeClass("star_power"); }, 100);
-        setTimeout(function() { $("#game_container").addClass("star_power1"); }, 100);
-        setTimeout(function() { $("#game_container").removeClass("star_power1"); }, 200);
-        // setTimeout(function() { $("#game_container").addClass("star_power2"); }, 200);
-        // setTimeout(function() { $("#game_container").removeClass("star_power2"); }, 300);
-        setTimeout(function() { $("#game_container").addClass("star_power3"); }, 200);
-        setTimeout(function() { $("#game_container").removeClass("star_power3"); }, 300);
-        setTimeout(function() { $("#game_container").addClass("star_power4"); }, 300);
-        setTimeout(function() { $("#game_container").removeClass("star_power4"); }, 400);
-        setTimeout(function() { $("#game_container").addClass("star_power5"); }, 400);
-        setTimeout(function() { $("#game_container").removeClass("star_power5"); }, 500);
+        setTimeout(function() { $("#game_container").removeClass(); }, 100);
+        $("#game_container").addClass("star_power"+countTracker);
+        if (countTracker < 5) {
+          countTracker ++
+        }else{
+          countTracker = 1;
+        };
       } else {
         clearInterval(changeBoarder);
       }
-    }, 500);
+    }, 101);
 }
 
 // Functions to animate the lightning strikes

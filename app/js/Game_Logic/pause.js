@@ -32,6 +32,8 @@ function pauseGame(){
   } else { // unpause the game
     // get the time delay from the amount of time paused
     var unpauseTimeDelay = Date.now() - gamePausedTimeStamp;
+    // reanimate the border and pass in the time delay
+    activateStarPowerBorder(unpauseTimeDelay)
     console.log("unpauseTimeDelay", unpauseTimeDelay);
     gameStartTimeStamp += unpauseTimeDelay
     console.log("gameStartTimeStamp", gameStartTimeStamp);

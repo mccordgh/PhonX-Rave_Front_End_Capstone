@@ -21,13 +21,13 @@ function fireSongArrayOfNotes(){
         fireSongWithCurrentNote(currentSongNotesToFire.notes[noteCount][1]);
         var actualTimeNoteWasFired = Date.now() - gameStartTimeStamp;
         calcTimeDelay = window.clearInterval(calcTimeDelay);
-        if (noteCount < currentSongNotesToFire.notes.length) {
+        if (noteCount < currentSongNotesToFire.notes.length-1) {
             //Get the difference between the timing of the notes
             time = (currentSongNotesToFire.notes[noteCount+1][0] - currentSongNotesToFire.notes[noteCount][0]).toFixed(0);
             // adjust for the delay
             time -= (actualTimeNoteWasFired - currentSongNotesToFire.notes[noteCount][0])
-            noteCount += 1;
         };
+        noteCount += 1;
         // fire the notes if there are still notes to play
         if (noteCount < currentSongNotesToFire.notes.length) {
             fireSongArrayOfNotes();
