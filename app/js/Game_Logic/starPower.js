@@ -16,28 +16,27 @@ function activateStarPower() {
     if (audio_applause.paused) {
       audio_applause.play();
     };
-    // Disable Star Power after 10 seconds
-    setTimeout(function() {
-      // Redefine that star power is not active any more
-      isStarPowerActive = false;
-      $("#game_container").removeClass("star_power");
-      // Ensure that starPower is reset
-      starPower = 0 ;
-    }, 10000);
-    // Variable to indicate that star power is currently on
     isStarPowerActive = true;
-    // Diminish star power number over time
-    var diminishStarpower = setInterval(
-    // lower the star power until it reaches 0, then clear the interval
-    function() {
-      if (starPower > 10) {
-        starPower -= 1;
-      } else {
-        starPower = 0;
-        clearInterval(diminishStarpower);
-      }
-    }, 34);
+    diminishStarpowerFunction();
   };
+}
+
+// Diminish star power number over time
+diminishStarpowerFunction = function() {
+  var diminishStarpower = setInterval(
+  // lower the star power until it reaches 0, then clear the interval
+  function() {
+    if (gameIsPaused === true) {
+      clearInterval(diminishStarpower);
+    } else if (starPower > 1){
+      starPower -= 1;
+    } else {
+      $("#game_container").removeClass("star_power");
+      starPower = 0;
+      isStarPowerActive = false;
+      clearInterval(diminishStarpower);
+    }
+  }, 34);
 }
 
 // This animates the border when star power is activated
@@ -48,12 +47,7 @@ function activateStarPowerBorder(unpauseTimeDelayVar) {
     starPowerENDTime = starPowerSTARTTime + 10000;
     console.log("starPowerENDTime",starPowerENDTime);
   }else{
-    // console.log("unpauseTimeDelayVar",unpauseTimeDelayVar);
-    // console.log("gamePausedTimeStamp",gamePausedTimeStamp);
-    // console.log("starPowerENDTime",starPowerENDTime);
-    // console.log("here we are");
-    starPowerENDTime += unpauseTimeDelayVar
-    // console.log("starPowerENDTime",starPowerENDTime);
+    starPowerENDTime += unpauseTimeDelayVar;
   }
   var changeBoarder = setInterval(
     function() {
@@ -79,6 +73,13 @@ function activateStarPowerBorder(unpauseTimeDelayVar) {
     }, 101);
 }
 
+// Initiate the chain
+function activateStarPowerLightning() {
+  // Fire first lightning
+  activateLightningChain('StarPowerBorderLightning', -20, -60);
+  // Fire second lightning
+  setTimeout(function() { activateLightningChain('StarPowerBorderLightning2', -60, -60); }, 500);
+}
 // Functions to animate the lightning strikes
 function lightning_Stutter(currentLightningIMG, x, y) {
   var StarPowerBorderLightning = this.game.add.sprite(x,y,currentLightningIMG);
@@ -96,13 +97,6 @@ function activateLightningChain(currentLightningIMG, x, y) {
     timer += 100
   };
   setTimeout(function() { lightning_Strike(currentLightningIMG, x, y); }, 800);
-}
-// Initiate the chain
-function activateStarPowerLightning() {
-  // Fire first lightning
-  activateLightningChain('StarPowerBorderLightning', -20, -60);
-  // Fire second lightning
-  setTimeout(function() { activateLightningChain('StarPowerBorderLightning2', -60, -60); }, 500);
 }
 
 

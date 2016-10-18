@@ -34,6 +34,8 @@ function pauseGame(){
     var unpauseTimeDelay = Date.now() - gamePausedTimeStamp;
     // reanimate the border and pass in the time delay
     activateStarPowerBorder(unpauseTimeDelay)
+    // reanimate the diminish function
+    diminishStarpowerFunction();
     console.log("unpauseTimeDelay", unpauseTimeDelay);
     gameStartTimeStamp += unpauseTimeDelay
     console.log("gameStartTimeStamp", gameStartTimeStamp);
