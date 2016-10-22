@@ -1,7 +1,6 @@
 // Start Game
 function startGame () {
   gameStartTimeStamp = Date.now();
-  console.log("gameStartTimeStamp", gameStartTimeStamp);
   // Remove the start button
   button.kill();
   // Animate a new image of the star button
@@ -91,7 +90,6 @@ function startGame () {
       if (fadeTimingEvents[i].difficulty === difficulty) {
         currentSongNotesToFire = fadeTimingEvents[i];
         delay = currentSongNotesToFire.notes[0][0];
-        console.log("delay",delay);
       };
     };
     setTimeout(function() {

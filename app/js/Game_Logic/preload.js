@@ -1,6 +1,8 @@
 // Game Variables
 var gameStartTimeStamp;
 var gamePausedTimeStamp;
+var unpauseTimeDelay = 0;
+var gamePauseTimeDelayStamp = null;
 var GAME_WIDTH = 450;
 var GAME_HEIGHT = 700;
 var game;
@@ -32,6 +34,10 @@ var isStarPowerActive = false;
 var starPowerSTARTTime;
 var starPowerENDTime
 var starPowerPauseTime;
+var audio_booPauseIsPlaying = false;
+var audio_applausePauseIsPlaying = false;
+var audio_applause2PauseIsPlaying = false;
+var audio_applause3PauseIsPlaying = false;
 var starBarFull = false;
 var starPowerCroppedY;
 var starPowerBarIMG;
