@@ -13,23 +13,27 @@ function stopAnimationOfVisibleNotes(currLaserGroup){
 function pauseGame(){
   // if the game is not paused, pause it
   if (gameIsPaused === false) {
+    game.lockRender = true;
     //pause audio
-    if (audio_boo.play) {
+    if (audio_boo.duration > 0 && !audio_boo.paused) {
+      console.log("boo is playing");
+    }
+    if (audio_boo.duration > 0 && !audio_boo.paused) {
       console.log("this is paused");
       audio_boo.pause();
       audio_booPauseIsPlaying = true;
     };
-    if (audio_applause.play) {
+    if (audio_applause.duration > 0 && !audio_applause.paused) {
       console.log("this is paused");
       audio_applause.pause();
       audio_applausePauseIsPlaying = true;
     }
-    if (audio_applause2.play) {
+    if (audio_applause2.duration > 0 && !audio_applause2.paused) {
       console.log("this is paused");
       audio_applause2.pause();
       audio_applause2PauseIsPlaying = true;
     }
-    if (audio_applause3.play) {
+    if (audio_applause3.duration > 0 && !audio_applause3.paused) {
       console.log("this is paused");
       audio_applause3.pause();
       audio_applause3PauseIsPlaying = true;
@@ -60,6 +64,7 @@ function pauseGame(){
     // console.log("arrayOfVisiblePausedNotes",arrayOfVisiblePausedNotes);
     clearInterval(calcTimeDelay);
   } else { // unpause the game
+    game.lockRender = false;
     if (audio_booPauseIsPlaying === true) {
       audio_boo.play();
       audio_booPauseIsPlaying = false;
@@ -84,7 +89,9 @@ function pauseGame(){
     // reanimate the border and pass in the time delay
     activateStarPowerBorder(unpauseTimeDelay)
     // reanimate the diminish function
-    diminishStarpowerFunction();
+    if (isStarPowerActive) {
+      diminishStarpowerFunction();
+    };
     console.log("unpauseTimeDelay", unpauseTimeDelay);
     gameStartTimeStamp += unpauseTimeDelay
     console.log("gameStartTimeStamp", gameStartTimeStamp);

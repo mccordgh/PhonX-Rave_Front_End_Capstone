@@ -31,8 +31,6 @@ function audioFadeOut(currSong) {
 
 // This activates all the audio effects on the activation of star power
 function activateStarPowerAudio_Effects() {
-	// Add Low Pass Filter, it is delayed until the end of star power
-	setTimeout(function() { starPowerLowPassFilter(); }, 9100);
 	// Add ping_pong delay
 	starPowerPing_Pong_Delay();
 }
@@ -86,19 +84,20 @@ function starPowerLowPassFilter() {
 }
 // This controls the ping-pong audio delay
 function starPowerPing_Pong_Delay() {
-	var ppWet_Level = 0;
+	var ppWet_Level = 0.05;
 	var addDelay = setInterval(
 	    function() {
-	      ppWet_Level += 0.05;
 	      if (chosenSong === "Slime") {
-	      	if (ppWet_Level < 1) {
+	      	if (ppWet_Level < 1 && gameIsPaused === false) {
+	      		ppWet_Level += 0.05;
 						ping_pong_Slime.wetLevel.gain.value = ppWet_Level; //value of wet level
 		      } else {
 		        clearInterval(addDelay);
 		      }
 	      } else {
 	      	// This adds less ping pong delay than on "Slime"
-	      	if (ppWet_Level < .7) {
+	      	if (ppWet_Level < .7 && gameIsPaused === false) {
+	      		ppWet_Level += 0.05;
 						ping_pong_P66.wetLevel.gain.value = ppWet_Level;
 						ping_pong_Fade.wetLevel.gain.value = ppWet_Level;
 		      } else {
