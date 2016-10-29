@@ -36,7 +36,7 @@ function fireSongArrayOfNotes(){
             setTimeout (function(){
                 audio_applause2.play()
                 postScore(playerScore, currentHighStreak, leaderBoardStringId)
-            }, 1500)
+            }, 2000)
         }
     }, time);
 }

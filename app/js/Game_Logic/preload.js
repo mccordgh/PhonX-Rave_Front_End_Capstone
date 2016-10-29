@@ -1,4 +1,5 @@
 // Game Variables
+var gameStarted = false;
 var gameStartTimeStamp;
 var gamePausedTimeStamp;
 var unpauseTimeDelay = 0;
@@ -29,7 +30,7 @@ var button;
 var resetLaserObject;
 var cropDimensions;
 var StarBar_height;
-var starPower = 300;
+var starPower = 0;
 var isStarPowerActive = false;
 var starPowerSTARTTime;
 var starPowerENDTime
@@ -86,7 +87,8 @@ var multiplierNumber;
 
 function init() {
   // Listen to space & enter keys
-  var keys = [Phaser.KeyCode.J, Phaser.KeyCode.K, Phaser.KeyCode.L, Phaser.KeyCode.SPACEBAR, Phaser.KeyCode.ENTER];
+  var keys = [Phaser.KeyCode.J, Phaser.KeyCode.K, Phaser.KeyCode.L, Phaser.KeyCode.SPACEBAR];
+  // Phaser.KeyCode.ENTER
   // Create Phaser.Key objects for listening to the state
   phaserKeys = game.input.keyboard.addKeys(keys);
   // Capture these keys to stop the browser from receiving this event

@@ -1,5 +1,6 @@
 // Start Game
 function startGame () {
+  gameStarted = true;
   gameStartTimeStamp = Date.now();
   // Remove the start button
   button.kill();

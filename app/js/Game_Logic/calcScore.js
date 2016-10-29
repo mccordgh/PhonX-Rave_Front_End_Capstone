@@ -90,6 +90,9 @@ function calmultiplyer() {
 
 // Calculate Score
 function calScore(curNote) {
+  if (gameStarted === false) {
+    return;
+  };
   var didHit = false;
   for (var i = 0; i < curNote.children.length; i++) {
     // Check the position of the note
